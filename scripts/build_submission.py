@@ -55,7 +55,7 @@ def make_report():
     p.paragraph_format.space_after=Pt(14)
     for i,section in enumerate(get_sections()):
         head=doc.add_heading(section['title'],1)
-        if section['id']=='introduction': head.paragraph_format.page_break_before=True
+        if section['id'] in {'introduction', 'results'}: head.paragraph_format.page_break_before=True
         for b in section['blocks']:
             if b['type']=='p': doc.add_paragraph(b['text'])
             elif b['type']=='h3': doc.add_heading(b['text'],2)
