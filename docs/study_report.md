@@ -37,6 +37,8 @@ The analysis covers Philadelphia’s 408 Census tracts, of which 391 have a posi
 
 Six ACS tables provide population, household vehicle availability, poverty, income, age and racial or ethnic composition [2]. Census boundaries define tract geometry and the New Jersey coverage check [3]. The public data were downloaded with source URLs, retrieval times and checksums retained in a manifest. The license roster’s portal update is July 2025. Its records are not a reconstruction of the operating network in 2023.
 
+A separate audit matches store numbers, addresses and cities from two court-filed lists to the roster [11, 12]. Only the specified exhibits are extracted. Filing dates remain separate from operating dates, and the scenario inventory is unchanged.
+
 ### Measuring proximity under removal
 
 Each tract is represented by its geometric center, calculated in a meter-based coordinate system, EPSG:26918. The code measures the straight-line distance to the nearest eligible pharmacy, removes all Rite Aid-labelled entries at once, and repeats the calculation. The difference is the modeled one-way proximity increase. A population-weighted mean gives more weight to tracts with larger populations; it is not an average of residents’ observed trips.
@@ -64,6 +66,10 @@ The study compares population-weighted changes across neighborhood groups, using
 A secondary exercise tests whether baseline access and neighborhood characteristics predict the calculated proximity increase. A training-sample median, ridge regression and random forest are evaluated on five contiguous geographic holdouts. Training origins within 1 km of test origins are excluded, and preprocessing is fitted within each training sample. The target is a calculated scenario outcome, not observed travel. This comparison assesses predictive information in the chosen features; prediction is not needed to calculate the spatial scenario itself.
 
 ## Results
+
+### Court records show why the inventory needs historical verification
+
+The two selected court lists contain 101 Pennsylvania and New Jersey locations, including 16 Philadelphia sites. Eleven city sites appear in the October 2023 motion and five in the June 2025 notice. All 16 match records in the scenario roster [11, 12]. The presence of the 2023-listed sites shows why a July 2025 portal update cannot certify that every entry was operating then. The filings identify closure plans, but none supplies a verified last pharmacy-operating day. This partial collection therefore strengthens the inventory audit without identifying historical treatment dates.
 
 ### Access changes are concentrated in a minority of tracts
 
@@ -191,3 +197,7 @@ Closures can make walking less practical and increase emissions when they create
 9. Penn Libraries (2025). Penn Data Access Unlocked via Dewey Platform. May 21. [Source](https://www.library.upenn.edu/lippincott/datapoints/data-access-dewey-2025)
 
 10. AmeriHealth Caritas Pennsylvania and Community HealthChoices (2025). Rite Aid pharmacy closure notice. June 5. Contextual evidence of closures and prescription transfers; not a store-specific event ledger. [Source](https://www.amerihealthcaritaschc.com/content/dam/amerihealth-caritas/acpchc/pdf/provider/resources/communications/2025/20250605-rite-aid-pharmacy-closure-notice.pdf.coredownload.inline.pdf)
+
+11. Rite Aid Corporation et al. (2023). Store closing sales motion. U.S. Bankruptcy Court, District of New Jersey, case 23-18993-MBK, document 37, filed October 16. Exhibit A Schedule 1, PDF pages 54–56. Public mirror of court-filed document. [Source](https://cdns.abclocal.go.com/three/kabc/101823-kabc-rite-aid-doc.pdf)
+
+12. New Rite Aid LLC et al. (2025). Sixth notice of additional closing locations. U.S. Bankruptcy Court, District of New Jersey, case 25-14861-MBK, document 743, filed June 6. Exhibit 1, PDF pages 5–8. Public mirror of court-filed document. [Source](https://npr.brightspotcdn.com/f8/c8/faad678e424db35665a541d7ce0a/25-06-06-store-closure-filing.pdf)

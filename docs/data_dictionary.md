@@ -51,6 +51,26 @@ The geospatial pharmacy table retains license ID, name, address, name-match flag
 
 For the mobility module, `date_quality` must equal `verified`, closure bounds must be no more than seven days apart, and each permanent closure must have a unique POI ID. Wider date intervals require a different explicitly interval-based specification. Do not put invented precise dates into the template to make the code run.
 
+## Court evidence ledger
+
+`data/processed/court_store_evidence.csv` contains 101 PA/NJ entries from two selected court exhibits. It is separate from the unverified roster candidates and does not overwrite them.
+
+| Field | Meaning |
+|---|---|
+| `source_id`, `source_row`, `pdf_page` | Locate the exact exhibit entry; page numbers are one-based PDF pages |
+| `store_number`, `location_code` | Operator identifiers as text; location code is absent from the 2023 list |
+| `address`, `city`, `state`, `zip` | Address reported in the court exhibit; ZIP remains text |
+| `document_date` | Court filing date, never automatically a treatment date |
+| `evidence_type` | Initial closing-sales motion or additional closing-location notice |
+| `date_quality` | `notice_only`; none of these records meets the verified-event contract |
+| Four operating-date fields | Intentionally blank: last open, first closed, front-store close and replacement open |
+| `eligible_for_closure_did` | False for every current row |
+| `roster_match` | Store number/address/city agreement, address review needed, ambiguous, unmatched, or no NJ inventory |
+| `roster_license_id`, `roster_address`, `roster_name` | Matched study-roster record; blank when a unique defensible match is unavailable |
+| `source_url` | Downloadable primary court document hosted by a news organization |
+
+`data/evidence_sources.json` records document identity, SHA-256, selected pages and expected exhibit counts. `outputs/public/evidence_audit.json` records extraction controls, derived counts and the CSV checksum. The evidence notebook rechecks both the counts and matching. The list is partial and cannot estimate the total number of closures.
+
 ## Required restricted inputs (not obtained)
 
 | File | Required columns / contract |

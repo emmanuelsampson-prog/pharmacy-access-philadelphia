@@ -37,7 +37,7 @@ This benchmark is a transparent implementation exercise. The target is computed 
 5. **Networks:** use appropriate historical street and transit data or a clearly dated constant-network approximation. Walking routing must respect crossings and barriers. Transit travel time includes access walk, wait, transfer and service calendars. A nearby bus stop is not a travel-time measure. Current GTFS cannot be silently treated as 2023 service.
 6. **Emissions:** combine validated route changes with a declared vehicle factor and assumptions about mode, occupancy, trip chaining, delivery and forgone visits. A visitor's home-to-store separation is not necessarily the actual trip's origin or distance.
 
-Current downloaded data support a public **scenario** only: a July-2025-labelled PA license roster, 2018–2022 ACS tables, 2022 cartographic geography and a June 2025 closure notice. None supplies a verified historical panel of pharmacy operation.
+Current downloaded data support a public **scenario** only: a July-2025-labelled PA license roster, 2018–2022 ACS tables, 2022 cartographic geography and a June 2025 closure notice. None supplies a verified historical panel of pharmacy operation. A subsequent audit extracted 101 PA/NJ locations from two court-filed lists (October 2023 and June 2025), including 16 Philadelphia matches. These are notice-only records with blank operating dates; see [the evidence audit](evidence_audit.md).
 
 ## Exposure, spillovers and controls
 

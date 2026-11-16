@@ -17,13 +17,13 @@ Do not use a POI's median `distance_from_home` as a road distance or treat a wei
 
 ## Historical pharmacy status
 
-Use archived official store/transfer notices, dated POI snapshots, licensing status and credible contemporaneous reports to verify pharmacy operation. Retain original evidence references and date intervals. Check community access, opening hours, receiving pharmacy, same-site successor and intervening reopenings. The current candidate ledger deliberately contains no invented event dates.
+Use archived official store/transfer notices, dated POI snapshots, licensing status and credible contemporaneous reports to verify pharmacy operation. Retain original evidence references and date intervals. Check community access, opening hours, receiving pharmacy, same-site successor and intervening reopenings. The current candidate ledger deliberately contains no invented event dates. The separate [court evidence audit](evidence_audit.md) now links 16 Philadelphia sites to two selected filings, but it still supplies no verified pharmacy-stop dates.
 
 The June 2025 notice downloaded here states closures or imminent closures; it cannot distinguish a June pharmacy shutdown from a later front-store closing. The Philadelphia City Council document cited in the references supplies historical context, not a complete geocoded dated event file.
 
 ## Transit, streets and cross-border alternatives
 
-[SEPTA publishes GTFS](https://www3.septa.org/developer/) under its license. The current feed inspected for this project was updated in October 2026, so it was not downloaded as evidence of 2023–2025 service. Obtain archived feeds for the study dates or explicitly report a constant-network approximation. Include schedules and service calendars, not just stop coordinates. Add New Jersey pharmacy records and PATCO/NJ Transit service where relevant.
+[SEPTA publishes GTFS](https://www3.septa.org/developer/) under its license. The current feed inspected for this project was updated in October 2026, so it was not downloaded as evidence of 2023–2025 service. Obtain archived feeds for the study dates or explicitly report a constant-network approximation. Include schedules and service calendars, not just stop coordinates. Add New Jersey pharmacy records and PATCO/NJ Transit service where relevant. The [NJ official licensee-list page](https://www.njconsumeraffairs.gov/requestlist/Pages/default.aspx) links to a free facilities roster. The public folder inspected on November 16, 2026 listed a November 2, 2026 file; this current snapshot was not merged into the 2023–2025 study.
 
 Use historical OpenStreetMap extracts or another appropriate street network with travel-mode permissions, barriers and crossing information. These have not been downloaded in the pilot. Current road distances, straight-line distances and actual trajectories are different measurements. Save network vintage, CRS, routing engine and travel-time settings alongside any generated matrix.
 
