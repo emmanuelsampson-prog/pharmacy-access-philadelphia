@@ -1,0 +1,18 @@
+{
+  "directory_title": "Keystone First VIP Choice 2025 Pharmacy Directory",
+  "directory_url": "https://q1.keystonefirstvipchoice.com/content/dam/keystone-first/vip-choice/pdf/2025-pharmacy-directory.pdf.coredownload.inline.pdf",
+  "directory_as_of": "2025-05-05",
+  "directory_sha256": "b1963d1a6124db9a047e873e1626b139d8ab0cd1bb26a5341538f40482b6c406",
+  "directory_file": "data/raw/keystone_2025_directory.pdf",
+  "retrieved_at_utc": "2026-11-16T21:24:56.646887+00:00",
+  "extracted_scope": "Philadelphia Rite Aid entries from the retail directory only; page 107\u2013110 in the PDF",
+  "directory_limit": "Insurer-network listing; may lag operating changes; not proof of daily operation or a complete city inventory",
+  "independent_context_reports": [
+    "https://www.inquirer.com/business/rite-aid-philadelphia-stores-closing-20250709.html",
+    "https://www.inquirer.com/business/health/rite-aid-pharmacies-closed-pennsylvania-new-jersey-20250823.html"
+  ],
+  "repeated_company_evidence": [
+    "https://www.fastcompany.com/91375399/rite-aid-store-closures-list-dates-prescription-transfers-timeline"
+  ],
+  "source_dependency_note": "A news article reproducing the company table is not an independent check of its dates."
+}

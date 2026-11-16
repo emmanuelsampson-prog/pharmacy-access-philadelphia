@@ -1,0 +1,21 @@
+{
+  "title": "Rite Aid Pharmacy Closure and Transfer List",
+  "original_url": "https://content.riteaid.com/new-pharmacy-location.html",
+  "archive_url": "https://web.archive.org/web/20251004155916/https://content.riteaid.com/new-pharmacy-location.html",
+  "download_url": "https://web.archive.org/web/20251004155916id_/https://content.riteaid.com/new-pharmacy-location.html",
+  "archive_capture_utc": "2025-10-04T15:59:16Z",
+  "retrieved_at_utc": "2026-11-16T21:13:02.876775+00:00",
+  "decoded_html_sha256": "f77461584e4b849dc991bb36631da4427b69c437ed294c7751b6acdda1892d98",
+  "raw_file": "data/raw/riteaid_transfer_20251004.html",
+  "national_rows": 1025,
+  "pa_nj_rows": 326,
+  "philadelphia_rows": 24,
+  "philadelphia_first_last_day": "2025-06-04",
+  "philadelphia_final_last_day": "2025-08-08",
+  "scope": "Locations present in this archived table; not a complete census of Philadelphia closures",
+  "date_interpretation": "Company-reported last day of pharmacy business; +1 day is a modeling boundary only",
+  "receiving_interpretation": "Designated prescription-file recipient; actual patient use and start-of-operation date are not observed",
+  "geocode_census_file": "data/raw/cvs_knights_census_geocode.json",
+  "geocode_census_sha256": "792d0ae829f8fbb91c7a7709333cf0041316c49ecf4044dc1841ca694b73658c",
+  "related_study": "https://doi.org/10.1001/jamahealthforum.2026.2070"
+}

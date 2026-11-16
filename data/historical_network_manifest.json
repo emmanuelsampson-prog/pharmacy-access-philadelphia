@@ -1,0 +1,75 @@
+{
+  "source": "OpenStreetMap contributors; historical Pennsylvania extract distributed by Geofabrik",
+  "source_url": "https://download.geofabrik.de/north-america/us/pennsylvania-250101.osm.pbf",
+  "source_pbf_bytes": 296142809,
+  "source_pbf_sha256": "58e4799bf635ca5fd087e1c122e770451d96e89af66c2359785e55360ad194b3",
+  "license": "ODbL 1.0; https://www.openstreetmap.org/copyright",
+  "snapshot_utc": "2025-01-01T21:21:00Z",
+  "retrieved_at_utc": "2026-11-16T21:33:16.268087+00:00",
+  "bbox_west_south_east_north": [
+    -75.31,
+    39.85,
+    -74.94,
+    40.16
+  ],
+  "osmnx_version": "2.1.0",
+  "simplified": false,
+  "retain_all": false,
+  "walk_excluded_highways": [
+    "abandoned",
+    "bus_guideway",
+    "construction",
+    "cycleway",
+    "motorway",
+    "motorway_link",
+    "no",
+    "planned",
+    "platform",
+    "proposed",
+    "raceway",
+    "razed",
+    "rest_area",
+    "services"
+  ],
+  "drive_excluded_highways": [
+    "abandoned",
+    "bridleway",
+    "bus_guideway",
+    "construction",
+    "corridor",
+    "cycleway",
+    "elevator",
+    "escalator",
+    "footway",
+    "no",
+    "path",
+    "pedestrian",
+    "planned",
+    "platform",
+    "proposed",
+    "raceway",
+    "razed",
+    "steps",
+    "track"
+  ],
+  "interpretation": "Constant mapped network. Shortest distance routes; no traffic, delays, turn restrictions, conditional restrictions, complete node-barrier permissions or observed mode choice.",
+  "geographic_limit": "PA extract clipped to bounding box. Destinations and origins are in PA; NJ alternatives and routes are not assessed.",
+  "files": [
+    {
+      "mode": "walk",
+      "file": "data/raw/historical_network/walk_20250101.graphml",
+      "nodes": 524415,
+      "edges": 1228152,
+      "bytes": 369745868,
+      "sha256": "e44095d5fa23a5ad0b1e557fb8d0b25953fa384c6e1b9262f8bc29b273a0e609"
+    },
+    {
+      "mode": "drive",
+      "file": "data/raw/historical_network/drive_20250101.graphml",
+      "nodes": 367266,
+      "edges": 731235,
+      "bytes": 234613901,
+      "sha256": "af1b3af9748b6e23425fe1572c4aa9c445cd565c9aebc539612fb3bf0d396c4e"
+    }
+  ]
+}
