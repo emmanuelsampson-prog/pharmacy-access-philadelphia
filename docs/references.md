@@ -16,6 +16,8 @@ Sources checked on November 16, 2026. See `data/source_manifest.json` for exact 
 12. **SEPTA.** [GTFS developer download](https://www3.septa.org/developer/). Current feed and terms. Historical feeds are needed for a historical transit-access claim; none was used in the pilot.
 13. **scikit-learn developers.** [Cross-validation guidance](https://scikit-learn.org/stable/modules/cross_validation.html). The implementation uses explicit contiguous coordinate-based folds and a geographic training buffer; preprocessing is fitted inside each fold.
 
+14. **U.S. Environmental Protection Agency.** [Smart Growth and Transportation](https://www.epa.gov/smartgrowth/smart-growth-and-transportation). Explains the relationship between access to destinations, transportation choices and vehicle travel. Used to discuss possible mechanisms, not as evidence of observed Philadelphia mode changes.
+
 ## Attribution and reuse
 
 Original code is MIT licensed. Source datasets retain their source terms. Census and PA public-source extracts are included in the research download; the Git repository ignores raw downloads and provides reproducible acquisition code. The insurer notice is a reference document with third-party copyright, not relicensed code. Future Dewey/mobility data are restricted unless their specific terms explicitly permit redistribution.

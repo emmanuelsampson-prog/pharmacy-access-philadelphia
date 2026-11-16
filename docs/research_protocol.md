@@ -2,7 +2,7 @@
 
 ## Working title and scope
 
-**When Pharmacies Disappear: AI, Spatial Spillovers and the Travel Burden of Rite Aid Closures in Philadelphia, 2023–2025.**
+**Pharmacy Closures and Neighborhood Access in Philadelphia: Research Protocol for Travel and Spatial Spillovers.**
 
 The proposed study connects commercial location decisions with urban sustainability. A pharmacy closure changes both the geography of destinations and the set of choices available to nearby residents. Its effects may spread to competing pharmacies and surrounding retail destinations. The project asks whether these changes produce longer access journeys, redirect visits, or leave some neighborhoods with fewer practical options.
 
@@ -20,13 +20,13 @@ The semester project should concentrate on Philadelphia pharmacies. Use 2022–2
 
 Primary empirical estimand: the average change in the mobility-based outcome for origins first directly exposed to a verified closure, relative to an eligible unexposed comparison trend. A second, separate analysis estimates redistribution to surviving pharmacies in distance rings. Do not combine these into one treatment variable or interpret closure-site visits falling to zero as evidence of reduced neighborhood demand.
 
-## The AI contribution
+## The prediction task
 
 **Current executable benchmark:** predict the modeled change in nearest-pharmacy distance under a specified inventory-removal scenario using baseline inventory features and ACS context. Compare random forest, ridge regression and a median prediction. Use five contiguous geographic folds and remove training origins within 1 km of each test fold. All imputing and scaling occur inside each training fold. Parameters are fixed in advance; the held-out folds are not used to tune them. Report pooled held-out MAE, RMSE and R², fold results, and held-out permutation importance. Negative or near-zero predictive gains are valid results.
 
 This benchmark is a transparent implementation exercise. The target is computed from the same inventory being studied, so successful prediction is not a novel empirical finding. The roster may already reflect treatment-period changes and cannot serve as verified pretreatment features for historical causal analysis.
 
-**Preferred final AI task after mobility access:** predict untreated pharmacy activity or home-origin access outcomes using only preclosure training observations and appropriate untreated observations. Compare regularized regression with a tree ensemble using both spatial separation and a final time holdout. Use baseline accessibility, land use, category supply, preperiod trends, demographics and seasonality. Assess temporal drift and subgroup errors. Keep prediction and treatment-effect estimation conceptually distinct. Use ML as a nuisance model in an established doubly robust DiD method only if the implementation and sample support it; an accurate prediction model does not establish exchangeability or parallel trends.
+**Proposed prediction task after mobility access:** predict untreated pharmacy activity or home-origin access outcomes using only preclosure training observations and appropriate untreated observations. Compare regularized regression with a tree ensemble using both spatial separation and a final time holdout. Use baseline accessibility, land use, category supply, preperiod trends, demographics and seasonality. Assess temporal drift and subgroup errors. Keep prediction and treatment-effect estimation conceptually distinct. Use ML as a nuisance model in an established doubly robust DiD method only if the implementation and sample support it; an accurate prediction model does not establish exchangeability or parallel trends.
 
 ## Data and event construction
 
@@ -85,7 +85,7 @@ This assumes one traveler per gasoline vehicle. The factor of two assumes a roun
 |---|---|---|
 | 1 | Obtain rubric; verify Penn/Dewey product coverage; build and audit operating-history ledger | Adequate sample, dates and allowed use |
 | 2 | Construct balanced origin and survivor panels; routing; coverage and border diagnostics | Outcomes and clean controls are defensible |
-| 3 | Execute AI validation and the prespecified causal design; sensitivity and placebo tests | Results survive identification and measurement checks |
+| 3 | Execute spatial prediction validation and the prespecified causal design; sensitivity and placebo tests | Results survive identification and measurement checks |
 | 4 | Write final interpretation, limitations and reproducible notebooks; publish permitted outputs | Author verifies findings and course requirements |
 
 The present package completes a public-data feasibility run and the preparatory method implementation. It does not claim stages 1–4 are finished. GitHub publication of a working pilot is appropriate when clearly labelled; calling it a final empirical causal study is premature.
