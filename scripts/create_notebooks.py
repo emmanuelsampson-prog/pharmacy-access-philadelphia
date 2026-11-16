@@ -1,6 +1,7 @@
 """Build readable notebook source. Execute with scripts/execute_notebooks.py."""
 from pathlib import Path
 import nbformat as nbf
+from report_content import get_sections, markdown_sections, REFERENCES
 
 ROOT=Path(__file__).resolve().parents[1]
 MD=nbf.v4.new_markdown_cell;CODE=nbf.v4.new_code_cell
@@ -18,10 +19,10 @@ pd.set_option('display.max_columns', 12)
 """
 
 cells=[
-MD("""# When Pharmacies Disappear
-## Accessibility, travel and equity in Philadelphia
+MD("""# Pharmacy Closures and Neighborhood Access in Philadelphia
+## Spatial assessment and research record
 **Emmanuel Amissah Sampson · University of Pennsylvania**  
-AI in Urban Studies final-project development · 16 November 2026
+Urban studies research project · 16 November 2026
 
 **Research status: executed public-data feasibility pilot.** This notebook is the main reproducible record. It does not estimate the historical causal effects of the 2023–2025 Rite Aid closures. Verified operating dates and licensed human-mobility data have not yet been obtained.
 
@@ -32,26 +33,29 @@ The eventual study asks how pharmacy closures alter destinations, sampled travel
 This public pilot answers three narrower questions:
 1. Can we assemble a reproducible spatial analysis from accessible public data?
 2. How sensitive is a removal scenario to the definition of the candidate pharmacy inventory?
-3. Does a spatially validated machine-learning benchmark predict the scenario better than simple baselines?
+3. Do baseline access and neighborhood features predict the scenario better than a simple median?
 
 Observed travel mode and emissions changes are not identified by these data."""),
 CODE(setup),
 MD("""## 2. Provenance and checks
-The source manifest records exact URLs, retrieval times, licenses and hashes. Six official bulk ACS tables were streamed and filtered to Philadelphia tract rows. This route does not require a Census API key. Downloaded original inputs are kept in `data/raw`; these are included in the project archive but excluded from Git.
+The source manifest records exact URLs, retrieval times, licenses and hashes. Six official bulk ACS tables were streamed and filtered to Philadelphia tract rows. This route does not require a Census API key. Analytical source inputs are kept in `data/raw`; these are included in the project archive but excluded from Git. The optional insurer notice is a contextual reference, excluded from the archive; its source URL remains in the manifest.
 
-If starting from a Git clone, first run `python -m src.download` at the project root. This notebook intentionally fails if inputs are missing or their recorded bytes have changed."""),
+If starting from a Git clone, first run `python -m src.download` at the project root. This notebook stops if required analytical inputs are missing or their recorded bytes have changed. The contextual insurer notice is optional and is not used to calculate results."""),
 CODE("""manifest = json.loads((ROOT / 'data/source_manifest.json').read_text())
 for item in manifest:
-    assert item['status'] != 'failed', item['id']
     path = ROOT / item['local_path']
+    if item['id'] == 'closure_notice_2025' and not path.exists():
+        print('Optional insurer reference PDF not included; source URL retained in manifest.')
+        continue
+    assert item['status'] != 'failed', item['id']
     assert path.exists(), f'Missing {path}; run python -m src.download'
     assert hashlib.sha256(path.read_bytes()).hexdigest() == item['sha256'], f'Changed input: {path}'
 display(pd.DataFrame(manifest)[['id','status','rows','local_path']].fillna(''))
-print('Every retained source matches its recorded SHA-256 hash.')"""),
+print('Every required analytical input and available reference matches its recorded SHA-256 hash.')"""),
 MD("""## 3. Join geography, demographics and the candidate inventory
 ACS estimates describe 2018–2022. We preserve margins of error and turn negative sentinel values into missing values. The denominator for no-vehicle share is households; the poverty denominator is the population for whom poverty status is determined.
 
-Distances use EPSG:26918 (meters). Origins are projected geometric tract centroids, not people's actual homes. PA destinations in a 10 km city buffer are included. Origins within 2 km of New Jersey are flagged because NJ pharmacy locations have not been added."""),
+Distances use EPSG:26918 (meters). Origins are projected geometric tract centroids, not people's actual homes. PA destinations in a 10 km city buffer are included. Fifty populated tract centers are less than 2 km from New Jersey county geometry and are flagged because NJ pharmacies are missing. All 391 populated tracts remain in the maps and primary proximity results. Only the secondary prediction comparison excludes the 50 flagged tracts, leaving 341. The 2 km rule checks data coverage; it is not a walking threshold and does not correct every cross-border bias."""),
 CODE("""from src.accessibility import prepare
 tracts, pharmacies, quality = prepare()
 display(pd.Series(quality, name='count').to_frame())
@@ -71,7 +75,7 @@ $$\Delta d_i=\min_{j\in P\setminus R}\|x_i-x_j\|-\min_{j\in P}\|x_i-x_j\|.$$
 
 This quantity cannot be negative when the same origin and distance metric are used. It is not an observed journey, and the roster cannot reconstruct actual 2023–2025 operations.
 
-We repeat the calculation using a conservative chain-name inventory. These are **two sensitivity scenarios, not formal lower and upper bounds**."""),
+We repeat the calculation using a restricted chain-name inventory. These are **two sensitivity scenarios, not formal lower and upper bounds**."""),
 CODE("""populated = tracts.loc[tracts.population > 0].copy()
 assert (populated.all_listed_delta_m >= -1e-6).all()
 comparison = pd.DataFrame({
@@ -81,10 +85,10 @@ comparison = pd.DataFrame({
         np.average(populated.chain_names_delta_m, weights=populated.population)]})
 display(comparison.round(2))
 print('These are modeled one-way straight-line changes, not estimated closure effects.')"""),
-MD("""## 5. AI benchmark with spatial validation
+MD("""## 5. Prediction comparison with spatial validation
 The target is the scenario distance increment. Predictors use scenario-baseline inventory features and ACS context, excluding the post-removal nearest distance. Models: training-fold median, ridge regression and random forest. Five contiguous coordinate clusters are held out in turn; training origins within 1 km of the held-out region's sample points are removed. Imputation and scaling use training observations only.
 
-This benchmark tests a workflow; the target is mechanically generated. No claim is made that the model predicts historical closure effects. The roster's timing also prevents treating these features as verified preclosure covariates."""),
+This comparison tests whether the baseline features predict variation in a mechanically calculated target. The comparison is secondary to the direct spatial calculation. No claim is made that the model predicts historical closure effects. The roster's timing also prevents treating these features as verified preclosure covariates."""),
 CODE("""from src.ml import run_ml, FEATURES
 OUT = ROOT / 'outputs/public'
 OUT.mkdir(parents=True, exist_ok=True)
@@ -96,7 +100,7 @@ summary, equity = summarize(tracts, quality, metrics)
 figures(tracts, pharmacies, metrics, equity)
 display(Image(filename=str(OUT / 'access_equity_map.png')))
 display(Image(filename=str(OUT / 'model_and_equity.png')))"""),
-MD("""### Interpret the model honestly
+MD("""### Interpretation of prediction errors
 Lower MAE/RMSE is better; negative R² is possible out of sample. A zero-heavy target rewards the median baseline on MAE. A small improvement in RMSE alongside worse MAE does not establish useful predictive performance. Do not tune on these held-out results and then present the same folds as untouched validation.
 
 The substantial inventory sensitivity is a data-validity warning. Before estimating historical impacts, the operating network needs manual and temporal validation."""),
@@ -105,7 +109,7 @@ print('Lowest spatially held-out MAE:', ranking.iloc[0]['model'])
 rf = metrics.set_index('model').loc['Random forest']
 base = metrics.set_index('model').loc['Median baseline']
 print(f'Random forest MAE: {rf.mae_m:.1f} m; median baseline MAE: {base.mae_m:.1f} m.')
-print('This benchmark does not establish a causal effect or useful prediction of real travel.')
+print('The prediction comparison does not establish a causal effect or useful prediction of real travel.')
 display(pd.read_csv(OUT / 'ml_fold_metrics.csv').round(2))"""),
 MD("""## 6. Equity is an area-level comparison
 The table weights tract-origin scenarios by tract population. A second weighting by households without a vehicle is also reported. It cannot reveal the experience of individual residents, and group-specific sample means do not estimate causal heterogeneity. ACS uncertainty is retained in the source but not propagated in these pilot summaries."""),
@@ -137,16 +141,14 @@ MD("""## 8. What is required before the causal study can run
 | Licensed 2022–2025 origin/POI mobility panel and coverage denominators | Not obtained |
 | Historical street/transit routing; NJ alternatives | Not obtained |
 | Validated mode information | Not obtained; foot traffic alone is insufficient |
-| Course rubric and submission deadline | Not supplied |
 
 The companion notebook checks for verified inputs before running any empirical contrast. The Python estimator excludes already-treated and flagged spillover controls, but still requires defensible parallel trends and selection assumptions. An optional R extension uses the authors' `did` implementation for a covariate-adjusted analysis; it has not been run.
 
 Read [the full research protocol](../docs/research_protocol.md), [data access instructions](../docs/data_access.md), and [data dictionary](../docs/data_dictionary.md)."""),
-MD("""## 9. Research record and next decisions
-The present result is a reproducible feasibility study. It shows why inventory validation matters and records a baseline AI evaluation without inventing stronger findings. The final project should retain this notebook and add the verified empirical analysis once the required data exist.
-
-Check the source assumptions and course rules before submission. Original code and documentation were developed with AI assistance and require author review. Raw restricted mobility data, identifiers, credentials and private output are excluded from GitHub."""),
-CODE("""display(Markdown((ROOT / 'docs/references.md').read_text()))"""),
+MD("""## 9. Results and interpretation
+The following sections use the same narrative as the website and submission report. Tables and figures above are the executed research record."""),
+MD(markdown_sections([section for section in get_sections() if section['id'] in {'results', 'travel', 'discussion', 'recommendations', 'limitations', 'conclusion'}], include_figures=False)),
+MD("## References\n\n" + "\n\n".join(f"{i}. {label} [Source]({url})" for i,(label,url) in enumerate(REFERENCES,1)) + "\n\nSee [additional source notes](../docs/references.md) for mobility and software documentation."),
 ]
 
 nb=nbf.v4.new_notebook(cells=cells,metadata={"kernelspec":{"display_name":"Pharmacy Access","language":"python","name":"pharmacy-access"},"language_info":{"name":"python","version":"3.12"}})
