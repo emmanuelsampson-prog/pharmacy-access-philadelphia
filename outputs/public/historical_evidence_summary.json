@@ -1,0 +1,15 @@
+{
+  "study_period": "2023\u20132025",
+  "selected_city_locations": 41,
+  "records_by_evidence_year": {
+    "2023": 13,
+    "2024": 4,
+    "2025": 24
+  },
+  "records_with_reported_pharmacy_day": 28,
+  "company_table_last_operating_days_2025": 24,
+  "scheduled_or_contemporaneously_reported_pharmacy_dates_2024": 4,
+  "store_only_scheduled_date_2023": 1,
+  "scope": "Selected documented locations, not a comprehensive city census or annual closure count",
+  "mobility_panel_period_planned": "January 2022\u2013December 2025; not yet obtained"
+}

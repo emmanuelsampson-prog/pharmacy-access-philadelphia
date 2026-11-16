@@ -1,0 +1,11 @@
+{
+  "directory_as_of": "2025-05-05",
+  "directory_philadelphia_rite_aids": 34,
+  "transfer_sites": 24,
+  "transfer_sites_with_directory_identity_match": 24,
+  "transfer_sites_in_selected_court_notice": 5,
+  "exact_dates_independently_confirmed": 0,
+  "neighborhood_level_date_consistency": 1,
+  "address_conflicts": 1,
+  "interpretation": "Corroborated listed site identities and selected closure intentions; date-level independent verification remains incomplete."
+}
