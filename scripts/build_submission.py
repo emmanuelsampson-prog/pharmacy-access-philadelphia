@@ -94,6 +94,7 @@ def make_report():
                         tcpr.append(margins)
                         shade=OxmlElement('w:shd');shade.set(qn('w:fill'),'E7EDF2' if ri==0 else 'FFFFFF');tcpr.append(shade)
                         p=cell.paragraphs[0];p.paragraph_format.space_after=Pt(0);p.paragraph_format.line_spacing=1.05
+                        if len(rows)<=4: p.paragraph_format.keep_with_next=(ri<len(rows)-1)
                         if j>0 and all(c in '0123456789.,- ' for c in str(text)):p.alignment=WD_ALIGN_PARAGRAPH.CENTER
                         r=p.add_run(str(text));r.font.size=Pt(10.2);r.bold=(ri==0)
                 p=doc.add_paragraph();p.paragraph_format.space_after=Pt(1);p.paragraph_format.line_spacing=.3;p.add_run().font.size=Pt(3)
