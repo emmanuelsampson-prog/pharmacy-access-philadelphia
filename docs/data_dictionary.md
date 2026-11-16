@@ -84,3 +84,37 @@ For the mobility module, `date_quality` must equal `verified`, closure bounds mu
 The causal panel must be balanced and complete. Suppressed/missing mobility values are not zero and cannot be mechanically imputed to satisfy this contract. The panel needs a coverage-based construction rule defined before analysis; complete-case restrictions can themselves select the sample and must be reported. `spillover` must flag indirect/competing event exposure separately from the unit's direct treatment. Spatial clusters and treatment dates must remain fixed within a unit. Period indexes must be accompanied by a saved calendar crosswalk.
 
 The normalized origin module accepts a configurable Census identifier length (default 12 for block groups). Preserve leading zeros and verify the provider's geography vintage. Its distance output is a visitor-POI-count-weighted home-to-destination proxy; repeated people across POIs are not deduplicated. It is not individual travel distance, trip frequency, or travel mode.
+
+## Dated transfers and corroboration
+
+| File or field | Meaning | Limits |
+|---|---|---|
+| `historical_evidence_2023_2025.csv` | 41 selected city locations with source and date meaning | Not a complete closure census |
+| `pharmacy_transfers_pa_nj_2025.csv` | 326 PA/NJ rows in the archived company table | Not all closures in either state |
+| `philadelphia_transfer_pairs_2025.csv` | 24 former sites and designated recipients | Actual patient destination is unknown |
+| `pharmacy_last_open_date` in the company table | Company-reported last pharmacy-business day | Not independently verified for every store |
+| `modeled_first_closed_date` | Reported last day plus one calendar day | Modeling convention, not a separate observation |
+| `same_address_transfer` | Former and recipient addresses identify the same site | Does not establish uninterrupted service |
+| `transfer_corroboration_2025.csv` | Insurer ID match, selected court match and source dependence | Identity corroboration is not date confirmation |
+| `insurer_directory_philadelphia_20250505.csv` | 34 city Rite Aid entries in the retail directory | Insurer network listing, not a complete operating census |
+| `transfer_geocode_review.csv` | Explicit reviewed address normalization | Approximate address points, not entrances |
+
+## Before and after route outputs
+
+`before_after_access_origins.csv` contains candidate tract origins within 1,000 meters for sensitivity analysis. The main flag retains origins within 800 meters, with all routes reachable, no endpoint-to-node distance over 200 meters, and no unresolved Academy Road address conflict.
+
+| Field pattern | Unit and meaning |
+|---|---|
+| `distance_to_former_m` | Straight-line origin distance to nearest of the 24 former study sites |
+| `walk_before_km`, `walk_after_km` | Shortest mapped one-way walking route plus straight connectors, km |
+| `walk_*_minutes` | Walking distance divided by assumed 4.8 km/h |
+| `drive_*_roundtrip_km` | Separately routed outward + return distance plus both connectors, km |
+| `*_outbound_network_m`, `*_return_network_m` | Mapped graph distance excluding connectors, meters |
+| `*_connector_m` | Origin and destination straight node-attachment lengths, meters |
+| `*_snap_m` | Individual endpoint distance to selected network node, meters |
+| `*_delta_*` | After minus before; negative values are possible for designated recipients |
+| `main_included` | Primary common-sample eligibility |
+| `all_routes_reachable` | Both directions reachable under both mode networks |
+| `unresolved_address_conflict` | Assigned former site is store 1956; excluded in primary sample |
+
+`before_after_summary.json`, `before_after_by_event.csv`, `before_after_equity.csv` and `before_after_sensitivity.csv` summarize these modeled origins with fixed ACS population weights. They do not contain observed trips. `before_after_emissions.csv` holds eight conditional fixed-car-share scenarios, with 1,000 hypothetical person round trips, one traveler per gasoline vehicle and 400 g tailpipe CO2/vehicle-mile.

@@ -47,3 +47,7 @@ The script downloads missing files into the ignored raw-data folder and verifies
 - [2023 court motion, document 37](https://cdns.abclocal.go.com/three/kabc/101823-kabc-rite-aid-doc.pdf), Exhibit A Schedule 1. The motion requests permission to continue or initiate closing sales at the listed stores.
 - [2025 sixth closing-location notice, document 743](https://npr.brightspotcdn.com/f8/c8/faad678e424db35665a541d7ce0a/25-06-06-store-closure-filing.pdf), Exhibit 1. Its filing date is June 6, 2025.
 - [Evidence source manifest](../data/evidence_sources.json), containing exact URLs, hashes, selected pages and document limitations.
+
+## Relationship to the expanded study
+
+This note audits the **two selected court filings**. Its lack of exact operating dates applies to those filings, not to all evidence now available. Version 0.4 adds a separate [2023–2025 ledger](../data/processed/historical_evidence_2023_2025.csv), [company transfer pairs](../data/processed/philadelphia_transfer_pairs_2025.csv) and [insurer corroboration audit](../data/processed/transfer_corroboration_2025.csv). The [main notebook](../notebooks/04_before_after_transfer_access.ipynb) uses company-reported 2025 pharmacy days and named recipients for a routed destination comparison. See [the methods note](before_after_methods.md) for its distinct sample and limitations.

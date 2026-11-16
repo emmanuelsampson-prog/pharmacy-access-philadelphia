@@ -37,7 +37,9 @@ This benchmark is a transparent implementation exercise. The target is computed 
 5. **Networks:** use appropriate historical street and transit data or a clearly dated constant-network approximation. Walking routing must respect crossings and barriers. Transit travel time includes access walk, wait, transfer and service calendars. A nearby bus stop is not a travel-time measure. Current GTFS cannot be silently treated as 2023 service.
 6. **Emissions:** combine validated route changes with a declared vehicle factor and assumptions about mode, occupancy, trip chaining, delivery and forgone visits. A visitor's home-to-store separation is not necessarily the actual trip's origin or distance.
 
-Current downloaded data support a public **scenario** only: a July-2025-labelled PA license roster, 2018–2022 ACS tables, 2022 cartographic geography and a June 2025 closure notice. None supplies a verified historical panel of pharmacy operation. A subsequent audit extracted 101 PA/NJ locations from two court-filed lists (October 2023 and June 2025), including 16 Philadelphia matches. These are notice-only records with blank operating dates; see [the evidence audit](evidence_audit.md).
+The completed public evidence now spans **2023–2025**: 41 selected Philadelphia locations, including 24 company-reported transfer dates in 2025 and four reported pharmacy dates in 2024. A May 5, 2025 insurer directory corroborates all 24 transfer store identities; five also match the selected June court notice. Date-level independent confirmation remains incomplete. The separate 2025 route comparison holds a January 2025 street network, residential-area origins and weights fixed. It measures access to designated receiving destinations. It is not a three-year mobility panel, an observed mode comparison or a causal effect estimate.
+
+The 2022–2025 panel remains **planned**, with 2022 as baseline. The dated 2025 route subset runs from June 4 to August 8; that subset must never be relabelled as full 2023–2025 behavioral coverage. The original simultaneous inventory-removal experiment is supplementary.
 
 ## Exposure, spillovers and controls
 
@@ -61,6 +63,16 @@ Identification requires no unaccounted anticipation, appropriate parallel counte
 
 Report event-time effects with sample/cohort support at each horizon. Composition can change across horizons, so provide a fixed-cohort sensitivity where feasible. Use the same geography units over time and clustering that reflects spatially shared shocks. The supplied bootstrap resamples complete spatial clusters and reports pointwise percentile intervals; it refuses fewer than 20 clusters and drops intervals with inadequate bootstrap support. Twenty clusters is a computational safeguard, not a guarantee of valid inference. Test alternative cluster sizes, and consider spatial HAC or wild-cluster procedures for the final analysis. Joint pretrend inference and simultaneous event-study bands are not implemented in the pilot.
 
+## Geographic RDD and spatial instrumental variables
+
+Spatial difference-in-differences with explicit exposure and spillovers is the primary proposed design. Two other quasi-experimental approaches are considered only if suitable assignment mechanisms can be documented.
+
+**Geographic regression discontinuity:** a boundary must generate a discontinuity in treatment assignment. Nearby residents on opposite sides must be comparable in the relevant untreated potential outcomes; simultaneous policy differences, sorting and cross-border interference must be assessed. A municipal or school-district line alone is not enough. No rule assigns Rite Aid closure exposure at a qualifying boundary in the current evidence. In particular, the PA–NJ border is also a river/transport boundary and is not used as a causal cutoff. See Keele and Titiunik (2015), [doi:10.1093/pan/mpu014](https://doi.org/10.1093/pan/mpu014).
+
+**Spatial IV:** a proposed instrument must predict closure exposure and affect the outcome only through that exposure under a defensible exogeneity argument. Spatial lags, historical pharmacy density, proximity and lease timing are not automatically valid instruments. None has been established for this project. If a credible instrument is obtained, document the first stage, weak-instrument diagnostics, exclusion argument, identified population and interference assumptions. See Angrist, Imbens and Rubin (1996), [doi:10.1080/01621459.1996.10476902](https://doi.org/10.1080/01621459.1996.10476902).
+
+These designs address sorting and selection only under their assumptions. They are not interchangeable model options or empirical results in the present release.
+
 ## Diagnostics and robustness
 
 - Validate closure dates with independent sources; compare lower/upper date bounds and exclude ambiguous events.
@@ -72,6 +84,13 @@ Report event-time effects with sample/cohort support at each horizon. Compositio
 - Present missingness, ACS uncertainty, model performance and negative results. Do not infer prescription adherence, health outcomes, customer spending or medication purchases from a pharmacy visit.
 
 ## Emissions accounting
+
+For the dated transfer comparison, use the separately routed driving round-trip distance change in kilometers:
+
+`kg CO2 = roundtrip_delta_km / 1.609344 × hypothetical_person_roundtrips × fixed_car_share × additional_travel_share × 400 / 1000`.
+
+No additional doubling or detour multiplier applies. This fixed-share scenario cannot measure a walking-to-driving transition. The older supplementary inventory exercise below uses a different distance input and is retained only for reproducibility.
+
 
 For an illustrative one-way straight-line increase Δd (meters), the scenario calculates:
 
@@ -88,7 +107,7 @@ This assumes one traveler per gasoline vehicle. The factor of two assumes a roun
 | 3 | Execute spatial prediction validation and the prespecified causal design; sensitivity and placebo tests | Results survive identification and measurement checks |
 | 4 | Write final interpretation, limitations and reproducible notebooks; publish permitted outputs | Author verifies findings and course requirements |
 
-The present package completes a public-data feasibility run and the preparatory method implementation. It does not claim stages 1–4 are finished. GitHub publication of a working pilot is appropriate when clearly labelled; calling it a final empirical causal study is premature.
+The present package completes the public historical evidence audit, a dated transfer-access comparison and the preparatory causal-method implementation. It does not claim stages 1–4 are finished. GitHub publication of a working pilot is appropriate when clearly labelled; calling it a final empirical causal study is premature.
 
 ## Longer-term research agenda
 

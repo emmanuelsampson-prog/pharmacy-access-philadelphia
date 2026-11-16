@@ -1,180 +1,211 @@
-# Pharmacy Closures and Neighborhood Access in Philadelphia
+# Pharmacy Closures and Access in Philadelphia 2023–2025
 
-A spatial scenario assessment and research agenda for travel and emissions
+Historical evidence and before and after access with a research design for travel and emissions
 
 Emmanuel Amissah Sampson · University of Pennsylvania · 16 November 2026
 
 ## Abstract
 
-This study examines how pharmacy loss could change neighborhood access in Philadelphia and develops a research design for measuring subsequent travel and emissions. A Pennsylvania pharmacy-license roster was combined with 2018–2022 American Community Survey estimates and Census tract boundaries. The completed analysis removes all Rite Aid-labelled records simultaneously and recalculates the nearest listed pharmacy from each tract center. Across 391 populated tracts, the population-weighted straight-line distance increases by 32.4 meters. An increase occurs in 67 tracts, while the remaining 324 have no change. Restricting the inventory to selected chain names raises the calculated increase to 282.1 meters, showing substantial sensitivity to which destinations are counted. Neighborhood comparisons show no uniform disadvantage across the groups examined. These findings identify locations for further investigation and the importance of verifying the operating pharmacy network. The study does not measure historical changes in walking, driving or emissions. It provides conditional emissions calculations and a proposed quasi-experimental study using verified events, aggregate mobility data and explicit treatment of spatial spillovers.
+This study investigates Rite Aid closures and pharmacy access in Philadelphia during 2023–2025. A source ledger documents 41 selected city locations, distinguishing court notices, reported pharmacy closing dates and prescription transfers. An archived company table identifies 24 transfers in 2025. All 24 store numbers also appear in an insurer directory dated May 5, 2025, although the exact closing days have not been independently verified for every site. A before-and-after destination comparison uses a fixed historical street network and nearby Census tract centers. Among 62 eligible origins, population-weighted modeled walking time rises from 9.0 to 16.0 minutes; driving distance for a round trip changes from 1.61 to 2.75 kilometers. These results quantify access to designated receiving pharmacies under stated assumptions. They do not estimate how many residents changed destinations or travel modes. Conditional emissions calculations and a spatial difference-in-differences protocol connect this completed accessibility assessment to the broader question of travel behavior. Observed journey and causal emissions effects remain unestimated because an authorized mobility panel and validated mode information are not available.
 
 ## Introduction
 
-Pharmacies are everyday destinations and sources of essential services. When a nearby pharmacy closes, residents may need to travel farther, use another mode, combine the visit with other errands, arrange delivery or forgo the visit. A new pharmacy can make a destination easier to reach, although its effect depends on where it opens and how people reach it. Commercial location decisions therefore connect urban accessibility, transport and the distribution of essential services.
+A pharmacy closure changes an everyday destination. Residents may walk farther, use a bus or car, combine prescription collection with another errand, choose delivery or switch to a different provider. An opening can reverse some of these constraints if its location and services suit nearby residents. Commercial location decisions therefore shape both access to essential services and the travel required to reach them.
 
-Philadelphia’s experience with Rite Aid closures during 2023–2025 provides a case for examining these connections. City Council raised concerns about pharmacy loss and access, and insurer communications documented closures and prescription transfers [4, 10]. Those records establish the relevance of the problem but do not provide a complete history of when each pharmacy operated.
+Philadelphia’s Rite Aid closures during 2023–2025 provide a setting for studying these relationships. City Council raised concerns about lost pharmacy services, and contemporaneous reporting described the adjustments residents made [4, 22]. This report combines historical evidence with an explicit comparison of access before and after designated prescription transfers. It treats changes in the geography of destinations separately from changes in observed travel.
 
-The wider research agenda covers store openings, closures and relocations. This report concentrates on pharmacies in Philadelphia. It presents a completed spatial assessment, explains what the results imply for further research, and specifies the additional evidence needed to estimate changes in travel behavior and emissions.
+National research has already examined distances between closing pharmacies and designated prescription recipients [16]. This project adds a Philadelphia analysis from residential-area origins, compares walking and driving routes, and checks the historical evidence behind the destinations. Its contribution is a reproducible local assessment and a defensible next-stage causal design, rather than a claim that pharmacy transfers are an unexplored topic.
+
+## Study period and evidence coverage
+
+The investigation period is January 2023–December 2025. Evidence coverage varies within that period. The complete three-year mobility study would use 2022 as a preclosure baseline; those observations have not yet been acquired. The shorter 2025 transfer window is a focused component of the wider historical investigation, not a substitute for three years of outcome data.
+
+Table 1. Time periods used in this study
+
+| Component | Period | What it represents |
+| --- | --- | --- |
+| Historical investigation | 2023–2025 | 41 selected Philadelphia locations in closure evidence |
+| Dated transfer comparison | June 4–August 8, 2025 | 24 company-reported final pharmacy operating days |
+| Street network | January 1, 2025 | One mapped network held constant for both destinations |
+| Neighborhood characteristics | 2018–2022 | ACS five-year estimates, held fixed |
+| Proposed mobility panel | 2022–2025 | Planned baseline and follow-up; not yet obtained |
+
+![Three Philadelphia maps showing selected locations documented in 2023, 2024 and 2025](../outputs/public/closure_evidence_map.png)
+
+Figure 1. Locations in the selected 2023–2025 evidence ledger. The 2023 panel contains 13 locations, the 2024 panel four, and the 2025 panel 24. Years describe the documented closure episode; records differ in date precision. These are not complete annual closure counts. Sources: court records, local reporting and archived company table; coordinates from the PA license roster.
 
 ## Problem statement and research questions
 
-A count of pharmacies or a map of their locations cannot establish whether residents can obtain services conveniently. A registered location may be inactive or unavailable to the public; a nearby destination may be separated from residents by a river, a difficult crossing, limited opening hours or insurance restrictions. Similarly, a change in distance on a map does not establish how people changed their journeys.
+A pharmacy license does not necessarily identify a currently operating community pharmacy. A notice of a planned closure does not establish the last dispensing day. Even a dated prescription transfer does not show where every customer subsequently went. These distinctions matter because errors in destination availability and treatment timing can create misleading access and causal estimates.
 
-The central problem is to distinguish changes in the geography of available destinations from changes in actual travel, and then to determine which changes can credibly be attributed to openings or closures. Surviving pharmacies may receive displaced visits, so nearby areas cannot automatically serve as unaffected comparison groups.
+The study asks how far nearby origins would be from their former pharmacy and its designated recipient, how the changes differ across neighborhoods, and what travel responses could translate those changes into emissions. It also asks how a later causal analysis can distinguish closure effects from declining demand, neighborhood sorting and spillovers to surviving pharmacies. Store openings remain a separate extension because no opening panel is analyzed here.
 
-1. How does removing Rite Aid-labelled locations change nearest-pharmacy proximity, and how sensitive is that result to the destination inventory?
-2. How are the calculated changes distributed across neighborhoods with different poverty rates and levels of vehicle availability?
-3. Under what conditions would closures or openings encourage walking, driving or changes in emissions?
-4. What data and comparison strategy are needed to estimate historical effects while accounting for spatial spillovers?
+## Historical evidence and corroboration
 
-The first two questions are evaluated with the public spatial data. The third is addressed through transport mechanisms and conditional calculations. The fourth is developed as the next empirical stage. Store openings are part of that agenda; no opening event is estimated in the completed analysis.
+The broader ledger contains 11 Philadelphia sites listed in an October 2023 court motion, two additional 2023 episodes reported locally, four reported pharmacy dates in 2024, and 24 dated transfers in 2025. The 2023 Aramingo record gives a scheduled store-closing day, which is not treated as a pharmacy-stop day. The Grays Ferry record establishes an autumn 2023 closure episode without an exact pharmacy date. The 2024 records cover Chestnut Street, North Broad Street, Germantown Avenue and Woodland Avenue [11, 19–23].
+
+Rite Aid’s archived transfer table supplies store numbers, former addresses, reported last pharmacy-business days and designated receiving pharmacies [13]. It contains 1,025 national rows and 326 Pennsylvania/New Jersey rows. The analysis uses the 24 rows whose former location is Philadelphia. Twenty-three identify a recipient at another address; the Chestnut Street record names Unity Pharmacy at the same address. A same-address transfer is not proof of an uninterrupted service transition.
+
+Table 2. What the additional sources corroborate
+
+| Check | Result | Interpretation |
+| --- | --- | --- |
+| May 5 insurer directory | 24 of 24 store numbers matched | Corroborates listed provider identity before the transfer window |
+| Selected June 6 court notice | 5 of 24 sites matched | Corroborates closure selection, not the final pharmacy day |
+| Independent local reporting | Eastwick date is consistent | Staff interview gives July 24; branch-address link is inferred |
+| Repeated company-table reporting | Chestnut August 8 matches | Same underlying source; not independent date verification |
+| Address review | 1 unresolved conflict | Academy Road is listed as 12353 by the insurer and 12311 elsewhere |
+
+The insurer directory lists 34 Philadelphia Rite Aid locations, so the 24 transfer records do not cover every site listed before the final closure wave [14]. The directory may itself lag operating changes. The selected court notice adds evidence for five locations [12]. July reporting distinguishes pharmacy closure from the later closing of the retail store and notes that the company’s online list was incomplete [17]. August reporting corroborates the regional wind-down, but not every store’s exact day [18]. No exact-address operating date is labelled independently confirmed in the audit.
+
+![Step chart of the 24 reported final pharmacy days between June and August 2025](../outputs/public/transfer_timeline.png)
+
+Figure 2. Cumulative events in the 24-row company transfer table. The horizontal axis uses the reported last day of pharmacy business. Each location keeps its own event date; the chart is not a citywide count and does not show observed visits.
+
+![Map connecting 24 former Rite Aid locations to their designated receiving pharmacies](../outputs/public/transfer_destination_map.png)
+
+Figure 3. Former pharmacies and their designated prescription recipients. Arrows connect paired addresses; they are not street routes or observed journeys. The disputed Academy Road location is marked for review and excluded from the primary route calculations. The same-address Chestnut transfer has overlapping symbols. Sources: company table, PA pharmacy coordinates and Census boundaries.
 
 ## Methodology
 
-### Study area and data
+### Origins and destination pairs
 
-The analysis covers Philadelphia’s 408 Census tracts, of which 391 have a positive population estimate. These populated tracts contain an estimated 1,593,208 residents. The Pennsylvania roster contains 3,324 license records statewide; 817 fall within Philadelphia and a 10 km surrounding buffer on the Pennsylvania side. Of those 817 records, 109 match the Rite Aid name, including 78 inside the city. These are candidate records rather than verified counts of operating stores or historical closures [1].
+The study uses populated Census tract centers as standardized residential-area origins, with fixed 2018–2022 ACS population and household characteristics [2, 3]. Each origin is assigned to its nearest former pharmacy among the 24 documented transfer locations. The main catchment includes origins within 800 meters in straight-line distance. This assignment prevents duplicate origins where catchments overlap; it does not identify actual customers or imply that the assigned pharmacy was their nearest pharmacy of any brand.
 
-Six ACS tables provide population, household vehicle availability, poverty, income, age and racial or ethnic composition [2]. Census boundaries define tract geometry and the New Jersey coverage check [3]. The public data were downloaded with source URLs, retrieval times and checksums retained in a manifest. The license roster’s portal update is July 2025. Its records are not a reconstruction of the operating network in 2023.
+The before destination is the former Rite Aid. The after destination is the recipient named in its transfer record. Both routes start from the same origin and use the same street network. Other pharmacies, delivery, insurance restrictions and patient choice are not modeled. Thus the comparison estimates access to a particular documented transfer destination, rather than the nearest available alternative or a causal change in actual journeys.
 
-A separate audit matches store numbers, addresses and cities from two court-filed lists to the roster [11, 12]. Only the specified exhibits are extracted. Filing dates remain separate from operating dates, and the scenario inventory is unchanged.
+### Historical network and route calculation
 
-### Measuring proximity under removal
+Walking and driving networks are built from Geofabrik’s Pennsylvania OpenStreetMap extract containing mapped data through January 1, 2025 at 21:21 UTC [15]. The extraction covers Philadelphia, the receiving destination in Bala Cynwyd and a surrounding margin. Mode-specific road permissions and driving direction are applied. Routes minimize distance. Traffic, intersection delay, turn restrictions, conditional restrictions and complete node-level barrier permissions are not represented.
 
-Each tract is represented by its geometric center, calculated in a meter-based coordinate system, EPSG:26918. The code measures the straight-line distance to the nearest eligible pharmacy, removes all Rite Aid-labelled entries at once, and repeats the calculation. The difference is the modeled one-way proximity increase. A population-weighted mean gives more weight to tracts with larger populations; it is not an average of residents’ observed trips.
+Address points and tract centers are connected to nearby network nodes by short straight segments. These connectors are approximations and are recorded separately. The main sample rejects origins if any endpoint-to-node connection exceeds 200 meters, if an outbound or return route is unreachable, or if the assigned former address is unresolved. Store 1956 on Academy Road is excluded because its insurer address conflicts with the company, court and license-roster address; including it is reported as a sensitivity.
 
-Two inventories are compared. The first includes all listed pharmacy records in the study area. The second retains selected recognizable chain names. The restricted inventory omits independent pharmacies and may still contain inactive records. The two results are sensitivity scenarios rather than lower and upper bounds on the historical effect.
+Walking minutes assume a constant 4.8 km/h and omit waiting, slopes and individual mobility limitations. Driving round trips are calculated in both directions to account for one-way streets; the code does not simply double the outbound distance. Of 63 candidate origins within 800 meters, 0 have an unreachable route, 0 fail the endpoint-distance screen, and 1 is assigned to the disputed address. Exclusion reasons can overlap. The final common sample contains 62 origins linked to 22 transfers.
 
-### The New Jersey coverage check
+### Weighting and sensitivity
 
-New Jersey pharmacy locations are absent from the available inventory. Fifty populated tracts have centers less than 2 km from New Jersey county geometry. A nearby pharmacy across the state boundary could therefore be missing from their calculated alternatives. The 2 km threshold is a practical data-coverage screen; it is not a walking-distance standard.
+Population-weighted means give greater weight to origins representing more residents. They do not count observed pharmacy users or weight by actual visits. Descriptive equity comparisons use a 20% neighborhood poverty threshold and a 30% threshold for households without a vehicle. Catchment radii of 500, 800 and 1,000 meters and maximum connector lengths of 100, 200 and 300 meters test sensitivity to spatial choices. The main sample holds origins and population weights constant between before and after.
 
-Table 1. Treatment of tracts near New Jersey
+## Results of the before and after comparison
 
-| Analysis | Tracts included | Treatment of the 50 flagged tracts |
-| --- | --- | --- |
-| Main maps and proximity results | 391 | Included |
-| Separate border sensitivity | 341 | Excluded for comparison |
-| Secondary prediction comparison | 341 | Excluded from fitting and evaluation |
+The 62 included tract origins represent an ACS population context of 262,710; this is not a count of affected customers. Their population-weighted modeled one-way walk rises from 9.0 minutes to 16.0 minutes, an increase of 7.1 minutes. The corresponding driving round trip changes from 1.61 to 2.75 kilometers, a difference of 1.14 kilometers.
 
-The main descriptive analysis therefore retains all 391 populated tracts. Excluding the 50 flagged tracts lowers the population-weighted increase from 32.4 to 30.3 meters. This comparison does not correct the missing inventory, and some origins farther from the boundary may also use New Jersey pharmacies.
+![Paired maps of modeled walking time to the former Rite Aid and designated receiving pharmacy](../outputs/public/before_after_walking_map.png)
 
-### Equity and prediction comparisons
+Figure 4. Before-and-after walking access from the same eligible tract centers. Both panels use the same color scale, network and assumed walking speed. Dots represent origins, not observed people. The after destination is the designated recipient. Sources: Census, PA pharmacy coordinates, company table and OpenStreetMap contributors.
 
-The study compares population-weighted changes across neighborhood groups, using a 20% poverty threshold and a 30% threshold for households without a vehicle. Tracts with missing group information are omitted from that comparison. These descriptive contrasts do not include significance tests and cannot identify the experience of individuals within a tract.
+Table 3. Population-weighted access in the common sample
 
-A secondary exercise tests whether baseline access and neighborhood characteristics predict the calculated proximity increase. A training-sample median, ridge regression and random forest are evaluated on five contiguous geographic holdouts. Training origins within 1 km of test origins are excluded, and preprocessing is fitted within each training sample. The target is a calculated scenario outcome, not observed travel. This comparison assesses predictive information in the chosen features; prediction is not needed to calculate the spatial scenario itself.
-
-## Results
-
-### Court records show why the inventory needs historical verification
-
-The two selected court lists contain 101 Pennsylvania and New Jersey locations, including 16 Philadelphia sites. Eleven city sites appear in the October 2023 motion and five in the June 2025 notice. All 16 match records in the scenario roster [11, 12]. The presence of the 2023-listed sites shows why a July 2025 portal update cannot certify that every entry was operating then. The filings identify closure plans, but none supplies a verified last pharmacy-operating day. This partial collection therefore strengthens the inventory audit without identifying historical treatment dates.
-
-### Access changes are concentrated in a minority of tracts
-
-With all listed destinations eligible, the population-weighted nearest distance rises from 421.2 to 453.6 meters, an increase of 32.4 meters. Sixty-seven tracts (17.1% of populated tracts) have an increase greater than one meter. The other 324 have no calculated increase because a remaining listed destination is already as close or closer than the removed records.
-
-The 67 tracts contain an estimated 281,655 residents. That number describes the population of those tracts; it does not count people observed to have lost access. A citywide average also conceals the larger changes in some individual areas.
-
-### The inventory changes the result substantially
-
-The selected chain-name inventory produces a population-weighted increase of 282.1 meters, about 8.7 times the all-listed result. This difference shows how strongly the calculated loss depends on the alternatives counted. It does not establish which inventory is correct. The all-listed inventory may overstate usable alternatives, while the chain-name restriction excludes legitimate independent pharmacies.
-
-![Philadelphia tract maps of the removal scenario and the share of households without a vehicle](../outputs/public/access_equity_map.png)
-
-Figure 1. Modeled proximity changes and household vehicle availability. The left map removes all Rite Aid-labelled records; the right map shows the ACS share of households without a vehicle. The points are license records. Straight-line distances and tract centers do not represent actual journeys. New Jersey pharmacies are missing.
-
-Table 2. Descriptive neighborhood comparisons
-
-| Tract group | Number of tracts | Weighted increase in meters |
-| --- | --- | --- |
-| All populated tracts | 391 | 32.4 |
-| Poverty rate at least 20% | 192 | 34.6 |
-| Poverty rate below 20% | 197 | 30.0 |
-| Households without a vehicle at least 30% | 176 | 26.0 |
-| Households without a vehicle below 30% | 212 | 37.3 |
-
-Higher-poverty tracts have a slightly larger calculated increase than lower-poverty tracts, at 34.6 versus 30.0 meters. The pattern reverses for vehicle availability: tracts where at least 30% of households lack a vehicle have an increase of 26.0 meters, compared with 37.3 meters elsewhere. These results do not support a claim that every disadvantaged group experiences the largest geographic change. They also do not imply that a smaller distance change is easy for residents without a car.
-
-### The simple baseline has the lowest absolute error
-
-Table 3. Prediction errors in held-out geographic areas
-
-| Method | Mean absolute error in meters | Root mean squared error in meters | R squared |
+| Measure | Before | After | Change |
 | --- | --- | --- | --- |
-| Median baseline | 28.3 | 109.5 | -0.071 |
-| Ridge | 47.2 | 104.4 | 0.027 |
-| Random forest | 49.3 | 105.6 | 0.005 |
+| One-way walking distance in km | 0.72 | 1.28 | +0.56 |
+| One-way walking time in minutes | 9.0 | 16.0 | +7.1 |
+| Driving round trip in km | 1.61 | 2.75 | +1.14 |
 
-Mean absolute error is the average absolute gap between a prediction and the calculated proximity increase; lower values indicate closer predictions. The median baseline performs best on this measure. Most tracts have no increase, which helps explain its performance. Ridge and random forest have slightly lower root mean squared errors, which place greater weight on large mistakes, but their R squared values are close to zero. These results do not support using the fitted models to forecast real closure impacts.
+Walking distance increases by more than one meter at 44 origins, decreases at 13, and is unchanged within one meter at 5. A designated recipient can be closer to a particular origin than the former store, so decreases are possible. This differs from removing a destination and always choosing the nearest remaining option, where distance cannot decrease by construction.
 
-## Walking driving and emissions
+![Two paired scatterplots comparing walking time and driving round-trip distance](../outputs/public/before_after_comparison.png)
 
-The completed calculation shows reduced proximity under removal. It does not show that residents switched from walking to driving. Holding origins and all other destinations fixed, removing a destination cannot shorten the distance to the nearest remaining option; adding a destination cannot lengthen it. The behavioral and emissions consequences require further evidence.
+Figure 5. Each point compares one origin before and after its assigned transfer. Points above the diagonal have longer modeled access after transfer. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
 
-Table 4. Possible travel responses to location change
+![Walking reachability thresholds and distribution of modeled walking-time changes](../outputs/public/walking_thresholds.png)
 
-| Location change | Possible response | Conditional emissions implication |
-| --- | --- | --- |
-| Loss of a nearby pharmacy | Longer walking or driving trip; some journeys may switch to a car | Additional gasoline vehicle travel increases tailpipe CO₂ |
-| Opening near residents and a usable walking route | A shorter walk or drive may replace a longer car journey | Lower vehicle travel can reduce tailpipe CO₂ |
-| Opening that attracts additional car journeys | More trips or diversion to a car-oriented destination | Total vehicle travel and emissions may increase |
-| Closure followed by delivery, combined errands or forgone visits | Travel is reorganized or a visit does not occur | The net direction cannot be determined from proximity alone |
+Figure 6. The left panel reports the population-weighted share of included tract origins within each walking threshold; it assumes every tract resident is represented at the tract center. The right panel shows the distribution of walking-time differences across origins. Neither panel measures the share of residents who actually walk.
 
-EPA guidance connects nearby destinations and transport options with opportunities to walk, cycle or use transit [5]. Applying that mechanism here, a conveniently located opening could support walking, while a closure could make walking less practical. Neither statement is an observed mode result from this project. A reduction in travel because someone cannot obtain essential services should not be treated as an access improvement.
+The largest location-level increase occurs among the three included origins assigned to 1334 Windrim Avenue: their population-weighted walking time rises by 35.3 minutes when the destination becomes 112 West Chelten Avenue. Two origins assigned to 4000 Woodhaven Road have a small average decrease. The same-address Chestnut transfer leaves modeled distance unchanged. These comparisons describe selected catchments; their small and varying tract counts limit comparisons across stores.
 
-### Conditional emissions calculation
+![Ordered bar chart of modeled walking-time changes for 22 represented transfer locations](../outputs/public/transfer_by_location.png)
 
-For illustration, the emissions calculation applies the 32.3893-meter population-weighted increase to 1,000 hypothetical person round trips. It assumes one traveler per vehicle and the EPA factor of approximately 400 grams of tailpipe CO₂ per gasoline-vehicle mile [6]. Car share, route detour and the proportion of journeys creating additional travel are varied explicitly.
+Figure 7. Mean walking-time change within each represented former-store catchment, using fixed tract population weights. Labels give the number of included origins. Twenty-two transfers are represented: Academy Road is excluded for its address conflict, and Krewstown Road has no tract center within the main catchment. Missing estimates are not zero effects.
 
-With half of trips made by car, a route multiplier of 1.3 and all of the modeled extension counted as additional travel, the result is 10.47 kg of additional tailpipe CO₂ per 1,000 person round trips. Across the 24 specified combinations, the result ranges from 2.01 to 25.76 kg. These values are sensitivity calculations, not observed emissions or confidence intervals.
+## Neighborhood differences
 
-The calculation multiplies the one-way distance increase by two, the route multiplier, the number of person trips, the car share and the additional-travel share, then converts meters to miles and grams to kilograms. Its results are nonnegative by construction because it models added gasoline travel. It therefore cannot establish that closures always increase net emissions. It also omits transit operations, delivery logistics, electricity use and vehicle lifecycle emissions.
+A given additional distance can matter differently to households with and without a vehicle. The following comparisons describe the route sample and its neighborhood composition. They do not estimate an individual resident’s burden or establish statistically significant causal differences.
+
+![Bar chart of modeled walking-time increases by poverty and household vehicle availability](../outputs/public/before_after_equity.png)
+
+Figure 8. Population-weighted walking-time change by neighborhood group. Poverty and vehicle availability are separate classifications, so the same origin appears in one group within each pair. Labels show tract counts. ACS uncertainty is not propagated into these descriptive values.
+
+Table 4. Descriptive neighborhood comparisons
+
+| Group | Tracts | Walking change in minutes | Driving round-trip change in km |
+| --- | --- | --- | --- |
+| Poverty below 20% | 43 | 6.2 | 1.01 |
+| Poverty at least 20% | 19 | 8.6 | 1.38 |
+| Households without a vehicle below 30% | 41 | 7.2 | 1.15 |
+| Households without a vehicle at least 30% | 21 | 6.7 | 1.12 |
+
+The higher-poverty group has a larger modeled walking increase (8.6 versus 6.2 minutes), while the group with more households without a vehicle has a slightly smaller increase (6.7 versus 7.2 minutes). The data therefore do not support a blanket claim that every disadvantaged group experiences a larger distance increase. The group differences should guide closer examination of routes, service availability and transport options. A small geographic change can still be difficult for someone with restricted mobility or an incompatible insurance plan. Conversely, neighborhood poverty alone cannot establish which pharmacy a resident used or how they travelled.
+
+## Walking, driving and emissions
+
+The route comparison shows whether reaching the designated recipient would require a longer walk or drive from a fixed origin. It does not identify a switch between walking, driving or transit. A longer walking route may make walking less practical, but the response could be another pharmacy, delivery, a combined errand or a forgone visit. An opening could support walking when it replaces a longer journey and offers usable pedestrian access; a car-oriented opening could also attract additional driving.
+
+There is qualitative evidence that some Philadelphia residents changed travel after earlier closures. Reporting on the Grays Ferry closure describes former short walks being replaced by bus journeys, borrowed cars and paid rides, and some collection being combined with other appointments [22]. These published interviews corroborate plausible travel mechanisms. They are not a representative mobility sample, and their reported experiences are not treated as this project’s measured average effect.
+
+### Conditional carbon calculation
+
+The emissions scenario uses the modeled driving round-trip difference of 1.14 km and the EPA approximation of 400 grams of tailpipe CO₂ per gasoline-vehicle mile [6]. Assuming 1,000 hypothetical person round trips, half made by gasoline car, one traveler per vehicle and all of the route difference counted as additional travel gives 142.2 kg of additional tailpipe CO₂. The route distances already include both directions, so no extra doubling or detour multiplier is applied.
+
+![Sensitivity plot of conditional emissions under different car and additional-travel shares](../outputs/public/before_after_emissions.png)
+
+Figure 9. Conditional tailpipe emissions using the route-sample weighted driving-distance change. Each line changes the assumed share of that difference that creates additional travel; the horizontal axis varies the assumed car share. These are scenarios, not observed carbon outcomes or confidence intervals.
+
+This simplified calculation holds the car share constant between before and after. It cannot measure emissions from a walking-to-driving transition. A full account would compare mode-specific travel before and after and include occupancy, trip chaining, delivery, vehicle mix and transit operations. Emissions could increase with additional driving, but a drop caused by people forgoing needed care would not represent improved accessibility.
 
 ## Discussion
 
-The strongest substantive finding is that estimated access loss depends heavily on how the pharmacy network is defined. A modest average increase of 32.4 meters could be interpreted as little consequence if read alone. The concentration in 67 tracts and the much larger result under the chain-name inventory show why that interpretation would be premature. Before debating the magnitude of a historical effect, the analysis needs a verified set of destinations that residents could actually use.
+The completed analysis establishes a documented set of transfer destinations and quantifies how access to them differs from access to former pharmacies. The routed comparison is more informative about potential walking burden than a straight-line removal exercise because it incorporates the mapped street layout and actual designated recipients. It nevertheless remains conditional on patients using those recipients and on the representation of homes by tract centers.
 
-The equity comparisons also require more than a ranking of distances. Higher-poverty areas show a somewhat larger geographic increase, but areas with more households lacking vehicles do not. Vehicle availability can nevertheless change the burden of a given distance. Walking conditions, disability, opening hours and pharmacy eligibility may matter more than a small difference in the neighborhood average. Those dimensions should be measured directly rather than inferred from demographic categories.
+The evidence audit changes the interpretation as much as the distance calculation. Matching all 24 store numbers to a pretransfer insurer directory strengthens location identification, while the Academy Road conflict demonstrates why corroboration must preserve disagreements. The same-address transfer also shows that the end of a chain’s operation need not mean permanent loss of pharmacy service at that site.
 
-The findings establish a reproducible way to identify candidate areas for field checking and test how inventory choices alter the answer. They do not resolve the central behavioral question. Actual changes in visits, transport modes and emissions remain empirical questions, and the study’s next stage must distinguish displacement to other pharmacies from reduced access to pharmacy services overall.
+The 2023 Grays Ferry episode describes prescriptions moving to another Rite Aid that appears in the 2025 transfer table. This sequence illustrates why repeated exposure matters: a destination that absorbs demand after one closure can itself close later [22, 13]. An event study should track such chains of displacement rather than assume that a receiving pharmacy remains an unaffected control.
 
-## Proposed quasi experimental study
+The earlier inventory-removal analysis remains available as a supplement. It produces a 32.4-meter population-weighted straight-line increase across all 391 populated tracts, versus 282.1 meters under a selected chain-name inventory. Those figures answer a different question, use a different destination rule and sample, and must not be compared directly with the paired-route results as if one were an updated estimate of the same quantity.
 
-The next stage would construct a 2022–2025 panel, with 2022 as the preperiod, from verified store operating intervals and authorized aggregate origin-to-pharmacy mobility records. Closure dates would distinguish pharmacy operations from front-store operations and announcement dates. Same-site replacements, prescription transfers and nearby openings would be recorded. No licensed mobility panel or verified event ledger has been obtained for the completed analysis [9].
+## Socio-econometric identification strategy
 
-A cohort-specific difference-in-differences design would compare changes around a closure with changes in never-treated or not-yet-treated areas. Callaway and Sant’Anna provide the methodological basis for multiple treatment periods [7]. Spatial exposure would separate areas directly losing a nearby destination from areas receiving displaced demand, following the interference concerns discussed by Butts [8]. Initial 800-meter direct and 800–1,600-meter spillover distances would be tested against alternative thresholds and observed preclosure catchments.
+The causal stage asks whether changes following a closure exceed changes that would otherwise have occurred. Neighborhood sorting, falling store demand and firm selection of closure sites can affect both exposure and outcomes. Spatial socio-econometric methods can help address these problems when their identifying assumptions are credible. Merely adding spatial terms to a regression does not isolate a treatment effect.
 
-Bankruptcy does not randomly assign closure locations or timing. Declining demand and neighborhood change may affect both closure and subsequent travel. Pretrend checks, event-date uncertainty, alternative comparison groups and spatial uncertainty are therefore central to interpretation. Aggregate origin-to-destination records provide distance proxies and visitation patterns; validated mode information and historical routes are still needed to estimate walking, driving and emissions.
+### Spatial difference in differences
 
-The companion notebook contains input checks and an unadjusted cohort-time mean-change estimator. An optional R extension uses the established did package for covariate-adjusted estimation. Neither has produced empirical treatment effects in this project. The full protocol documents sample rules, anticipation, comparison support and the handling of overlapping events.
+The primary design is a staggered difference-in-differences analysis with explicit spatial exposure. A 2022–2025 origin-by-period panel would compare changes around 2023–2025 closures with changes in never-treated or not-yet-treated origins. Direct exposure, demand received by nearby surviving pharmacies, and overlapping later closures would be modeled separately. Cohort-specific contrasts avoid using already-treated areas as controls [7, 8]. Pretrends, anticipation, panel coverage and common support must be assessed; bankruptcy alone does not randomize store locations or closure timing.
+
+The initial spatial specification uses an 800-meter direct catchment and an 800–1,600-meter indirect ring, with alternative distances and preclosure visit-based catchments. Nearby receiving pharmacies are potential spillover outcomes rather than automatically valid controls. The Python notebook contains an unadjusted cohort-time estimator and input checks; the optional R script documents a covariate-adjusted extension. Neither has produced empirical closure effects without the required mobility data.
+
+### Geographic regression discontinuity
+
+A spatial RDD would be appropriate only if a documented policy or eligibility rule changed closure or replacement exposure discontinuously across a geographic boundary. School-district or municipal boundaries can support such designs in other settings, but no qualifying assignment rule has been identified for these Rite Aid closures. Residential sorting, simultaneous policy differences, river barriers and spillovers can invalidate the comparison. The PA–NJ border is therefore not used as an instrument or causal cutoff in this study [24].
+
+### Spatial instrumental variables
+
+An instrumental-variable design would require a variable that predicts closure exposure while affecting pharmacy travel only through that exposure, with a credible exogeneity argument. A spatial lag, historical store density, distance to a pharmacy or lease timing does not automatically satisfy that exclusion restriction. No valid instrument has been established here. If one is found, the study should report its first stage, weak-instrument diagnostics, the population whose effect is identified, and the implications of spatial interference [25].
 
 ## Recommendations
 
-First, verify the operating pharmacy inventory before using these results for resource allocation. Audit the 109 Rite Aid-labelled buffer records, confirm public access and operating dates, retain independent pharmacies, and add New Jersey alternatives. The 67 tracts with a calculated increase are a practical starting list for investigation, not a validated list of neighborhoods with unmet need.
+Use the paired access results to identify locations for service and route checks. Prioritize origins with large increases and limited household vehicle availability. Confirm recipient capacity, opening hours, insurance acceptance, accessible entrances and practical walking or transit connections before recommending a particular destination or replacement site.
 
-Second, evaluate access through usable routes and services. A local assessment should combine walking and transit travel times with opening hours, insurance acceptance, prescription capacity and replacement arrangements. Tracts with many households without vehicles deserve attention even when their straight-line increase is small.
+Maintain a dated local pharmacy register that distinguishes dispensing operations from the retail front end, records prescription recipients, and follows same-site successors. Resolve the Academy Road address conflict and independently corroborate final operating days. Include independent pharmacies and New Jersey alternatives in a complete choice-set analysis.
 
-Third, assess proposed openings and closure responses against existing travel patterns. A nearby pharmacy with safe pedestrian access may reduce the need for longer car journeys. A car-oriented opening may attract additional vehicle travel. Planning decisions should compare these possibilities using routed access and observed journeys rather than assuming that every opening lowers emissions.
+For the causal stage, acquire an authorized aggregate mobility extract covering January 2022–December 2025, including closed locations, stable destination identifiers, origin distributions and panel-coverage denominators. Foot-traffic products can support visitation and destination analysis but do not by themselves identify walking or driving [9]. Validated mode information or a suitable travel survey is needed before reporting mode shifts or net emissions.
 
-Finally, collect the evidence needed for a historical evaluation before making causal or carbon claims. Track total pharmacy visitation as well as receiving-store gains, preserve mobility-panel coverage information, and assess who is missing from the sample. Prediction models should be reconsidered only after the inventory and outcomes are improved; the current models offer no advantage over the median baseline on average absolute error.
+Evaluate openings as a separate intervention with documented opening dates and a relevant comparison group. Consider whether a proposed site shortens usable journeys, offers services residents can access, and absorbs demand without excessive waiting or travel. The current study estimates no opening effect.
 
 ## Limitations
 
-The main limitation is temporal validity. The available license roster is a snapshot that may include inactive, nonretail or nonpublic locations. Removing all Rite Aid-labelled entries at once does not reproduce the sequence of 2023–2025 closures. The study consequently estimates a spatial scenario, not a historical treatment effect.
+The historical ledger is selective. It spans 2023–2025 but is not a balanced three-year panel or a complete closure census. The numerical before-and-after route comparison covers only the 2025 transfer subset. Company-reported final business days are distinguished from independent verification, and scheduled dates may differ from actual execution. The current evidence cannot establish a citywide historical treatment effect.
 
-Geographic measurement is also incomplete. Geometric tract centers conceal variation within neighborhoods, straight lines omit route barriers, and some pharmacy coordinates are approximate. New Jersey alternatives are missing from every main result. Excluding 50 nearby origins from the prediction comparison does not remove that limitation from the descriptive analysis.
+Designated prescription recipients need not be the pharmacies patients ultimately chose. The 800-meter catchment, nearest studied former-site assignment and geometric tract centers approximate exposure. The fixed January 2025 map may omit later changes; mapped walkability does not guarantee a safe or accessible route. Node connectors, approximate addresses, missing turn restrictions and incomplete barrier information introduce measurement error. Transit journeys are not routed.
 
-The ACS estimates describe areas during 2018–2022. Margins of error are retained in the inputs but are not propagated into the reported comparisons. Missing covariates change subgroup sample sizes, and neighborhood characteristics cannot identify an individual resident’s experience. The study does not measure pharmacy capacity, service compatibility, disability or unmet medication need.
+The paired study includes PA origins and designated recipients, not every potential alternative. New Jersey destinations could matter in a complete choice set. In the older nearest-pharmacy supplement, 50 tracts near New Jersey remain in descriptive results but are excluded from its prediction comparison because the destination inventory omits New Jersey. That screen is unrelated to the primary paired-route inclusion rule.
 
-No observed trip histories, validated mode shares or local emissions measurements are available. The emissions exercise assumes additional gasoline vehicle travel and does not estimate net transport emissions. Future device-based data may underrepresent older, lower-income or less digitally visible residents. Even with those data, closure selection and spillovers may limit the credibility of causal comparisons.
+ACS estimates describe 2018–2022 neighborhoods; their margins of error are retained but not propagated. Population weights do not measure customers, pharmacy trips or treatment exposure for individual residents. No confidence intervals or causal subgroup claims are attached to the descriptive comparisons. No licensed mobility panel, validated mode observations or local emissions measurements have been obtained. The carbon calculations depend on declared assumptions and omit wider transport and lifecycle effects.
 
 ## Conclusion
 
-The completed study shows that removing Rite Aid-labelled records increases modeled nearest-pharmacy distance in a minority of Philadelphia tracts and that the magnitude depends strongly on the destination inventory. It also shows that neighborhood disadvantage does not map uniformly onto the calculated distance change. The project delivers a reproducible spatial assessment, documented public data, an executed notebook and a design for extending the analysis to historical outcomes.
+The project delivers a 2023–2025 historical evidence ledger, corroboration of 24 company-reported transfer identities, and a reproducible comparison of access to former and receiving pharmacies. In the eligible route sample, modeled walking time increases by 7.1 minutes and driving round-trip distance by 1.14 km on a population-weighted basis. The maps and sensitivity results identify where a transfer may create a substantial access burden under the stated destination assumption.
 
-Closures can make walking less practical and increase emissions when they create additional car travel. Well-located openings can support walking and reduce vehicle travel when they replace longer journeys. The present evidence does not establish that either behavioral change occurred in Philadelphia. Verifying operating destinations and measuring actual travel are the necessary next steps.
+The completed evidence supports an accessibility assessment and a focused research agenda. It does not establish how many people switched from walking to driving or the net carbon effect of the closures. Those are the remaining outcomes for the proposed spatial difference-in-differences study once appropriate observed travel data are available.
 
 ## References
 
@@ -201,3 +232,29 @@ Closures can make walking less practical and increase emissions when they create
 11. Rite Aid Corporation et al. (2023). Store closing sales motion. U.S. Bankruptcy Court, District of New Jersey, case 23-18993-MBK, document 37, filed October 16. Exhibit A Schedule 1, PDF pages 54–56. Public mirror of court-filed document. [Source](https://cdns.abclocal.go.com/three/kabc/101823-kabc-rite-aid-doc.pdf)
 
 12. New Rite Aid LLC et al. (2025). Sixth notice of additional closing locations. U.S. Bankruptcy Court, District of New Jersey, case 25-14861-MBK, document 743, filed June 6. Exhibit 1, PDF pages 5–8. Public mirror of court-filed document. [Source](https://npr.brightspotcdn.com/f8/c8/faad678e424db35665a541d7ce0a/25-06-06-store-closure-filing.pdf)
+
+13. Rite Aid (2025). Pharmacy Closure and Transfer List. Internet Archive capture October 4, 2025; 1,025 national rows. [Source](https://web.archive.org/web/20251004155916/https://content.riteaid.com/new-pharmacy-location.html)
+
+14. Keystone First VIP Choice (2025). Pharmacy Directory. Updated May 5, 2025. Philadelphia Rite Aid entries, printed pages 105–108. [Source](https://q1.keystonefirstvipchoice.com/content/dam/keystone-first/vip-choice/pdf/2025-pharmacy-directory.pdf.coredownload.inline.pdf)
+
+15. OpenStreetMap contributors and Geofabrik (2025). Pennsylvania historical extract, January 1, 2025. ODbL 1.0. Network filtering and checksums are documented in the repository. [Source](https://download.geofabrik.de/north-america/us/pennsylvania.html)
+
+16. Veeramachaneni, S., Ramachandran, S., and Barnard, M. (2026). Bulk Prescription Transfers and Access After Chain Pharmacy Closures. JAMA Health Forum, 7(7), e262070. [Source](https://doi.org/10.1001/jamahealthforum.2026.2070)
+
+17. McCarthy, E. (2025). Philly’s last Rite Aid stores will close in late August. The Philadelphia Inquirer, July 9. [Source](https://www.inquirer.com/business/rite-aid-philadelphia-stores-closing-20250709.html)
+
+18. McCarthy, E. (2025). All Rite Aid pharmacies are officially closed in Pa., N.J. The Philadelphia Inquirer, August 23. [Source](https://www.inquirer.com/business/health/rite-aid-pharmacies-closed-pennsylvania-new-jersey-20250823.html)
+
+19. Ajamu, R. (2024). Rite Aid to close its Germantown Avenue location. Resolve Philly, April 16; updated July 17. [Source](https://resolvephilly.org/gih/rite-aid-to-close-its-germantown-avenue-location-leaving-some-residents-without-a-nearby-pharmacy/)
+
+20. McCarthy, E. (2024). Six more Rite Aid stores are closing in Philly and its suburbs. The Philadelphia Inquirer, April 8. [Source](https://www.inquirer.com/business/rite-aid-closures-philadelphia-chester-county-south-jersey-20240408.html)
+
+21. Perez-Castells, A. (2024). Another Center City Rite Aid is closing as the company continues to downsize amid bankruptcy. The Philadelphia Inquirer, January 8. [Source](https://www.inquirer.com/business/rite-aid-pharmacy-closed-center-city-20240108.html)
+
+22. McCarthy, E. (2024). What happens after a Philly neighborhood’s last chain pharmacy shuts its doors. The Philadelphia Inquirer, February 4. [Source](https://www.inquirer.com/business/rite-aid-bankruptcy-south-philadelphia-20240204.html)
+
+23. Perez-Castells, A. (2023). More Rite Aid pharmacies are closing in the Philadelphia region before the end of the year. The Philadelphia Inquirer, December 1. [Source](https://www.inquirer.com/business/rite-aid-store-closed-phamacy-bankruptcy-20231201.html)
+
+24. Keele, L. J., and Titiunik, R. (2015). Geographic Boundaries as Regression Discontinuities. Political Analysis, 23(1), 127–155. [Source](https://doi.org/10.1093/pan/mpu014)
+
+25. Angrist, J. D., Imbens, G. W., and Rubin, D. B. (1996). Identification of Causal Effects Using Instrumental Variables. Journal of the American Statistical Association, 91(434), 444–455. [Source](https://doi.org/10.1080/01621459.1996.10476902)
