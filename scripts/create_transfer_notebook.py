@@ -80,10 +80,12 @@ C('''comparison = pd.DataFrame({
     'after': [summary['weighted_walk_after_minutes'], summary['weighted_drive_after_roundtrip_km']],
     'difference': [summary['weighted_walk_delta_minutes'], summary['weighted_drive_delta_roundtrip_km']]})
 display(comparison.round(2))
-for file in ['transfer_timeline.png','transfer_destination_map.png','before_after_walking_map.png','before_after_comparison.png','walking_thresholds.png','transfer_by_location.png']:
+for file in ['transfer_timeline.png','transfer_destination_map.png','before_after_walking_map.png','walking_change_tract_map.png','before_after_comparison.png','walking_thresholds.png','transfer_by_location.png']:
     display(Image(filename=str(OUT / file)))
 '''),
-M('''## 5. Neighborhood comparisons and spatial sensitivity
+M('''The access maps shade the 62 eligible census tracts using the result calculated at each tract center. Before and after use identical color intervals. The change map separates longer, shorter and unchanged access; gray means no primary estimate, not zero change. Tract-wide shading does not imply that all residents have the same journey. Hatching identifies the excluded address conflict.
+
+## 5. Neighborhood comparisons and spatial sensitivity
 Poverty and household vehicle availability come from fixed 2018–2022 ACS estimates. The comparisons describe included origins and do not identify individual effects. Threshold sensitivities change the composition of the catchment sample; they are not confidence intervals.'''),
 C('''display(pd.read_csv(OUT / 'before_after_equity.csv')[['group','tracts','weighted_walk_delta_minutes','weighted_drive_delta_roundtrip_km']].round(2))
 display(Image(filename=str(OUT / 'before_after_equity.png')))

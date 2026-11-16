@@ -17,7 +17,7 @@ from sys import path
 path.insert(0, str(ROOT))
 from src.evidence import address_key
 from src.transfers import store_number
-from src.cartography import map_furniture
+from src.cartography import map_furniture, tract_background
 
 NEWS = [
     dict(address='3000-02 Reed Street', evidence_year=2023, reported_date='', date_meaning='closed during autumn 2023; exact pharmacy date unspecified',
@@ -88,16 +88,21 @@ def build():
     (ROOT / 'outputs/public/historical_evidence_summary.json').write_text(json.dumps(summary, indent=2) + '\n')
     print(json.dumps(summary, indent=2))
     points = gpd.GeoDataFrame(ledger, geometry=gpd.points_from_xy(ledger.longitude, ledger.latitude), crs=4326).to_crs(26918)
-    boundary = gpd.read_file(PROCESSED / 'tract_scenarios.geojson').to_crs(26918).dissolve()
+    tracts = gpd.read_file(PROCESSED / 'tract_scenarios.geojson').to_crs(26918)
+    boundary = tracts.dissolve()
     plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 11, 'savefig.facecolor': 'white'})
-    fig, axes = plt.subplots(1, 3, figsize=(11, 5.2), layout='constrained')
-    for ax, year, color in zip(axes, [2023, 2024, 2025], ['#9b572f', '#526a8a', '#137c86']):
-        boundary.plot(ax=ax, facecolor='#f3f4f6', edgecolor='#829097', linewidth=.6)
+    fig, axes = plt.subplots(1, 3, figsize=(11.6, 5.6))
+    for ax, year in zip(axes, [2023, 2024, 2025]):
+        tract_background(ax, tracts)
+        boundary.boundary.plot(ax=ax, color='#75878b', linewidth=.7)
         subset = points.loc[points.evidence_year.eq(year)]
-        subset.plot(ax=ax, color=color, markersize=35, edgecolor='white', linewidth=.5)
+        subset.plot(ax=ax, color='#137c86', markersize=42, edgecolor='white', linewidth=.7, zorder=3)
         map_furniture(ax, boundary.total_bounds)
         ax.set_title(f'{year}\n{len(subset)} selected locations', loc='left', fontweight='bold'); ax.set_axis_off()
-    fig.savefig(ROOT / 'outputs/public/closure_evidence_map.png', dpi=180); plt.close(fig)
+    fig.text(.5, .055, 'Each point is a documented pharmacy location; tract lines provide geographic context.', ha='center', fontsize=10, color='#4e6268')
+    fig.text(.5, .015, 'Selected evidence, not complete annual closure counts. Sources: court records, company table, local reporting and Census.', ha='center', fontsize=8.5, color='#4e6268')
+    fig.subplots_adjust(left=.015, right=.99, bottom=.13, top=.85, wspace=.06)
+    fig.savefig(ROOT / 'outputs/public/closure_evidence_map.png', dpi=200); plt.close(fig)
 
 
 if __name__ == '__main__':
