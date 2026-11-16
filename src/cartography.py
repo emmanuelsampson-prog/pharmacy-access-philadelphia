@@ -1,6 +1,16 @@
 """Small shared map furniture for local, meter-based projected maps."""
 
 
+def tract_background(ax, tracts, facecolor='#f1f3f3', edgecolor='#d2d9da', linewidth=.3):
+    """Show tract geography for context without assigning unsampled values."""
+    tracts.plot(ax=ax, facecolor=facecolor, edgecolor=edgecolor, linewidth=linewidth, zorder=0)
+    xmin, ymin, xmax, ymax = tracts.total_bounds
+    padding = max(xmax - xmin, ymax - ymin) * .04
+    ax.set_xlim(xmin - padding, xmax + padding)
+    ax.set_ylim(ymin - padding, ymax + padding)
+    ax.set_aspect('equal')
+
+
 def map_furniture(ax, bounds, scale_m=5000):
     xmin, ymin, xmax, ymax = bounds
     x = xmin + (xmax - xmin) * .06

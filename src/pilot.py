@@ -63,28 +63,8 @@ def summarize(tracts,qa,metrics):
 
 def figures(tracts,pharmacies,metrics,equity):
     plt.rcParams.update({"font.family":"DejaVu Sans","font.size":10,"axes.spines.top":False,"axes.spines.right":False})
-    fig,axs=plt.subplots(1,2,figsize=(12,7.4))
-    cmap=ListedColormap(["#edf4f4","#bfdfdc","#66b9b1","#178d90","#175468"])
-    bounds=[0,1,100,250,500,10000]
-    populated=tracts[tracts.population>0]
-    tracts.plot(ax=axs[0],facecolor="#f5f1e9",edgecolor="white",linewidth=.2)
-    populated.plot(ax=axs[0],column="all_listed_delta_m",cmap=cmap,norm=BoundaryNorm(bounds,cmap.N),edgecolor="white",linewidth=.2)
-    rites=pharmacies[pharmacies.is_rite_aid&pharmacies.inside_philadelphia]
-    rites.plot(ax=axs[0],color=ORANGE,markersize=10,alpha=.8,label="Rite Aid-labelled license")
-    axs[0].legend(loc="lower left",frameon=False,fontsize=8)
-    axs[0].set_title("Where potential access changes\nAll-listed inventory scenario",color=NAVY,pad=14)
-    tracts.plot(ax=axs[1],column="no_vehicle_share",cmap="YlOrBr",vmin=0,vmax=.8,edgecolor="white",linewidth=.2,
-        legend=True,legend_kwds={"label":"Share of households without a vehicle","shrink":.55})
-    axs[1].set_title("Households without a vehicle\n2018-2022 ACS context",color=NAVY,pad=14)
-    for ax in axs:
-        ax.set_axis_off()
-    from matplotlib.patches import Patch
-    labels=["0-1 m","1-100 m","100-250 m","250-500 m",">500 m"]
-    fig.legend(handles=[Patch(facecolor=c,label=l) for c,l in zip(cmap.colors,labels)],loc="lower center",ncol=5,bbox_to_anchor=(.29,.075),frameon=False,title="Modeled one-way straight-line increase")
-    fig.suptitle("Pharmacy access under a hypothetical Rite Aid removal",fontsize=17,color=NAVY,x=.5,y=.98)
-    fig.text(.5,.025,"License roster is not a verified operating network. Tract centroids are not residents' homes. NJ alternatives are missing.",ha="center",fontsize=9,color="#555555")
-    fig.subplots_adjust(bottom=.18,top=.84,wspace=.1)
-    fig.savefig(OUT/"access_equity_map.png",dpi=180,bbox_inches="tight");plt.close(fig)
+    from src.tract_maps import supplementary_map
+    supplementary_map(tracts, pharmacies)
     fig,axs=plt.subplots(1,2,figsize=(12,4.8))
     p=metrics.sort_values("mae_m")
     axs[0].barh(p.model,p.mae_m,color=[TEAL if n=="Random forest" else "#9eb4bc" for n in p.model])

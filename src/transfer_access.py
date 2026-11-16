@@ -17,7 +17,8 @@ from scipy.spatial.distance import cdist
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from src.cartography import map_furniture
+from src.cartography import map_furniture, tract_background
+from src.tract_maps import access_maps
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/public'
@@ -189,19 +190,7 @@ def figures(main, pairs):
                          'axes.spines.right': False, 'savefig.facecolor': 'white'})
     tracts = gpd.read_file(PROCESSED / 'tract_scenarios.geojson').to_crs(26918)
     boundary = tracts.dissolve()
-    points = gpd.GeoDataFrame(main, geometry=gpd.points_from_xy(main.origin_lon, main.origin_lat), crs=4326).to_crs(26918)
-    fig, axes = plt.subplots(1, 2, figsize=(11, 6.2), layout='constrained')
-    vmax = max(60, np.ceil(main.walk_after_minutes.max() / 10) * 10)
-    for ax, phase, label in zip(axes, ['before', 'after'], ['Before: former Rite Aid', 'After: designated recipient']):
-        boundary.plot(ax=ax, color='#f3f4f6', edgecolor='#75828b', linewidth=.7)
-        points.plot(ax=ax, column=f'walk_{phase}_minutes', cmap='YlOrRd', vmin=0, vmax=vmax,
-                    markersize=28, edgecolor='white', linewidth=.3)
-        map_furniture(ax, boundary.total_bounds)
-        ax.set_title(label, loc='left', fontweight='bold'); ax.set_axis_off()
-    cb = fig.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(0, vmax), cmap='YlOrRd'), ax=axes, shrink=.7)
-    cb.set_label('Modeled one-way walking minutes at 4.8 km/h')
-    fig.suptitle('Access around 2025 Philadelphia pharmacy transfers', x=.01, ha='left', fontsize=15, fontweight='bold')
-    fig.savefig(OUT / 'before_after_walking_map.png', dpi=180); plt.close(fig)
+    access_maps(main, tracts)
     fig, axes = plt.subplots(1, 2, figsize=(10, 4.1), layout='constrained')
     for ax, before, after, label in [(axes[0], 'walk_before_minutes', 'walk_after_minutes', 'Walking minutes, one way'),
                                     (axes[1], 'drive_before_roundtrip_km', 'drive_after_roundtrip_km', 'Driving kilometers, round trip')]:
@@ -258,14 +247,17 @@ def figures(main, pairs):
     old = gpd.GeoSeries(gpd.points_from_xy(pairs.old_longitude, pairs.old_latitude), crs=4326).to_crs(26918)
     new = gpd.GeoSeries(gpd.points_from_xy(pairs.receiving_longitude, pairs.receiving_latitude), crs=4326).to_crs(26918)
     fig, ax = plt.subplots(figsize=(7.4, 7.2), layout='constrained')
-    boundary.plot(ax=ax, color='#f3f4f6', edgecolor='#75828b', linewidth=.7)
+    tract_background(ax, tracts)
+    boundary.boundary.plot(ax=ax, color='#75828b', linewidth=.7)
     for a, b in zip(old, new):
         ax.annotate('', xy=(b.x, b.y), xytext=(a.x, a.y),
-                    arrowprops={'arrowstyle': '-|>', 'color': '#7d9298', 'lw': .8, 'alpha': .8})
+                    arrowprops={'arrowstyle': '-|>', 'color': '#566d75', 'lw': 1.1, 'alpha': .9})
     ax.scatter(old.x, old.y, s=38, c='#ba663e', edgecolors='white', linewidths=.5, label='Former Rite Aid', zorder=3)
     ax.scatter(new.x, new.y, s=36, c='#137c86', marker='s', edgecolors='white', linewidths=.5, label='Designated recipient', zorder=4)
     disputed = pairs.store_number.astype(str).eq('1956')
     ax.scatter(old[disputed].x, old[disputed].y, s=100, facecolors='none', edgecolors='#ad3434', linewidths=1.3, label='Address disputed', zorder=5)
+    same = pairs.same_address_transfer
+    ax.scatter(old[same].x, old[same].y, s=150, facecolors='none', marker='D', edgecolors='#6f5483', linewidths=1.2, label='Same-address transfer', zorder=5)
     ax.set_title('Where prescriptions were designated to transfer', loc='left', fontweight='bold', fontsize=13)
     ax.legend(loc='lower right', frameon=True, framealpha=.95, fontsize=9)
     map_furniture(ax, boundary.total_bounds)
