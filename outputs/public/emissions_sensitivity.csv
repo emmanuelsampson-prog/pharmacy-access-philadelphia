@@ -1,0 +1,25 @@
+hypothetical_person_round_trips,car_share,detour_factor,additional_trip_share,occupants_per_vehicle,gasoline_vehicle_g_co2_mile,additional_tailpipe_co2_kg,status
+1000,0.25,1.0,0.5,1,400,2.012578391537168,scenario only; no observed trip/mode/emissions data
+1000,0.25,1.0,1.0,1,400,4.025156783074336,scenario only; no observed trip/mode/emissions data
+1000,0.25,1.3,0.5,1,400,2.6163519089983187,scenario only; no observed trip/mode/emissions data
+1000,0.25,1.3,1.0,1,400,5.232703817996637,scenario only; no observed trip/mode/emissions data
+1000,0.25,1.6,0.5,1,400,3.2201254264594694,scenario only; no observed trip/mode/emissions data
+1000,0.25,1.6,1.0,1,400,6.440250852918939,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.0,0.5,1,400,4.025156783074336,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.0,1.0,1,400,8.050313566148672,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.3,0.5,1,400,5.232703817996637,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.3,1.0,1,400,10.465407635993275,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.6,0.5,1,400,6.440250852918939,scenario only; no observed trip/mode/emissions data
+1000,0.5,1.6,1.0,1,400,12.880501705837878,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.0,0.5,1,400,6.0377351746115036,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.0,1.0,1,400,12.075470349223007,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.3,0.5,1,400,7.849055726994956,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.3,1.0,1,400,15.698111453989911,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.6,0.5,1,400,9.660376279378408,scenario only; no observed trip/mode/emissions data
+1000,0.75,1.6,1.0,1,400,19.320752558756816,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.0,0.5,1,400,8.050313566148672,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.0,1.0,1,400,16.100627132297344,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.3,0.5,1,400,10.465407635993275,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.3,1.0,1,400,20.93081527198655,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.6,0.5,1,400,12.880501705837878,scenario only; no observed trip/mode/emissions data
+1000,1.0,1.6,1.0,1,400,25.761003411675755,scenario only; no observed trip/mode/emissions data

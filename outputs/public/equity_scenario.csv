@@ -1,0 +1,9 @@
+group,n_tracts,population,population_weighted_increment_m
+All populated tracts,391,1593208,32.38930958949992
+Poverty rate at least 20%,192,828525,34.57462150527613
+Poverty rate below 20%,197,764531,30.027518661518105
+No-vehicle share at least 30%,176,682884,25.970761119472293
+No-vehicle share below 30%,212,908907,37.26221705428419
+Age 65+ share at least 20%,82,296501,18.28163282900011
+Non-Hispanic Black share at least 50%,140,556992,21.81553708031686
+Hispanic share at least 50%,24,115692,8.030733095950119
