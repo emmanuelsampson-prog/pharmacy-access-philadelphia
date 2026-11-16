@@ -24,7 +24,7 @@ MD("""# Pharmacy Closures and Neighborhood Access in Philadelphia
 **Emmanuel Amissah Sampson · University of Pennsylvania**  
 Urban studies research project · 16 November 2026
 
-**Research status: executed public-data feasibility pilot.** This notebook is the main reproducible record. It does not estimate the historical causal effects of the 2023–2025 Rite Aid closures. Verified operating dates and licensed human-mobility data have not yet been obtained.
+**Research status: executed public-data feasibility pilot.** This notebook preserves the supplementary inventory-removal experiment. The main dated analysis is in notebook 04. It does not estimate the historical causal effects of the 2023–2025 Rite Aid closures. A separate ledger now contains company-reported 2025 dates; a complete operating history and licensed human-mobility panel remain unavailable.
 
 The completed calculation removes Rite Aid-labelled entries from a licensed-pharmacy roster. It measures a hypothetical change in straight-line proximity from tract centroids. All results must retain that interpretation."""),
 MD("""## 1. Questions and scope
@@ -136,18 +136,18 @@ MD("""## 8. What is required before the causal study can run
 
 | Input | Current status |
 |---|---|
-| Verified store-specific pharmacy closure intervals | Missing; candidate ledger created |
+| Store-specific pharmacy dates | 24 company-reported 2025 last days plus four reported 2024 dates; independent date checks incomplete |
 | Historical operating pharmacy network and replacements | Missing |
 | Licensed 2022–2025 origin/POI mobility panel and coverage denominators | Not obtained |
-| Historical street/transit routing; NJ alternatives | Not obtained |
+| Historical street/transit routing; NJ alternatives | January 2025 PA streets acquired in notebook 04; transit and full NJ choice set missing |
 | Validated mode information | Not obtained; foot traffic alone is insufficient |
 
 The companion notebook checks for verified inputs before running any empirical contrast. The Python estimator excludes already-treated and flagged spillover controls, but still requires defensible parallel trends and selection assumptions. An optional R extension uses the authors' `did` implementation for a covariate-adjusted analysis; it has not been run.
 
 Read [the full research protocol](../docs/research_protocol.md), [data access instructions](../docs/data_access.md), and [data dictionary](../docs/data_dictionary.md)."""),
 MD("""## 9. Results and interpretation
-The following sections use the same narrative as the website and submission report. Tables and figures above are the executed research record."""),
-MD(markdown_sections([section for section in get_sections() if section['id'] in {'results', 'travel', 'discussion', 'recommendations', 'limitations', 'conclusion'}], include_figures=False)),
+The tables and figures above preserve the original supplementary calculation. The expanded historical study has a different sample and destination rule."""),
+MD('This supplementary exercise estimates an all-at-once inventory sensitivity. Its 32.4-meter all-listed result and 282.1-meter chain-name result are not historical closure effects. Read [notebook 04](04_before_after_transfer_access.ipynb) for the dated transfer comparison and the full report for its interpretation.'),
 MD("## References\n\n" + "\n\n".join(f"{i}. {label} [Source]({url})" for i,(label,url) in enumerate(REFERENCES,1)) + "\n\nSee [additional source notes](../docs/references.md) for mobility and software documentation."),
 ]
 
@@ -171,7 +171,7 @@ CODE("""paths = {
 display(pd.DataFrame([{'input': k, 'available': p.exists()} for k,p in paths.items()]))
 ready = all(p.exists() for p in paths.values())
 if not ready:
-    print('NOT RUN: verified event dates and licensed mobility inputs are unavailable.')"""),
+    print('NOT RUN: a complete adjudicated event file and licensed mobility outcomes are unavailable. Reported dates exist in the public evidence ledger.')"""),
 MD("""## 2. Validate timing and outcome completeness
 Closure bounds must distinguish last open from first closed pharmacy date, and be verified. Do not substitute front-store closure or announcement dates. The balanced panel contract rejects missing observations; an explicit, defensible coverage rule is needed before constructing that panel. Missing/suppressed counts are not zero.
 

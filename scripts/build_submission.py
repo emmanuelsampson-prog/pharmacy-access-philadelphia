@@ -98,10 +98,10 @@ def make_report():
                         if j>0 and all(c in '0123456789.,- ' for c in str(text)):p.alignment=WD_ALIGN_PARAGRAPH.CENTER
                         r=p.add_run(str(text));r.font.size=Pt(10.2);r.bold=(ri==0)
                 p=doc.add_paragraph();p.paragraph_format.space_after=Pt(1);p.paragraph_format.line_spacing=.3;p.add_run().font.size=Pt(3)
-    doc.add_heading('References',1).paragraph_format.page_break_before=True
+    doc.add_heading('References',1)
     for n,(label,url) in enumerate(REFERENCES,1):
         p=doc.add_paragraph(f'[{n}] {label} ');hyperlink(p,'Source',url)
-        p.paragraph_format.space_after=Pt(10)
+        p.paragraph_format.space_after=Pt(5)
     doc.add_heading('Research records',2)
     p=doc.add_paragraph('Website: ');hyperlink(p,SITE,SITE)
     p=doc.add_paragraph('Code, notebooks, data provenance and detailed protocol: ');hyperlink(p,'GitHub research repository',REPO)
