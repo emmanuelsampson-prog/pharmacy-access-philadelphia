@@ -62,7 +62,7 @@ def clean_pharmacies(path):
     missing=int(df.geometry.isna().sum())
     df=df.dropna(subset=["geometry"]).copy()
     df["is_rite_aid"]=df.name.str.contains(r"RITE\s*AID",case=False,na=False,regex=True)
-    # Keep an inclusive bound and a conservative chain-name sensitivity.
+    # Compare inclusive and restricted chain-name inventories; neither gives formal bounds.
     # Neither is a manually verified community-pharmacy inventory.
     df["chain_name_match"]=df.name.str.contains(
         r"RITE\s*AID|CVS|WALGREEN|WAL.MART|WALMART|TARGET|ACME|GIANT|SHOPRITE|COSTCO|SAM.S CLUB|WEGMAN",case=False,na=False,regex=True)

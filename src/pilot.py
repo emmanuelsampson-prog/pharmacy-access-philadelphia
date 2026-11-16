@@ -91,7 +91,7 @@ def figures(tracts,pharmacies,metrics,equity):
     for i,v in enumerate(p.mae_m):axs[0].text(v+2,i,f"{v:.1f}",va="center")
     axs[0].set_xlim(0,p.mae_m.max()*1.25)
     axs[0].set_xlabel("Held-out MAE (meters); lower is better")
-    axs[0].set_title("Does machine learning improve prediction?",color=NAVY)
+    axs[0].set_title("Prediction errors across geographic holdouts",color=NAVY)
     e=equity.iloc[1:5].copy()
     axs[1].barh(["Poverty >=20%","Poverty <20%","No vehicle >=30%","No vehicle <30%"],e.population_weighted_increment_m,color=[TEAL,"#b2c9cb",ORANGE,"#e6c2b0"])
     axs[1].set_xlabel("Population-weighted scenario increase (meters)")
