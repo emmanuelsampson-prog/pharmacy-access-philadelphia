@@ -1,0 +1,86 @@
+# When Pharmacies Disappear
+
+**Accessibility, travel and equity in Philadelphia**  
+Emmanuel Amissah Sampson · University of Pennsylvania · AI in Urban Studies final-project development
+
+**Status: executed public-data feasibility pilot, with a research protocol for the 2023–2025 Rite Aid closures. This is not a completed causal evaluation.** The pharmacy roster is not a historical operating network, no licensed human-mobility data have been obtained, and no observed mode or emissions effects have been estimated.
+
+Read the [project website](https://emmanuelsampson-prog.github.io/pharmacy-access-philadelphia/) for the illustrated write-up, or start with [the executed Jupyter notebook](notebooks/01_public_data_pilot.ipynb). It is the main research record. The [mobility and event-study notebook](notebooks/02_mobility_event_study.ipynb) documents the next stage and runs only when its verified inputs exist.
+
+![Public-data access scenario](outputs/public/access_equity_map.png)
+
+## The project
+
+**Main research question:** How do pharmacy closures alter access to pharmacy destinations, redistribute visits to nearby alternatives, and change the potential travel burden borne by different neighborhoods?
+
+Focus on Philadelphia and the 2023–2025 Rite Aid closures, with 2022 as the preperiod. The wider agenda—other stores, openings, relocations, travel modes and emissions—remains in the research protocol. Start with one sector and one city so that verifying events and assessing identification are feasible within a semester.
+
+There are two different kinds of analysis:
+
+1. **Executed public-data pilot:** Join ACS demographics to tract geography; compare proximity before and after removing Rite Aid-labelled entries from a licensed-pharmacy roster; evaluate a random forest against median and ridge baselines using contiguous spatial folds and a 1 km training buffer; calculate transparent emissions scenarios. These are modeled scenarios, not historical effects.
+2. **Pending empirical study:** Reconstruct operating histories, obtain licensed aggregate mobility data, estimate cohort-time differences in outcomes with uncontaminated comparison areas, and study demand redistribution around remaining pharmacies. Actual travel modes require a suitable validated data source. Aggregated foot traffic alone does not identify mode.
+
+## What is included
+
+| File or directory | Purpose |
+|---|---|
+| `notebooks/01_public_data_pilot.ipynb` | Executed analysis, explanatory text, maps and outputs |
+| `notebooks/02_mobility_event_study.ipynb` | Gated empirical analysis workflow and input requirements |
+| `docs/research_protocol.md` | Questions, estimands, AI task, identification, spillovers and limitations |
+| `docs/data_dictionary.md` | Fields, units, source limitations and required future inputs |
+| `docs/data_access.md` | Penn/Dewey access and extraction instructions |
+| `docs/references.md` | Linked primary sources and methodological references |
+| `docs/github_publication.md` | Publication steps for `emmanuelsampson-prog` |
+| `data/source_manifest.json` | Source URLs, retrieval times, SHA-256 hashes and extraction details |
+| `data/processed/` | Public tract scenarios and unverified pharmacy candidates |
+| `data/raw/` | Downloaded source inputs (in the downloadable package; ignored by Git) |
+| `src/` | Reusable download, spatial analysis, ML, mobility, DiD and reporting code |
+| `tests/` | Meaningful method checks; synthetic data exist only inside unit tests |
+| `outputs/public/` | Figures, model comparisons, scenario results and project brief |
+| `index.html` | GitHub Pages report, figures and emissions scenario explorer |
+| `outputs/private/` | Future licensed-data outputs; excluded from Git |
+
+## Reproduce the public pilot
+
+Python 3.12 is the tested interpreter. On Windows, open PowerShell in the extracted repository:
+
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements-lock.txt
+python -m src.download
+python -m src.pilot
+python -m pytest -q
+python -m ipykernel install --user --name pharmacy-access --display-name "Pharmacy Access"
+```
+
+On macOS/Linux, replace the first two commands with `python3.12 -m venv .venv` and `source .venv/bin/activate`. Open the notebooks in VS Code or Jupyter and select **Pharmacy Access**. If JupyterLab is not already installed, run `python -m pip install jupyterlab` and `jupyter lab`.
+
+The downloadable package includes cached public inputs, so the notebook can run offline. A Git clone needs `python -m src.download` first. The downloader checks cached input hashes. Use `--refresh` only to intentionally fetch a new vintage, then inspect the changed provenance and results.
+
+The supplied notebook cells were executed in order through IPython's in-process shell because this hosted runtime does not permit Jupyter kernel sockets. Their tables, images and printed outputs are captured from real execution. They remain standard Jupyter notebooks and can be rerun with a normal kernel on your computer. `python scripts/execute_notebooks.py` uses the normal kernel route; `--inprocess` reproduces the hosted execution route.
+
+The Census API now requires a key; this project uses the official **bulk ACS Summary File** instead. It streams six national tables (approximately 505 MB in total), retains only the 408 Philadelphia tract records in each, and records the full-response and subset checksums. Allow several minutes and an adequate connection for a new download. No Census API key is needed for this public bulk route.
+
+## Interpretation limits
+
+- The Pennsylvania portal reports a July 1, 2025 update, but its rows may include nonretail, inactive or closed pharmacies. A name match is not proof of an operating store or a closure date.
+- The scenario removes all Rite Aid-labelled entries from that roster at once. It does **not** identify which stores closed in each year or reconstruct a counterfactual 2023 network.
+- Distances are from geometric tract centroids in meters, using EPSG:26918. They are straight-line proximity measures, not road distances, walking routes or observed trips.
+- PA alternatives within 10 km of Philadelphia are included. New Jersey pharmacy locations are missing; origins within 2 km of NJ are flagged and excluded from the ML benchmark. This sensitivity does not eliminate all cross-border bias.
+- The all-listed and chain-name scenarios are inventory sensitivities, **not** formal lower and upper bounds.
+- Population and household weights use 2018–2022 ACS estimates. Area-level differences do not identify individual behavior; MOEs are retained but are not propagated into pilot scenario results.
+- The ML target is a mechanically calculated scenario. Its predictive accuracy is a feasibility demonstration; it does not establish causal effects or validate historical pharmacy status.
+- Emissions are conditional gasoline-vehicle tailpipe CO2 scenarios per 1,000 hypothetical person round trips, not estimates of total city emissions or lifecycle CO2e.
+
+## Toward the final empirical submission
+
+Read [the research protocol](docs/research_protocol.md) and [data access instructions](docs/data_access.md). The essential next inputs are the course rubric/deadline, verified pharmacy operating intervals, and an authorized Penn/Dewey mobility extract. Do not upload API keys, raw device traces or licensed source data to GitHub. The repository excludes the restricted-input and private-output folders by default.
+
+Repository: [emmanuelsampson-prog/pharmacy-access-philadelphia](https://github.com/emmanuelsampson-prog/pharmacy-access-philadelphia). GitHub Pages serves the root `index.html` from `main`. Regenerate the report after changing outputs with `python scripts/build_website.py`.
+
+## Reuse and disclosure
+
+Original code is provided under the [MIT license](LICENSE). Third-party data retain their own terms; the code license does not relicense those data. See [references and attribution](docs/references.md).
+
+This working package was developed with AI assistance for research scoping, code, documentation and source discovery. The author should review the analysis, verify event records, understand the methods and follow the course's AI-disclosure requirements before submission. No empirical findings have been invented to fill missing inputs.

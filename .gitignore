@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.env
+.env.*
+!.env.example
+data/restricted/**
+!data/restricted/.gitkeep
+data/raw/**
+!data/raw/.gitkeep
+outputs/private/**
+*.log
+.DS_Store

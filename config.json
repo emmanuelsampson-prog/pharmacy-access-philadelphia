@@ -1,0 +1,16 @@
+{
+  "project_title": "When Pharmacies Disappear: Accessibility, Travel and Equity in Philadelphia",
+  "author": "Emmanuel Amissah Sampson",
+  "github_owner": "emmanuelsampson-prog",
+  "repository": "pharmacy-access-philadelphia",
+  "state_fips": "42",
+  "county_fips": "101",
+  "acs_year": 2022,
+  "analysis_crs": "EPSG:26918",
+  "random_seed": 20261116,
+  "event_period": ["2023-01-01", "2025-12-31"],
+  "mobility_period": ["2022-01-01", "2025-12-31"],
+  "study_status": "public-data feasibility pilot; historical causal analysis pending",
+  "public_pilot_origin": "geometric centroid of Census tract in projected CRS",
+  "public_pilot_distance": "straight-line distance; not a route or observed trip"
+}
