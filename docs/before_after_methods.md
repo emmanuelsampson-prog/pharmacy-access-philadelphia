@@ -34,6 +34,10 @@ The main comparison gives **9.0 → 16.0 minutes** of modeled one-way walking an
 
 Sensitivity combinations use catchment radii of 500/800/1,000 m and connector thresholds of 100/200/300 m. They change sample composition and are not uncertainty intervals. Poverty (20%) and household vehicle availability (30% without a vehicle) are separate descriptive classifications. They are not causal subgroup analyses; ACS margins of error are not propagated.
 
+## Coordinates and units
+
+Tract centers are calculated after projecting boundaries to NAD83 / UTM zone 18N (EPSG:26918), in meters; planar catchments and maps use the same projection. Stored geographic coordinates use WGS84 (EPSG:4326). Network routes sum street-edge lengths and great-circle node-connector distances in meters, never planar distances in degrees.
+
 ## Cartographic interpretation
 
 Before-and-after choropleths join the same 62 eligible origin records to their own census-tract polygons by GEOID. No new routes or values are assigned to other tracts. The panels use identical walking-time intervals: 0–<5, 5–<10, 10–<15, 15–<20, 20–<30 and 30–60 minutes. Gray means no primary estimate; a hatch marks the disputed-address exclusion. A separate diverging map shows after minus before and preserves the one-meter unchanged tolerance. Tract-wide shading is a display convention for center-based estimates, not an assumption of uniform journeys within each tract.

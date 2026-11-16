@@ -76,6 +76,8 @@ The before destination is the former Rite Aid. The after destination is the reci
 
 ### Historical network and route calculation
 
+Tract centers are calculated after projecting boundaries to NAD83 / UTM zone 18N (EPSG:26918), in meters; planar catchments and maps use the same projection. Stored geographic coordinates use WGS84 (EPSG:4326). Network routes sum street-edge lengths and great-circle node-connector distances in meters, never planar distances in degrees.
+
 Walking and driving networks are built from Geofabrik’s Pennsylvania OpenStreetMap extract containing mapped data through January 1, 2025 at 21:21 UTC [15]. The extraction covers Philadelphia, the receiving destination in Bala Cynwyd and a surrounding margin. Mode-specific road permissions and driving direction are applied. Routes minimize distance. Traffic, intersection delay, turn restrictions, conditional restrictions and complete node-level barrier permissions are not represented.
 
 Address points and tract centers are connected to nearby network nodes by short straight segments. These connectors are approximations and are recorded separately. The main sample rejects origins if any endpoint-to-node connection exceeds 200 meters, if an outbound or return route is unreachable, or if the assigned former address is unresolved. Store 1956 on Academy Road is excluded because its insurer address conflicts with the company, court and license-roster address; including it is reported as a sensitivity.
