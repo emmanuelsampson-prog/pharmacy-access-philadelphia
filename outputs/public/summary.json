@@ -1,0 +1,53 @@
+{
+  "status": "MODELED SCENARIO; NOT A HISTORICAL OR CAUSAL EFFECT",
+  "registry_rows": 3324,
+  "invalid_or_missing_coordinates": 0,
+  "duplicate_licenses_removed": 0,
+  "shared_geocode_rows": 256,
+  "shared_address_rows": 49,
+  "tracts_total": 408,
+  "tracts_populated": 391,
+  "study_buffer_registry_sites": 817,
+  "rite_aid_labelled_buffer_sites": 109,
+  "philadelphia_registry_sites": 523,
+  "rite_aid_labelled_philadelphia_sites": 78,
+  "acs_population_included": 1593208,
+  "populated_tracts_with_any_increase": 67,
+  "population_in_tracts_with_any_increase": 281655,
+  "population_weighted_increment_m": 32.38930958949992,
+  "population_weighted_baseline_m": 421.20736282028776,
+  "population_weighted_remaining_m": 453.5966724097876,
+  "no_vehicle_household_weighted_increment_m": 27.43077562493917,
+  "population_weighted_chain_inventory_increment_m": 282.1123295127357,
+  "nj_border_tracts_excluded_from_ml": 50,
+  "nonborder_population_weighted_increment_m": 30.342262139573215,
+  "ml": [
+    {
+      "model": "Median baseline",
+      "n": 341,
+      "mae_m": 28.271930878857717,
+      "rmse_m": 109.52297749127614,
+      "r2": -0.07139187800313596,
+      "validation": "5 contiguous spatial folds; 1 km training exclusion buffer",
+      "target": "hypothetical nearest-distance increase; not observed travel"
+    },
+    {
+      "model": "Random forest",
+      "n": 341,
+      "mae_m": 49.274121020249545,
+      "rmse_m": 105.56866432297302,
+      "r2": 0.004576431326773767,
+      "validation": "5 contiguous spatial folds; 1 km training exclusion buffer",
+      "target": "hypothetical nearest-distance increase; not observed travel"
+    },
+    {
+      "model": "Ridge",
+      "n": 341,
+      "mae_m": 47.19239108654636,
+      "rmse_m": 104.35425525566691,
+      "r2": 0.02734641529105697,
+      "validation": "5 contiguous spatial folds; 1 km training exclusion buffer",
+      "target": "hypothetical nearest-distance increase; not observed travel"
+    }
+  ]
+}
