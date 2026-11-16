@@ -1,0 +1,38 @@
+[
+  {
+    "source_id": "riteaid_2023_doc37",
+    "case_number": "23-18993-MBK",
+    "docket_number": "37",
+    "document_date": "2023-10-16",
+    "title": "Debtors' motion concerning store closing sales; Exhibit A, Schedule 1, Initial Closing Stores",
+    "url": "https://cdns.abclocal.go.com/three/kabc/101823-kabc-rite-aid-doc.pdf",
+    "host_note": "Court-filed primary document, publicly mirrored by ABC; identifiers checked against the PDF page stamp.",
+    "local_path": "data/raw/court_doc37_2023.pdf",
+    "sha256": "e5fa702dbb47f23e3f47972035686c5a618d2693ff449b034801f4383193a558",
+    "bytes": 1811878,
+    "retrieved_date": "2026-11-16",
+    "pdf_pages": [54, 55, 56],
+    "expected_rows": 154,
+    "layout": "2023",
+    "evidence_type": "initial_closing_store_motion",
+    "limitation": "Stores identified for continuation or initiation of closing sales. Filing date is not a verified pharmacy closure date. Repeated schedule in Exhibit B is excluded."
+  },
+  {
+    "source_id": "riteaid_2025_doc743",
+    "case_number": "25-14861-MBK",
+    "docket_number": "743",
+    "document_date": "2025-06-06",
+    "title": "Sixth notice of additional closing locations; Exhibit 1",
+    "url": "https://npr.brightspotcdn.com/f8/c8/faad678e424db35665a541d7ce0a/25-06-06-store-closure-filing.pdf",
+    "host_note": "Court-filed primary document, publicly mirrored on NPR's media host; identifiers checked against the PDF page stamp.",
+    "local_path": "data/raw/court_doc743_2025.pdf",
+    "sha256": "e792517e81207b76599adf4f448688c768977c4f05db4b2f0b01f139e84eaead",
+    "bytes": 1898332,
+    "retrieved_date": "2026-11-16",
+    "pdf_pages": [5, 6, 7, 8],
+    "expected_rows": 207,
+    "layout": "2025",
+    "evidence_type": "additional_closing_location_notice",
+    "limitation": "Notice of intended store closings, not each pharmacy's last operating day. Earlier lists embedded in Exhibit 2 are excluded."
+  }
+]
