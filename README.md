@@ -81,6 +81,12 @@ The Census API now requires a key; this project uses the official **bulk ACS Sum
 - The ML target is a mechanically calculated scenario. Its predictive accuracy is a feasibility demonstration; it does not establish causal effects or validate historical pharmacy status.
 - Emissions are conditional gasoline-vehicle tailpipe CO2 scenarios per 1,000 hypothetical person round trips, not estimates of total city emissions or lifecycle CO2e.
 
+## Historical evidence audit
+
+The [third executed notebook](notebooks/03_closure_evidence_audit.ipynb) audits two court-filed lists: 101 Pennsylvania and New Jersey locations, including 16 Philadelphia sites that match the study roster. Eleven city sites were listed in an October 2023 motion and five in a June 2025 notice. These filing dates are **not** verified pharmacy closure dates. The [audit note](docs/evidence_audit.md) explains the extraction, address matching and remaining NJ coverage gap. The original spatial results remain unchanged.
+
+To re-extract the public court PDFs, install Poppler (`pdftotext`) and run `python -m src.evidence --download`. The notebook itself uses the included factual CSV and does not require PDF software. The PDFs are not redistributed in the package.
+
 ## Toward the final empirical submission
 
 Read [the research protocol](docs/research_protocol.md) and [data access instructions](docs/data_access.md). The essential next inputs are verified pharmacy operating intervals, and an authorized Penn/Dewey mobility extract. Do not upload API keys, raw device traces or licensed source data to GitHub. The repository excludes the restricted-input and private-output folders by default.
@@ -91,6 +97,7 @@ Repository: [emmanuelsampson-prog/pharmacy-access-philadelphia](https://github.c
 python scripts/report_content.py
 python scripts/build_website.py
 python scripts/create_notebooks.py
+python scripts/create_evidence_notebook.py
 python scripts/execute_notebooks.py
 ```
 
