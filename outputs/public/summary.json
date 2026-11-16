@@ -36,7 +36,7 @@
       "n": 341,
       "mae_m": 49.274121020249545,
       "rmse_m": 105.56866432297302,
-      "r2": 0.004576431326773767,
+      "r2": 0.004576431326773989,
       "validation": "5 contiguous spatial folds; 1 km training exclusion buffer",
       "target": "hypothetical nearest-distance increase; not observed travel"
     },

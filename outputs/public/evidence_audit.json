@@ -1,0 +1,28 @@
+{
+  "document_mentions": 101,
+  "distinct_state_store_pairs": 101,
+  "pa_mentions": 75,
+  "nj_mentions": 26,
+  "philadelphia_mentions": 16,
+  "philadelphia_by_document": {
+    "riteaid_2023_doc37": 11,
+    "riteaid_2025_doc743": 5
+  },
+  "philadelphia_matched_to_roster": 16,
+  "eligible_closure_events": 0,
+  "scope": "Two selected court lists, not a complete census of 2023\u20132025 closures",
+  "interpretation": "A filing date identifies documentary evidence, not the last operating day.",
+  "extraction_controls": [
+    {
+      "source_id": "riteaid_2023_doc37",
+      "national_schedule_rows": 154,
+      "selected_pa_nj_rows": 51
+    },
+    {
+      "source_id": "riteaid_2025_doc743",
+      "national_schedule_rows": 207,
+      "selected_pa_nj_rows": 50
+    }
+  ],
+  "evidence_csv_sha256": "94243bfd4bbc5061a43796aebf92207320814f7d1fac79a59cafc131161d4654"
+}

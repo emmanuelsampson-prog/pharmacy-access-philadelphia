@@ -1,4 +1,4 @@
 model,n,mae_m,rmse_m,r2,validation,target
 Median baseline,341,28.271930878857717,109.52297749127614,-0.07139187800313596,5 contiguous spatial folds; 1 km training exclusion buffer,hypothetical nearest-distance increase; not observed travel
-Random forest,341,49.274121020249545,105.56866432297302,0.004576431326773767,5 contiguous spatial folds; 1 km training exclusion buffer,hypothetical nearest-distance increase; not observed travel
+Random forest,341,49.274121020249545,105.56866432297302,0.004576431326773989,5 contiguous spatial folds; 1 km training exclusion buffer,hypothetical nearest-distance increase; not observed travel
 Ridge,341,47.19239108654636,104.35425525566691,0.02734641529105697,5 contiguous spatial folds; 1 km training exclusion buffer,hypothetical nearest-distance increase; not observed travel
