@@ -64,7 +64,7 @@ Figure 2. Cumulative events in the 24-row company transfer table. The horizontal
 
 ![Map connecting 24 former Rite Aid locations to their designated receiving pharmacies](../outputs/public/transfer_destination_map.png)
 
-Figure 3. Former pharmacies and their designated prescription recipients. Arrows connect paired addresses; they are not street routes or observed journeys. The disputed Academy Road location is marked for review and excluded from the primary route calculations. The same-address Chestnut transfer has overlapping symbols. Sources: company table, PA pharmacy coordinates and Census boundaries.
+Figure 3. Former pharmacies and their designated prescription recipients. Arrows connect paired addresses; they are not street routes or observed journeys. The disputed Academy Road location is marked for review and excluded from the primary route calculations. A purple outline marks the same-address Chestnut transfer; faint tract lines provide geographic context. Sources: company table, PA pharmacy coordinates and Census boundaries.
 
 ## Methodology
 
@@ -90,9 +90,13 @@ Population-weighted means give greater weight to origins representing more resid
 
 The 62 included tract origins represent an ACS population context of 262,710; this is not a count of affected customers. Their population-weighted modeled one-way walk rises from 9.0 minutes to 16.0 minutes, an increase of 7.1 minutes. The corresponding driving round trip changes from 1.61 to 2.75 kilometers, a difference of 1.14 kilometers.
 
-![Paired maps of modeled walking time to the former Rite Aid and designated receiving pharmacy](../outputs/public/before_after_walking_map.png)
+![Two census-tract choropleths of modeled walking time with identical color intervals and unmodeled tracts in gray](../outputs/public/before_after_walking_map.png)
 
-Figure 4. Before-and-after walking access from the same eligible tract centers. Both panels use the same color scale, network and assumed walking speed. Dots represent origins, not observed people. The after destination is the designated recipient. Sources: Census, PA pharmacy coordinates, company table and OpenStreetMap contributors.
+Figure 4. Before-and-after walking access shown as census-tract choropleths. The same 62 tracts use identical color intervals in both panels. Each shaded tract carries its geometric center’s route estimate, not a measurement for every resident or point in the tract. Gray tracts are outside the primary sample; hatching marks the excluded address conflict. The after destination is the designated recipient. Sources: Census, PA pharmacy coordinates, company table and OpenStreetMap contributors.
+
+![Census-tract map of walking-time changes: 44 longer, 13 shorter and five unchanged](../outputs/public/walking_change_tract_map.png)
+
+Figure 5. Change in modeled walking time from the same tract center, after minus before. Teal indicates shorter journeys to the designated recipient and rust indicates longer journeys. The unchanged category allows a one-meter distance tolerance, matching the reported counts. Gray denotes no primary estimate, not zero change. Colors describe center-based estimates rather than uniform access across each tract.
 
 Table 3. Population-weighted access in the common sample
 
@@ -106,17 +110,17 @@ Walking distance increases by more than one meter at 44 origins, decreases at 13
 
 ![Two paired scatterplots comparing walking time and driving round-trip distance](../outputs/public/before_after_comparison.png)
 
-Figure 5. Each point compares one origin before and after its assigned transfer. Points above the diagonal have longer modeled access after transfer. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
+Figure 6. Each point compares one origin before and after its assigned transfer. Points above the diagonal have longer modeled access after transfer. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
 
 ![Walking reachability thresholds and distribution of modeled walking-time changes](../outputs/public/walking_thresholds.png)
 
-Figure 6. The left panel reports the population-weighted share of included tract origins within each walking threshold; it assumes every tract resident is represented at the tract center. The right panel shows the distribution of walking-time differences across origins. Neither panel measures the share of residents who actually walk.
+Figure 7. The left panel reports the population-weighted share of included tract origins within each walking threshold; it assumes every tract resident is represented at the tract center. The right panel shows the distribution of walking-time differences across origins. Neither panel measures the share of residents who actually walk.
 
 The largest location-level increase occurs among the three included origins assigned to 1334 Windrim Avenue: their population-weighted walking time rises by 35.3 minutes when the destination becomes 112 West Chelten Avenue. Two origins assigned to 4000 Woodhaven Road have a small average decrease. The same-address Chestnut transfer leaves modeled distance unchanged. These comparisons describe selected catchments; their small and varying tract counts limit comparisons across stores.
 
 ![Ordered bar chart of modeled walking-time changes for 22 represented transfer locations](../outputs/public/transfer_by_location.png)
 
-Figure 7. Mean walking-time change within each represented former-store catchment, using fixed tract population weights. Labels give the number of included origins. Twenty-two transfers are represented: Academy Road is excluded for its address conflict, and Krewstown Road has no tract center within the main catchment. Missing estimates are not zero effects.
+Figure 8. Mean walking-time change within each represented former-store catchment, using fixed tract population weights. Labels give the number of included origins. Twenty-two transfers are represented: Academy Road is excluded for its address conflict, and Krewstown Road has no tract center within the main catchment. Missing estimates are not zero effects.
 
 ## Neighborhood differences
 
@@ -124,7 +128,7 @@ A given additional distance can matter differently to households with and withou
 
 ![Bar chart of modeled walking-time increases by poverty and household vehicle availability](../outputs/public/before_after_equity.png)
 
-Figure 8. Population-weighted walking-time change by neighborhood group. Poverty and vehicle availability are separate classifications, so the same origin appears in one group within each pair. Labels show tract counts. ACS uncertainty is not propagated into these descriptive values.
+Figure 9. Population-weighted walking-time change by neighborhood group. Poverty and vehicle availability are separate classifications, so the same origin appears in one group within each pair. Labels show tract counts. ACS uncertainty is not propagated into these descriptive values.
 
 Table 4. Descriptive neighborhood comparisons
 
@@ -149,7 +153,7 @@ The emissions scenario uses the modeled driving round-trip difference of 1.14 km
 
 ![Sensitivity plot of conditional emissions under different car and additional-travel shares](../outputs/public/before_after_emissions.png)
 
-Figure 9. Conditional tailpipe emissions using the route-sample weighted driving-distance change. Each line changes the assumed share of that difference that creates additional travel; the horizontal axis varies the assumed car share. These are scenarios, not observed carbon outcomes or confidence intervals.
+Figure 10. Conditional tailpipe emissions using the route-sample weighted driving-distance change. Each line changes the assumed share of that difference that creates additional travel; the horizontal axis varies the assumed car share. These are scenarios, not observed carbon outcomes or confidence intervals.
 
 This simplified calculation holds the car share constant between before and after. It cannot measure emissions from a walking-to-driving transition. A full account would compare mode-specific travel before and after and include occupancy, trip chaining, delivery, vehicle mix and transit operations. Emissions could increase with additional driving, but a drop caused by people forgoing needed care would not represent improved accessibility.
 
