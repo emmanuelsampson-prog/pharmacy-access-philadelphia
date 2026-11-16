@@ -20,7 +20,7 @@ Read the [illustrated research website](https://emmanuelsampson-prog.github.io/p
 
 ## Follow the visual story
 
-The report contains **nine figures**: three yearly evidence maps; the 2025 event timeline; former-to-recipient destination links; before/after walking maps; paired walking/driving comparisons; walking thresholds and the distribution of changes; a location-level comparison; neighborhood equity comparisons; and conditional emissions sensitivity. The website adds an **interactive transfer explorer** and **emissions calculator**. Every figure states what its values represent.
+The report contains **ten figures**: three yearly evidence maps; the 2025 event timeline; former-to-recipient destination links; before/after walking tract choropleths; a separate walking-change tract map; paired walking/driving comparisons; walking thresholds and the distribution of changes; a location-level comparison; neighborhood equity comparisons; and conditional emissions sensitivity. The website adds an **interactive transfer explorer** and **emissions calculator**. Every figure states what its values represent. Access maps shade eligible tracts using their center-based estimate; gray means no primary estimate. Maps of pharmacy events retain point symbols and use tract boundaries for context.
 
 The investigation period is **2023–2025**. The numerical route comparison is a **2025 subset**, not a three-year outcome panel. The proposed causal study would use **January 2022–December 2025**, with 2022 as a baseline. Neighborhood characteristics use **2018–2022 ACS** estimates, and both route scenarios use the **January 1, 2025** historical street network.
 
@@ -39,7 +39,7 @@ The investigation period is **2023–2025**. The numerical route comparison is a
 | [References](docs/references.md) | Sources, provenance and attribution |
 | `data/*manifest.json` | Retrieval details, source URLs, input hashes and network vintage |
 | `data/processed/` | Public factual ledgers and derived access results |
-| `outputs/public/` | Nine main figures, supporting results and final reports |
+| `outputs/public/` | Ten main figures, supporting results and final reports |
 | `src/`, `scripts/`, `tests/` | Reusable analysis, publication code and method checks |
 
 ## Reproduce the analysis
