@@ -1,13 +1,21 @@
-# When Pharmacies Disappear
+# Pharmacy Closures and Neighborhood Access in Philadelphia
 
 **Accessibility, travel and equity in Philadelphia**  
-Emmanuel Amissah Sampson · University of Pennsylvania · AI in Urban Studies final-project development
+Emmanuel Amissah Sampson · University of Pennsylvania · Urban studies research project
 
 **Status: executed public-data feasibility pilot, with a research protocol for the 2023–2025 Rite Aid closures. This is not a completed causal evaluation.** The pharmacy roster is not a historical operating network, no licensed human-mobility data have been obtained, and no observed mode or emissions effects have been estimated.
 
 Read the [project website](https://emmanuelsampson-prog.github.io/pharmacy-access-philadelphia/) for the illustrated write-up, or start with [the executed Jupyter notebook](notebooks/01_public_data_pilot.ipynb). It is the main research record. The [mobility and event-study notebook](notebooks/02_mobility_event_study.ipynb) documents the next stage and runs only when its verified inputs exist.
 
 ![Public-data access scenario](outputs/public/access_equity_map.png)
+
+## Main findings
+
+Removing Rite Aid-labelled license records simultaneously increases the population-weighted straight-line distance to the nearest listed pharmacy from **421.2 to 453.6 meters**. An increase occurs in **67 of 391 populated tracts**. Restricting the destination inventory to selected chain names produces a larger increase of **282.1 meters**, showing why the operating network needs verification.
+
+These are spatial scenarios. The completed analysis does not establish a historical change in walking, driving or emissions. Closures could create longer car journeys; a conveniently located opening could replace a longer drive with a walk. Actual outcomes depend on travel responses, replacement services and usable routes.
+
+Read the [full research report](docs/study_report.md), [Word submission report](outputs/public/Pharmacy_Access_Research_Report.docx) or [PDF report](outputs/public/Pharmacy_Access_Project_Brief.pdf) for the introduction, problem statement, methodology, results, discussion, recommendations, limitations and conclusion.
 
 ## The project
 
@@ -26,7 +34,7 @@ There are two different kinds of analysis:
 |---|---|
 | `notebooks/01_public_data_pilot.ipynb` | Executed analysis, explanatory text, maps and outputs |
 | `notebooks/02_mobility_event_study.ipynb` | Gated empirical analysis workflow and input requirements |
-| `docs/research_protocol.md` | Questions, estimands, AI task, identification, spillovers and limitations |
+| `docs/research_protocol.md` | Questions, estimands, prediction, identification, spillovers and limitations |
 | `docs/data_dictionary.md` | Fields, units, source limitations and required future inputs |
 | `docs/data_access.md` | Penn/Dewey access and extraction instructions |
 | `docs/references.md` | Linked primary sources and methodological references |
@@ -56,7 +64,7 @@ python -m ipykernel install --user --name pharmacy-access --display-name "Pharma
 
 On macOS/Linux, replace the first two commands with `python3.12 -m venv .venv` and `source .venv/bin/activate`. Open the notebooks in VS Code or Jupyter and select **Pharmacy Access**. If JupyterLab is not already installed, run `python -m pip install jupyterlab` and `jupyter lab`.
 
-The downloadable package includes cached public inputs, so the notebook can run offline. A Git clone needs `python -m src.download` first. The downloader checks cached input hashes. Use `--refresh` only to intentionally fetch a new vintage, then inspect the changed provenance and results.
+The downloadable package includes cached public analytical inputs, so the notebook can run offline. The optional insurer reference PDF is omitted; it is not needed for the calculations. A Git clone needs `python -m src.download` first. The downloader checks cached input hashes. Use `--refresh` only to intentionally fetch a new vintage, then inspect the changed provenance and results.
 
 The supplied notebook cells were executed in order through IPython's in-process shell because this hosted runtime does not permit Jupyter kernel sockets. Their tables, images and printed outputs are captured from real execution. They remain standard Jupyter notebooks and can be rerun with a normal kernel on your computer. `python scripts/execute_notebooks.py` uses the normal kernel route; `--inprocess` reproduces the hosted execution route.
 
@@ -67,7 +75,7 @@ The Census API now requires a key; this project uses the official **bulk ACS Sum
 - The Pennsylvania portal reports a July 1, 2025 update, but its rows may include nonretail, inactive or closed pharmacies. A name match is not proof of an operating store or a closure date.
 - The scenario removes all Rite Aid-labelled entries from that roster at once. It does **not** identify which stores closed in each year or reconstruct a counterfactual 2023 network.
 - Distances are from geometric tract centroids in meters, using EPSG:26918. They are straight-line proximity measures, not road distances, walking routes or observed trips.
-- PA alternatives within 10 km of Philadelphia are included. New Jersey pharmacy locations are missing; origins within 2 km of NJ are flagged and excluded from the ML benchmark. This sensitivity does not eliminate all cross-border bias.
+- PA alternatives within 10 km of Philadelphia are included. New Jersey pharmacy locations are missing; 50 populated tract centers within 2 km of NJ are flagged. They remain in the main maps and descriptive results; only the secondary prediction comparison excludes them, leaving 341 tracts. The separate nonborder descriptive mean is 30.3 meters. This screen does not correct all cross-border bias.
 - The all-listed and chain-name scenarios are inventory sensitivities, **not** formal lower and upper bounds.
 - Population and household weights use 2018–2022 ACS estimates. Area-level differences do not identify individual behavior; MOEs are retained but are not propagated into pilot scenario results.
 - The ML target is a mechanically calculated scenario. Its predictive accuracy is a feasibility demonstration; it does not establish causal effects or validate historical pharmacy status.
@@ -75,12 +83,19 @@ The Census API now requires a key; this project uses the official **bulk ACS Sum
 
 ## Toward the final empirical submission
 
-Read [the research protocol](docs/research_protocol.md) and [data access instructions](docs/data_access.md). The essential next inputs are the course rubric/deadline, verified pharmacy operating intervals, and an authorized Penn/Dewey mobility extract. Do not upload API keys, raw device traces or licensed source data to GitHub. The repository excludes the restricted-input and private-output folders by default.
+Read [the research protocol](docs/research_protocol.md) and [data access instructions](docs/data_access.md). The essential next inputs are verified pharmacy operating intervals, and an authorized Penn/Dewey mobility extract. Do not upload API keys, raw device traces or licensed source data to GitHub. The repository excludes the restricted-input and private-output folders by default.
 
-Repository: [emmanuelsampson-prog/pharmacy-access-philadelphia](https://github.com/emmanuelsampson-prog/pharmacy-access-philadelphia). GitHub Pages serves the root `index.html` from `main`. Regenerate the report after changing outputs with `python scripts/build_website.py`.
+Repository: [emmanuelsampson-prog/pharmacy-access-philadelphia](https://github.com/emmanuelsampson-prog/pharmacy-access-philadelphia). GitHub Pages serves the root `index.html` from `main`. Regenerate the narrative and website after changing outputs:
 
-## Reuse and disclosure
+```bash
+python scripts/report_content.py
+python scripts/build_website.py
+python scripts/create_notebooks.py
+python scripts/execute_notebooks.py
+```
+
+The shared narrative in `scripts/report_content.py` also builds the Word and PDF reports. In an environment with `python-docx` and a LibreOffice installation, run `python scripts/build_submission.py` and `python scripts/build_brief.py`. The PDF keeps its original filename so previously shared links continue to work. The PDF export requires LibreOffice on PATH or `--office PATH`. Document formatting dependencies are separate from the pinned scientific analysis environment.
+
+## Reuse
 
 Original code is provided under the [MIT license](LICENSE). Third-party data retain their own terms; the code license does not relicense those data. See [references and attribution](docs/references.md).
-
-This working package was developed with AI assistance for research scoping, code, documentation and source discovery. The author should review the analysis, verify event records, understand the methods and follow the course's AI-disclosure requirements before submission. No empirical findings have been invented to fill missing inputs.
