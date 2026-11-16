@@ -1,5 +1,5 @@
 {
-  "project_title": "Pharmacy Closures and Neighborhood Access in Philadelphia",
+  "project_title": "Pharmacy Closures and Access in Philadelphia 2023\u20132025",
   "author": "Emmanuel Amissah Sampson",
   "github_owner": "emmanuelsampson-prog",
   "repository": "pharmacy-access-philadelphia",
@@ -16,7 +16,15 @@
     "2022-01-01",
     "2025-12-31"
   ],
-  "study_status": "public-data feasibility pilot; historical causal analysis pending",
+  "study_status": "selected 2023\u20132025 historical evidence and modeled 2025 transfer access; observed mobility and causal effects pending",
   "public_pilot_origin": "geometric centroid of Census tract in projected CRS",
-  "public_pilot_distance": "straight-line distance; not a route or observed trip"
+  "public_pilot_distance": "straight-line distance; not a route or observed trip",
+  "transfer_analysis_period": [
+    "2025-06-04",
+    "2025-08-08"
+  ],
+  "network_snapshot_utc": "2025-01-01T21:21:00Z",
+  "transfer_origin_radius_m": 800,
+  "transfer_max_node_snap_m": 200,
+  "walking_speed_kmh": 4.8
 }
