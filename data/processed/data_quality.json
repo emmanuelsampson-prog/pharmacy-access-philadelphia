@@ -1,0 +1,13 @@
+{
+  "registry_rows": 3324,
+  "invalid_or_missing_coordinates": 0,
+  "duplicate_licenses_removed": 0,
+  "shared_geocode_rows": 256,
+  "shared_address_rows": 49,
+  "tracts_total": 408,
+  "tracts_populated": 391,
+  "study_buffer_registry_sites": 817,
+  "rite_aid_labelled_buffer_sites": 109,
+  "philadelphia_registry_sites": 523,
+  "rite_aid_labelled_philadelphia_sites": 78
+}
