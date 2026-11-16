@@ -1,0 +1,6 @@
+store_number,side,source_address,matched_address,note
+11126,old,9910 FRANKFORD AVENUEPA SUITE,9910 Frankford Avenue,Source appends the state and a truncated suite label
+11125,old,7418 OXFORD AVENUE,7418-32 Oxford Avenue,Source uses first number of the roster street-number range
+11130,old,7700 CRITTENDEN STREETPA SUITE 1,7700 Crittenden Street  Suite 101C,Source appends the state and truncates suite 101C
+3434,receiving,2320-26 FAIRMOUNT AVENUE,2320 Fairmount Avenue #26,Same numbered range written as 2320-26 in the transfer table
+1764,receiving,"5627-99 CHESTNUT STREET,",5627-99 Chestnut Street,"Same-address transfer; coordinate reused, successor opening timing is unknown"
