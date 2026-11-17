@@ -32,6 +32,11 @@ def make_report():
     normal=styles['Normal'];normal.font.size=Pt(11.5)
     normal.paragraph_format.space_after=Pt(7)
     normal.paragraph_format.line_spacing=1.12
+    normal.paragraph_format.alignment=WD_ALIGN_PARAGRAPH.JUSTIFY
+    normal.paragraph_format.widow_control=True
+    # Justify sustained prose while preserving readable headings and labels.
+    for name in ['Title','Subtitle','Heading 1','Heading 2','Heading 3']:
+        styles[name].paragraph_format.alignment=WD_ALIGN_PARAGRAPH.LEFT
     for name,size in [('Title',23),('Subtitle',13),('Heading 1',16),('Heading 2',12.5)]:
         st=styles[name];st.font.size=Pt(size)
         st.paragraph_format.space_before=Pt(15 if name.startswith('Heading') else 0)
@@ -52,6 +57,7 @@ def make_report():
     doc.core_properties.keywords='Philadelphia; pharmacies; accessibility; travel; emissions; spatial analysis'
     doc.add_paragraph(TITLE,'Title');doc.add_paragraph(SUBTITLE,'Subtitle')
     p=doc.add_paragraph(f'{AUTHOR}\nUniversity of Pennsylvania\n{DATE}')
+    p.alignment=WD_ALIGN_PARAGRAPH.LEFT
     p.paragraph_format.space_after=Pt(14)
     for i,section in enumerate(get_sections()):
         head=doc.add_heading(section['title'],1)
@@ -66,6 +72,7 @@ def make_report():
                     p.paragraph_format.first_line_indent=Inches(-.17)
             elif b['type']=='figure':
                 p=doc.add_paragraph();p.paragraph_format.keep_with_next=True
+                p.alignment=WD_ALIGN_PARAGRAPH.CENTER
                 run=p.add_run();run.add_picture(str(OUT/b['file']),width=Inches(6.7))
                 run._r.xpath('.//wp:docPr')[0].set('descr',b['alt'])
                 doc.add_paragraph(b['caption'],'Caption')
@@ -94,6 +101,7 @@ def make_report():
                         tcpr.append(margins)
                         shade=OxmlElement('w:shd');shade.set(qn('w:fill'),'E7EDF2' if ri==0 else 'FFFFFF');tcpr.append(shade)
                         p=cell.paragraphs[0];p.paragraph_format.space_after=Pt(0);p.paragraph_format.line_spacing=1.05
+                        p.alignment=WD_ALIGN_PARAGRAPH.LEFT
                         if len(rows)<=4: p.paragraph_format.keep_with_next=(ri<len(rows)-1)
                         if j>0 and all(c in '0123456789.,- ' for c in str(text)):p.alignment=WD_ALIGN_PARAGRAPH.CENTER
                         r=p.add_run(str(text));r.font.size=Pt(10.2);r.bold=(ri==0)
