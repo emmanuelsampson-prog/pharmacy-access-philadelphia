@@ -24,6 +24,8 @@ The report contains **ten figures**: three yearly evidence maps; the 2025 event 
 
 The dated timeline shows **18 of 24 records in July (75%)**, with **seven in 21–27 July**. Weekly counts use Monday–Sunday bins and retain zero-record weeks. These are counts in the selected company table, not all Philadelphia closures. The print figure pairs weekly bars with individual date markers. Download its [SVG](outputs/public/transfer_timeline.svg), [PDF](outputs/public/transfer_timeline.pdf), [weekly counts](outputs/public/transfer_timeline_weekly.csv) or [daily counts](outputs/public/transfer_timeline_daily.csv). Rebuild this figure alone with `python -m src.timeline`.
 
+Maps and statistical charts share one [figure style](docs/figure_style.md): DejaVu Sans, a common export width, consistent title and label sizes, and a defined teal/rust palette. Before/after colors agree across destination maps and comparison charts. Sequential and diverging maps retain scales appropriate to their measures. The scatterplot diagonals mark equal values; they are not fitted regression lines.
+
 The investigation period is **2023–2025**. The numerical route comparison is a **2025 subset**, not a three-year outcome panel. The proposed causal study would use **January 2022–December 2025**, with 2022 as a baseline. Neighborhood characteristics use **2018–2022 ACS** estimates, and both route scenarios use the **January 1, 2025** historical street network.
 
 ## Research records
@@ -90,6 +92,7 @@ python scripts/create_evidence_notebook.py
 python scripts/create_transfer_notebook.py
 python scripts/execute_notebooks.py
 python scripts/report_content.py
+python scripts/build_figure_fonts.py
 python scripts/build_website.py
 ```
 
