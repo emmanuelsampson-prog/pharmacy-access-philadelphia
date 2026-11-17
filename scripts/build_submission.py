@@ -46,6 +46,7 @@ def make_report():
     styles['Caption'].font.size=Pt(9.5)
     styles['Caption'].font.bold=False
     styles['Caption'].paragraph_format.space_after=Pt(9)
+    styles['Caption'].paragraph_format.keep_together=True
     # Remove template borders and theme fonts so explicit academic styles prevail.
     for element in [doc.styles.element, doc.element]:
         for border in list(element.iter(qn('w:pBdr'))): border.getparent().remove(border)
