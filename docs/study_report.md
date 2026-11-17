@@ -98,7 +98,7 @@ Figure 4. Before-and-after walking access shown as census-tract choropleths. The
 
 ![Census-tract map of walking-time changes: 44 longer, 13 shorter and five unchanged](../outputs/public/walking_change_tract_map.png)
 
-Figure 5. Change in modeled walking time from the same tract center, after minus before. Teal indicates shorter journeys to the designated recipient and rust indicates longer journeys. The unchanged category allows a one-meter distance tolerance, matching the reported counts. Gray denotes no primary estimate, not zero change. Colors describe center-based estimates rather than uniform access across each tract.
+Figure 5. Change in modeled walking time from the same tract center, after minus before. Blue shades indicate shorter journeys to the designated recipient and orange shades indicate longer journeys. The unchanged category allows a one-meter distance tolerance, matching the reported counts. Gray denotes no primary estimate, not zero change. Colors describe center-based estimates rather than uniform access across each tract.
 
 Table 3. Population-weighted access in the common sample
 
@@ -112,7 +112,7 @@ Walking distance increases by more than one meter at 44 origins, decreases at 13
 
 ![Two paired scatterplots comparing walking time and driving round-trip distance; dashed lines mark equal before and after values](../outputs/public/before_after_comparison.png)
 
-Figure 6. Each point compares one origin before and after its assigned transfer. Dashed diagonals indicate equal values, not fitted regression lines. Rust circles indicate longer modeled access, teal triangles shorter access, and neutral squares unchanged access within one meter. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
+Figure 6. Each point compares one origin before and after its assigned transfer. Dashed diagonals indicate equal values, not fitted regression lines. Points above the diagonal have longer modeled access after transfer; points below it have shorter access. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
 
 ![Walking reachability thresholds and distribution of modeled walking-time changes](../outputs/public/walking_thresholds.png)
 
