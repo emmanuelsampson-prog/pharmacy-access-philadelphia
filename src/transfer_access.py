@@ -19,6 +19,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from src.cartography import map_furniture, tract_background
 from src.tract_maps import access_maps
+from src.timeline import render_timeline
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/public'
@@ -200,15 +201,7 @@ def figures(main, pairs):
         ax.set(xlim=(0, hi), ylim=(0, hi), xlabel='Before', ylabel='After', title=label)
         ax.legend(frameon=False, loc='lower right'); ax.grid(alpha=.15)
     fig.savefig(OUT / 'before_after_comparison.png', dpi=180); plt.close(fig)
-    dated = pd.to_datetime(pairs.pharmacy_last_open_date).value_counts().sort_index().cumsum()
-    fig, ax = plt.subplots(figsize=(10, 3.1), layout='constrained')
-    ax.step(dated.index, dated.values, where='post', color='#137c86', linewidth=2)
-    ax.scatter(dated.index, dated.values, color='#137c86', s=18)
-    ax.set(ylabel='Cumulative listed events', xlabel='Company-reported last day of pharmacy business', ylim=(0, 25))
-    ax.grid(axis='y', alpha=.2)
-    import matplotlib.dates as mdates
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%d %b %Y'))
-    fig.savefig(OUT / 'transfer_timeline.png', dpi=180); plt.close(fig)
+    render_timeline(pairs)
     # Thresholds describe origin access under an assumed speed, not mode shares.
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout='constrained')
     thresholds = [10, 15, 20, 30]
