@@ -3,7 +3,10 @@ from pathlib import Path
 import base64
 from html import escape
 import json
+import sys
 from report_content import ROOT, OUT, TITLE, SUBTITLE, AUTHOR, DATE, REPO, get_sections, REFERENCES
+sys.path.insert(0, str(ROOT))
+from src.figure_style import INK, MUTED, TEAL, RUST, GRID
 
 s=json.loads((OUT/'before_after_summary.json').read_text())
 from transfer_explorer import build_explorer
@@ -32,6 +35,10 @@ for i,sec in enumerate(get_sections(),1):
     sections.append(f'<section id="{sec["id"]}" class="section"><div class="report-section"><div class="section-label">{i:02d} / Research report</div><h2>{escape(sec["title"])}</h2>{body}</div></section>')
 refs=''.join(f'<li>{escape(label)} <a href="{escape(url)}">Read source ↗</a></li>' for label,url in REFERENCES)
 css=(ROOT/'scripts/site_style.css').read_text()
+css += f'\n:root{{--ink:{INK};--muted:{MUTED};--teal:{TEAL};--accent:{RUST};--line:{GRID}}}\n'
+for weight, filename in [(400, 'DejaVuSans.woff'), (700, 'DejaVuSans-Bold.woff')]:
+    font_data=base64.b64encode((OUT/filename).read_bytes()).decode()
+    css += f'@font-face{{font-family:"Study Figures";font-style:normal;font-weight:{weight};font-display:swap;src:url(data:font/woff;base64,{font_data}) format("woff")}}\n'
 page=f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{TITLE} | Emmanuel Sampson</title><meta name="description" content="Research report on pharmacy access in Philadelphia, with findings, methodology, discussion, recommendations, limitations and a reproducible Jupyter notebook.">

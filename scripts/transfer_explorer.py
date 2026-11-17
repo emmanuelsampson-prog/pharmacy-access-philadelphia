@@ -4,6 +4,7 @@ from html import escape
 import pandas as pd
 import geopandas as gpd
 from report_content import ROOT, OUT
+from src.figure_style import BEFORE, AFTER, MUTED
 
 
 def build_explorer():
@@ -65,4 +66,5 @@ if(d.n===null){add('p',d.id==='1956'?'Excluded from the primary calculation: ins
 else{add('div',d.before.toFixed(1)+' → '+d.after.toFixed(1)+' min','route-number');add('p','Population-weighted modeled one-way walk across '+d.n+' included tract origins.');add('p','Change: '+(d.change>0?'+':'')+d.change.toFixed(1)+' minutes.');}
 if(d.same)add('p','Same-address transfer. Identical modeled distance does not prove uninterrupted pharmacy service.');
 };select.addEventListener('change',update);update();})();'''.replace('TRANSFER_DATA', json.dumps(features, allow_nan=False).replace('</', '<\\/'))
+    html = html.replace('#ba663e', BEFORE).replace('#137c86', AFTER).replace('#344b55', MUTED)
     return html, script
