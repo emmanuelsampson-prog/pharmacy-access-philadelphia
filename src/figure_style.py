@@ -1,4 +1,4 @@
-"""Shared typography, export dimensions and semantic colors for research figures."""
+"""Plain Matplotlib notebook styling shared by maps and statistical plots."""
 from functools import wraps
 from pathlib import Path
 import matplotlib.pyplot as plt
@@ -6,41 +6,40 @@ import matplotlib.pyplot as plt
 WIDTH = 10.6
 DPI = 240
 FONT = 'DejaVu Sans'
-TITLE = 19
-PANEL = 13
-LABEL = 12
-TICK = 11
-LEGEND = 11
-NOTE = 10
+TITLE = 12
+PANEL = 12
+LABEL = 10
+TICK = 10
+LEGEND = 9
+NOTE = 8
 
-INK = '#17313c'
-MUTED = '#516772'
-TEAL = '#187b80'
-TEAL_LIGHT = '#8cc6c3'
-RUST = '#b45130'
-NEUTRAL = '#cbbd9f'
-GRAY = '#e5e8e9'
-GRID = '#e1e7e7'
-BOUNDARY = '#75878b'
-DISPUTED = '#ad3434'
-SAME_SITE = '#6f5483'
-BEFORE, AFTER = RUST, TEAL
-INCREASE, DECREASE = RUST, TEAL
-WALK_COLORS = ['#fff2d9', '#f9d4bc', '#ec9a6f', '#ce7049', RUST, '#7a2e25']
-CHANGE_COLORS = ['#0f5b60', TEAL_LIGHT, '#fff7df', '#f9d4bc', '#ec9a6f', RUST, '#7a2e25']
-TEAL_COLORS = ['#eef7f5', '#c6e2dd', TEAL_LIGHT, '#4f9fa0', TEAL, '#0f5b60']
+INK = 'black'
+MUTED = '#444444'
+BLUE = '#1f77b4'
+ORANGE = '#ff7f0e'
+NEUTRAL = '#7f7f7f'
+GRAY = '#eeeeee'
+GRID = '#b0b0b0'
+BOUNDARY = '#666666'
+DISPUTED = '#d62728'
+SAME_SITE = '#9467bd'
+BEFORE, AFTER = BLUE, ORANGE
+INCREASE, DECREASE = ORANGE, BLUE
+WALK_COLORS = [plt.colormaps['viridis'](i / 5) for i in range(6)]
+CHANGE_COLORS = ['#2171b5', '#9ecae1', '#f7f7f7', '#fee6ce', '#fdae6b', '#f16913', '#a63603']
+CONTEXT_COLORS = [plt.colormaps['Blues'](.15 + .8 * i / 5) for i in range(6)]
 
 RC = {
     'font.family': FONT, 'font.size': TICK, 'text.color': INK,
-    'axes.titlesize': PANEL, 'axes.titleweight': 'bold', 'axes.titlecolor': INK,
-    'axes.labelsize': LABEL, 'axes.labelcolor': MUTED, 'axes.edgecolor': MUTED,
-    'axes.spines.top': False, 'axes.spines.right': False,
-    'axes.axisbelow': True, 'axes.linewidth': .7,
+    'axes.titlesize': PANEL, 'axes.titleweight': 'normal', 'axes.titlecolor': INK,
+    'axes.labelsize': LABEL, 'axes.labelcolor': INK, 'axes.edgecolor': INK,
+    'axes.spines.top': True, 'axes.spines.right': True,
+    'axes.axisbelow': True, 'axes.linewidth': .8,
     'xtick.labelsize': TICK, 'ytick.labelsize': TICK,
-    'xtick.color': MUTED, 'ytick.color': MUTED,
+    'xtick.color': INK, 'ytick.color': INK,
     'legend.fontsize': LEGEND, 'legend.title_fontsize': LEGEND,
-    'legend.frameon': False, 'grid.color': GRID, 'grid.linewidth': .7,
-    'grid.alpha': 1, 'savefig.facecolor': 'white', 'figure.facecolor': 'white',
+    'legend.frameon': True, 'grid.color': GRID, 'grid.linewidth': .6,
+    'grid.alpha': .3, 'savefig.facecolor': 'white', 'figure.facecolor': 'white',
     'svg.fonttype': 'path', 'pdf.fonttype': 42,
 }
 
@@ -49,18 +48,17 @@ def publication_style(function):
     """Apply the theme locally, including nested map and chart renderers."""
     @wraps(function)
     def styled(*args, **kwargs):
-        with plt.rc_context(RC):
+        with plt.style.context('default'), plt.rc_context(RC):
             return function(*args, **kwargs)
     return styled
 
 
-def new_figure(height, title, subtitle='', kicker='PHILADELPHIA / PHARMACY ACCESS / 2023–2025'):
-    """Keep physical width and header text sizes identical across figure types."""
+def new_figure(height, title, subtitle=''):
+    """A regular-weight Matplotlib title, with no branding or decorative heading."""
     fig = plt.figure(figsize=(WIDTH, height), facecolor='white')
-    fig.text(.055, 1 - .23 / height, kicker, color=TEAL, fontsize=NOTE - 1, weight='bold')
-    fig.text(.055, 1 - .57 / height, title, color=INK, fontsize=TITLE, weight='bold')
+    fig.suptitle(title, y=1 - .18 / height, fontsize=TITLE, fontweight='normal', color=INK)
     if subtitle:
-        fig.text(.055, 1 - .87 / height, subtitle, color=MUTED, fontsize=TICK)
+        fig.text(.5, 1 - .50 / height, subtitle, color=MUTED, fontsize=NOTE + 1, ha='center')
     return fig
 
 

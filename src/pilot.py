@@ -10,7 +10,7 @@ from matplotlib.colors import BoundaryNorm,ListedColormap
 from src.accessibility import prepare
 from src.ml import run_ml
 from src.emissions import incremental_co2_kg
-from src.figure_style import publication_style, new_figure, footer, save_figure, TEAL, TEAL_LIGHT
+from src.figure_style import publication_style, new_figure, footer, save_figure, BLUE, ORANGE
 
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"outputs/public"
@@ -65,19 +65,19 @@ def summarize(tracts,qa,metrics):
 def figures(tracts,pharmacies,metrics,equity):
     from src.tract_maps import supplementary_map
     supplementary_map(tracts, pharmacies)
-    fig=new_figure(5.6,'Supplement: prediction and neighborhood context',
+    fig=new_figure(4.5,'Supplement: prediction and neighborhood context',
                    'Inventory-removal scenario | Geographic holdouts and descriptive neighborhood groups')
-    axs=[fig.add_axes([.18,.25,.30,.49]),fig.add_axes([.73,.25,.23,.49])]
+    axs=[fig.add_axes([.18,.25,.30,.57]),fig.add_axes([.73,.25,.23,.57])]
     p=metrics.sort_values("mae_m")
-    axs[0].barh(p.model,p.mae_m,color=[TEAL if n=="Random forest" else TEAL_LIGHT for n in p.model])
+    axs[0].barh(p.model,p.mae_m,color=BLUE)
     for i,v in enumerate(p.mae_m):axs[0].text(v+2,i,f"{v:.1f}",va="center")
     axs[0].set_xlim(0,p.mae_m.max()*1.25)
     axs[0].set_xlabel("Held-out MAE (meters)\nLower is better")
-    axs[0].set_title("Prediction errors",loc='left',pad=10);axs[0].grid(axis='x')
+    axs[0].set_title("Prediction errors",pad=8);axs[0].grid(axis='x')
     e=equity.iloc[1:5].copy()
-    axs[1].barh(["Poverty ≥20%","Poverty <20%","No vehicle ≥30%","No vehicle <30%"],e.population_weighted_increment_m,color=[TEAL,TEAL_LIGHT,TEAL,TEAL_LIGHT])
+    axs[1].barh(["Poverty ≥20%","Poverty <20%","No vehicle ≥30%","No vehicle <30%"],e.population_weighted_increment_m,color=BLUE)
     axs[1].set_xlabel("Population-weighted\nincrease (meters)")
-    axs[1].set_title("Neighborhood context",loc='left',pad=10);axs[1].grid(axis='x')
+    axs[1].set_title("Neighborhood context",pad=8);axs[1].grid(axis='x')
     footer(fig,'Prediction target: modeled access change. Neither panel measures observed travel.',
            second_line='Neighborhood groups describe areas, not individuals. Source: public-data inventory-removal supplement.')
     save_figure(fig,OUT/"model_and_equity.png")
