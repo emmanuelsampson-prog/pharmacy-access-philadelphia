@@ -1,0 +1,17 @@
+{
+  "records": 24,
+  "distinct_dates": 19,
+  "first_date": "2025-06-04",
+  "last_date": "2025-08-08",
+  "monthly_records": {
+    "2025-06": 3,
+    "2025-07": 18,
+    "2025-08": 3
+  },
+  "peak_week_start": "2025-07-21",
+  "peak_week_end": "2025-07-27",
+  "peak_week_records": 7,
+  "week_definition": "Monday through Sunday",
+  "date_definition": "Company-reported last day of pharmacy business",
+  "scope": "Selected Philadelphia transfer records; not a complete citywide closure count"
+}
