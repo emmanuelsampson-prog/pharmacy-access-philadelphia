@@ -20,6 +20,11 @@ import matplotlib.pyplot as plt
 from src.cartography import map_furniture, tract_background
 from src.tract_maps import access_maps
 from src.timeline import render_timeline
+from src.figure_style import (publication_style, new_figure, footer, save_figure,
+                              INK, MUTED, TEAL, TEAL_LIGHT, RUST, NEUTRAL,
+                              BEFORE, AFTER, INCREASE, DECREASE, BOUNDARY,
+                              DISPUTED, SAME_SITE, PANEL, TICK, LEGEND)
+from matplotlib.lines import Line2D
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/public'
@@ -186,88 +191,122 @@ def build():
     return records, summary
 
 
+@publication_style
 def figures(main, pairs):
-    plt.rcParams.update({'font.family': 'DejaVu Sans', 'font.size': 10, 'axes.spines.top': False,
-                         'axes.spines.right': False, 'savefig.facecolor': 'white'})
     tracts = gpd.read_file(PROCESSED / 'tract_scenarios.geojson').to_crs(26918)
     boundary = tracts.dissolve()
     access_maps(main, tracts)
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4.1), layout='constrained')
+    fig = new_figure(5.8, 'Before and after access from the same tract origins',
+                     'Paired route comparisons; dashed diagonals indicate no change')
+    axes = [fig.add_axes([.09, .23, .37, .53]), fig.add_axes([.59, .23, .37, .53])]
     for ax, before, after, label in [(axes[0], 'walk_before_minutes', 'walk_after_minutes', 'Walking minutes, one way'),
                                     (axes[1], 'drive_before_roundtrip_km', 'drive_after_roundtrip_km', 'Driving kilometers, round trip')]:
         hi = max(main[before].max(), main[after].max()) * 1.05
-        ax.plot([0, hi], [0, hi], '--', color='#83929a', linewidth=1, label='No change')
-        ax.scatter(main[before], main[after], color='#137c86', alpha=.7, s=22)
-        ax.set(xlim=(0, hi), ylim=(0, hi), xlabel='Before', ylabel='After', title=label)
-        ax.legend(frameon=False, loc='lower right'); ax.grid(alpha=.15)
-    fig.savefig(OUT / 'before_after_comparison.png', dpi=180); plt.close(fig)
+        ax.plot([0, hi], [0, hi], '--', color=MUTED, linewidth=1)
+        tolerance = .001 / WALK_KMH * 60 if before.startswith('walk') else .001
+        delta = main[after] - main[before]
+        for mask, color, marker in [(delta > tolerance, INCREASE, 'o'),
+                                    (delta < -tolerance, DECREASE, 'v'),
+                                    (delta.abs() <= tolerance, NEUTRAL, 's')]:
+            ax.scatter(main.loc[mask, before], main.loc[mask, after], color=color,
+                       marker=marker, alpha=.85, s=32, edgecolors='white', linewidths=.35)
+        ax.set(xlim=(0, hi), ylim=(0, hi), xlabel='Before', ylabel='After')
+        ax.set_title(label, loc='left', pad=10)
+        ax.set_aspect('equal', adjustable='box'); ax.grid()
+    handles = [Line2D([], [], marker=m, color=c, linestyle='', markersize=6, label=l)
+               for m,c,l in [('o', INCREASE, 'Longer'), ('v', DECREASE, 'Shorter'), ('s', NEUTRAL, 'Unchanged within 1 m')]]
+    fig.legend(handles=handles, loc='lower center', bbox_to_anchor=(.5, .075), ncol=3)
+    footer(fig, 'Each point is one tract origin. These are modeled access comparisons, not observed journeys.')
+    save_figure(fig, OUT / 'before_after_comparison.png')
     render_timeline(pairs)
     # Thresholds describe origin access under an assumed speed, not mode shares.
-    fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout='constrained')
+    fig = new_figure(5.8, 'Walking reachability and the distribution of change',
+                     'Same included origins and population weights; walking speed assumed at 4.8 km/h')
+    axes = [fig.add_axes([.10, .23, .36, .52]), fig.add_axes([.60, .23, .35, .52])]
     thresholds = [10, 15, 20, 30]
     before = [100 * np.average(main.walk_before_minutes <= t, weights=main.population) for t in thresholds]
     after = [100 * np.average(main.walk_after_minutes <= t, weights=main.population) for t in thresholds]
     x = np.arange(len(thresholds))
-    axes[0].bar(x - .17, before, .34, color='#137c86', label='Before')
-    axes[0].bar(x + .17, after, .34, color='#ba663e', label='After')
-    axes[0].set(xticks=x, xticklabels=[str(t) for t in thresholds], xlabel='Walking threshold in minutes',
-                ylabel='Share of included tract population (%)', ylim=(0, 105), title='Reachability at an assumed 4.8 km/h')
-    axes[0].legend(frameon=False)
-    axes[1].hist(main.walk_delta_minutes, bins=15, color='#137c86', edgecolor='white')
-    axes[1].axvline(0, color='#111', linewidth=1)
-    axes[1].set(xlabel='After minus before walking minutes', ylabel='Number of tract origins', title='Changes vary across origins')
-    fig.savefig(OUT / 'walking_thresholds.png', dpi=180); plt.close(fig)
+    axes[0].bar(x - .17, before, .34, color=BEFORE, label='Before')
+    axes[0].bar(x + .17, after, .34, color=AFTER, label='After')
+    axes[0].set(xticks=x, xticklabels=[str(t) for t in thresholds], xlabel='Walking threshold (minutes)',
+                ylabel='Included tract population (%)', ylim=(0, 120))
+    axes[0].set_yticks([0, 20, 40, 60, 80, 100])
+    axes[0].set_title('Reachability', loc='left', pad=10)
+    axes[0].legend(loc='upper left', ncol=2); axes[0].grid(axis='y')
+    axes[1].hist(main.walk_delta_minutes, bins=15, color=TEAL, edgecolor='white')
+    axes[1].axvline(0, color=INK, linewidth=1)
+    axes[1].set(xlabel='After minus before (minutes)', ylabel='Number of tract origins')
+    axes[1].set_title('Change across origins', loc='left', pad=10); axes[1].grid(axis='y')
+    footer(fig, 'Threshold shares use tract population weights; neither panel measures how many residents walk.')
+    save_figure(fig, OUT / 'walking_thresholds.png')
     eq = pd.read_csv(OUT / 'before_after_equity.csv')
-    fig, ax = plt.subplots(figsize=(10, 3.4), layout='constrained')
-    labels = [f'{r.group.replace("No vehicle", "Households without a vehicle")} (n={r.tracts})' for r in eq.itertuples()]
-    bars = ax.barh(labels, eq.weighted_walk_delta_minutes, color=['#a8cdd0', '#137c86', '#a8cdd0', '#137c86'])
-    ax.bar_label(bars, fmt='%.1f', padding=5, fontsize=9)
+    fig = new_figure(5.2, 'Neighborhood comparisons within the route sample',
+                     'Poverty and vehicle availability are separate classifications; n denotes included tracts')
+    ax = fig.add_axes([.43, .23, .52, .51])
+    labels = []
+    for r in eq.itertuples():
+        label = r.group.replace('No vehicle', 'Households without a vehicle').replace('vehicle ', 'vehicle\n')
+        labels.append(f'{label} (n={r.tracts})')
+    bars = ax.barh(labels, eq.weighted_walk_delta_minutes, color=[TEAL_LIGHT, TEAL, TEAL_LIGHT, TEAL], height=.65)
+    ax.bar_label(bars, fmt='%.1f', padding=5, fontsize=TICK)
     ax.set_xlim(0, eq.weighted_walk_delta_minutes.max() * 1.13)
-    ax.invert_yaxis(); ax.set(xlabel='Population-weighted modeled walking increase in minutes', title='Neighborhood comparisons within the route sample')
-    ax.grid(axis='x', alpha=.15)
-    fig.savefig(OUT / 'before_after_equity.png', dpi=180); plt.close(fig)
+    ax.invert_yaxis(); ax.set(xlabel='Population-weighted walking-time change\n(minutes, one way)')
+    ax.grid(axis='x')
+    footer(fig, 'Descriptive neighborhood comparisons; ACS uncertainty is not propagated into these values.')
+    save_figure(fig, OUT / 'before_after_equity.png')
     co2 = pd.read_csv(OUT / 'before_after_emissions.csv')
-    fig, ax = plt.subplots(figsize=(10, 3.4), layout='constrained')
-    for additional, color in [(.5, '#9abacb'), (1., '#137c86')]:
+    fig = new_figure(5.2, 'Conditional emissions per 1,000 hypothetical round trips',
+                     'Gasoline tailpipe CO₂ under alternative car shares and additional-travel assumptions')
+    ax = fig.add_axes([.10, .22, .85, .52])
+    for additional, color, style in [(.5, TEAL_LIGHT, '--'), (1., TEAL, '-')]:
         subset = co2.loc[co2.additional_travel_share.eq(additional)]
-        ax.plot(subset.car_share * 100, subset.tailpipe_co2_delta_kg, marker='o', color=color,
+        ax.plot(subset.car_share * 100, subset.tailpipe_co2_delta_kg, marker='o', color=color, linestyle=style,
                 label=f'{additional:.0%} of distance change treated as additional travel')
     ax.set(xlabel='Assumed share of person trips made by gasoline car (%)', ylabel='Additional tailpipe CO₂ (kg)',
-           title='Conditional emissions per 1,000 hypothetical round trips', xticks=[25, 50, 75, 100])
-    ax.legend(frameon=False, fontsize=9); ax.grid(alpha=.15)
-    fig.savefig(OUT / 'before_after_emissions.png', dpi=180); plt.close(fig)
+           xticks=[25, 50, 75, 100], ylim=(0, 330))
+    ax.legend(loc='upper left'); ax.grid()
+    footer(fig, 'Scenarios, not observed emissions. Car share is held constant between the before and after destinations.')
+    save_figure(fig, OUT / 'before_after_emissions.png')
     # Destination links are not street routes or observed trips.
     old = gpd.GeoSeries(gpd.points_from_xy(pairs.old_longitude, pairs.old_latitude), crs=4326).to_crs(26918)
     new = gpd.GeoSeries(gpd.points_from_xy(pairs.receiving_longitude, pairs.receiving_latitude), crs=4326).to_crs(26918)
-    fig, ax = plt.subplots(figsize=(7.4, 7.2), layout='constrained')
+    fig = new_figure(8, 'Where prescriptions were designated to transfer',
+                     '24 documented former pharmacies and their designated recipients in 2025')
+    ax = fig.add_axes([.04, .13, .61, .71])
     tract_background(ax, tracts)
-    boundary.boundary.plot(ax=ax, color='#75828b', linewidth=.7)
+    boundary.boundary.plot(ax=ax, color=BOUNDARY, linewidth=.7)
     for a, b in zip(old, new):
         ax.annotate('', xy=(b.x, b.y), xytext=(a.x, a.y),
-                    arrowprops={'arrowstyle': '-|>', 'color': '#566d75', 'lw': 1.1, 'alpha': .9})
-    ax.scatter(old.x, old.y, s=38, c='#ba663e', edgecolors='white', linewidths=.5, label='Former Rite Aid', zorder=3)
-    ax.scatter(new.x, new.y, s=36, c='#137c86', marker='s', edgecolors='white', linewidths=.5, label='Designated recipient', zorder=4)
+                    arrowprops={'arrowstyle': '-|>', 'color': MUTED, 'lw': 1.1, 'alpha': .9})
+    ax.scatter(old.x, old.y, s=38, c=BEFORE, edgecolors='white', linewidths=.5, label='Before: former Rite Aid', zorder=3)
+    ax.scatter(new.x, new.y, s=36, c=AFTER, marker='s', edgecolors='white', linewidths=.5, label='After: designated recipient', zorder=4)
     disputed = pairs.store_number.astype(str).eq('1956')
-    ax.scatter(old[disputed].x, old[disputed].y, s=100, facecolors='none', edgecolors='#ad3434', linewidths=1.3, label='Address disputed', zorder=5)
+    ax.scatter(old[disputed].x, old[disputed].y, s=100, facecolors='none', edgecolors=DISPUTED, linewidths=1.3, label='Address disputed', zorder=5)
     same = pairs.same_address_transfer
-    ax.scatter(old[same].x, old[same].y, s=150, facecolors='none', marker='D', edgecolors='#6f5483', linewidths=1.2, label='Same-address transfer', zorder=5)
-    ax.set_title('Where prescriptions were designated to transfer', loc='left', fontweight='bold', fontsize=13)
-    ax.legend(loc='lower right', frameon=True, framealpha=.95, fontsize=9)
+    ax.scatter(old[same].x, old[same].y, s=150, facecolors='none', marker='D', edgecolors=SAME_SITE, linewidths=1.2, label='Same-address transfer', zorder=5)
+    handles, labels = ax.get_legend_handles_labels()
+    fig.legend(handles, labels, loc='center left', bbox_to_anchor=(.65, .46), labelspacing=1.2)
     map_furniture(ax, boundary.total_bounds)
     ax.set_axis_off()
-    fig.savefig(OUT / 'transfer_destination_map.png', dpi=180); plt.close(fig)
+    footer(fig, 'Arrows connect addresses; they are not mapped routes or observed journeys.',
+           second_line='Sources: company transfer table, PA pharmacy coordinates and Census tract boundaries.')
+    save_figure(fig, OUT / 'transfer_destination_map.png')
     events = pd.read_csv(OUT / 'before_after_by_event.csv').dropna(subset=['weighted_walk_delta_minutes']).sort_values('weighted_walk_delta_minutes')
-    fig, ax = plt.subplots(figsize=(8.5, 7.2), layout='constrained')
+    fig = new_figure(8.4, 'Modeled access changes vary by former location',
+                     'Population-weighted changes within 22 represented catchments; n denotes included tract origins')
+    ax = fig.add_axes([.40, .15, .55, .69])
     labels = [f'{r.old_address.replace("STREETPA SUITE 1", "STREET").replace("AVENUEPA SUITE", "AVENUE").title()} (n={int(r.tracts)})' for r in events.itertuples()]
     bars = ax.barh(labels, events.weighted_walk_delta_minutes,
-                   color=np.where(events.weighted_walk_delta_minutes >= 0, '#ba663e', '#137c86'))
-    ax.bar_label(bars, fmt='%+.1f', padding=4, fontsize=8)
-    ax.axvline(0, color='#344b55', linewidth=.8)
+                   color=np.where(events.weighted_walk_delta_minutes >= 0, INCREASE, DECREASE))
+    ax.bar_label(bars, fmt=lambda x: '0.0' if abs(x) < .05 else f'{x:+.1f}', padding=4, fontsize=TICK)
+    ax.axvline(0, color=MUTED, linewidth=.8)
     ax.set(xlim=(min(-5, events.weighted_walk_delta_minutes.min() - 3), events.weighted_walk_delta_minutes.max() + 4),
-           xlabel='Population-weighted walking-time change (minutes, one way)',
-           title='Modeled access changes vary by former location')
-    ax.tick_params(axis='y', labelsize=10.5); ax.grid(axis='x', alpha=.15)
-    fig.savefig(OUT / 'transfer_by_location.png', dpi=180); plt.close(fig)
+           xlabel='Walking-time change (minutes, one way)')
+    ax.grid(axis='x')
+    footer(fig, 'Rust: longer modeled walk. Teal: shorter modeled walk. Values are rounded to one decimal place.',
+           second_line='Small and varying tract counts limit comparisons across stores; missing catchments are not zero effects.')
+    save_figure(fig, OUT / 'transfer_by_location.png')
 
 
 if __name__ == '__main__':

@@ -7,15 +7,12 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
+from src.figure_style import (RC, new_figure, save_figure, footer, INK, MUTED, TEAL,
+                              RUST, GRID, PANEL, TICK, NOTE)
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'outputs/public'
-INK = '#17313c'
-MUTED = '#516772'
-TEAL = '#187b80'
 LIGHT = '#cee1df'
-RUST = '#b45130'
-GRID = '#e1e7e7'
 
 
 def timeline_data(pairs):
@@ -70,23 +67,15 @@ def render_timeline(pairs, destination=OUT):
     max_count = int(weekly.records.max())
     ceiling = max(4, int(np.ceil((max_count + 1) / 2) * 2))
     colors = [RUST if i == peak_index else TEAL for i in weekly.index]
-    with plt.rc_context({'font.family': 'DejaVu Sans', 'font.size': 11,
-                         'text.color': INK, 'axes.labelcolor': MUTED,
-                         'xtick.color': MUTED, 'ytick.color': MUTED,
-                         'svg.fonttype': 'none', 'savefig.facecolor': 'white'}):
-        fig = plt.figure(figsize=(10.6, 6.1), facecolor='white')
-        fig.text(.065, .958, 'PHILADELPHIA  /  RITE AID TRANSFER RECORDS  /  2025',
-                 fontsize=9, color=TEAL, fontweight='bold')
-        fig.text(.065, .898, f'{month_count / total:.0%} of documented transfers fell in {month_name}',
-                 fontsize=21, fontweight='bold', color=INK)
-        fig.text(.065, .848,
-                 f'{total} locations  ·  {summary["distinct_dates"]} reported dates  ·  '
-                 f'{records.date.min():%-d %B}–{records.date.max():%-d %B %Y}',
-                 fontsize=11.4, color=MUTED)
+    with plt.rc_context(RC):
+        fig = new_figure(6.4, f'{month_count / total:.0%} of documented transfers fell in {month_name}',
+                         f'{total} locations · {summary["distinct_dates"]} reported dates · '
+                         f'{records.date.min():%-d %B}–{records.date.max():%-d %B %Y}',
+                         kicker='PHILADELPHIA / RITE AID TRANSFER RECORDS / 2025')
         fig.add_artist(Line2D([.065, .965], [.815, .815], transform=fig.transFigure, color=GRID, lw=.9))
-        fig.text(.065, .770, 'A   Records per week', fontsize=11.5, fontweight='bold')
+        fig.text(.065, .770, 'A   Records per week', fontsize=PANEL, fontweight='bold')
         fig.text(.965, .770, 'Monday–Sunday; numbers above bars are counts',
-                 fontsize=9, color=MUTED, ha='right')
+                 fontsize=NOTE, color=MUTED, ha='right')
         ax = fig.add_axes([.085, .385, .88, .345])
         centers = weekly.week_start + pd.Timedelta(days=3.5)
         ax.set_xlim(start, end)
@@ -94,7 +83,7 @@ def render_timeline(pairs, destination=OUT):
         ax.set_axisbelow(True)
         ax.grid(axis='y', color=GRID, lw=.7)
         ax.set_yticks(range(0, ceiling + 1, 2))
-        ax.tick_params(axis='both', length=0, pad=7, labelsize=10)
+        ax.tick_params(axis='both', length=0, pad=7, labelsize=TICK)
         for spine in ax.spines.values():
             spine.set_visible(False)
         ax.bar(centers, weekly.records, width=5.1, color=colors, zorder=3)
@@ -103,22 +92,22 @@ def render_timeline(pairs, destination=OUT):
                 ax.plot([center - pd.Timedelta(days=2.55), center + pd.Timedelta(days=2.55)],
                         [0, 0], color=LIGHT, lw=3, solid_capstyle='butt', clip_on=False)
             ax.text(center, row.records + .15, str(row.records), ha='center',
-                    fontsize=12, color=color if row.records else MUTED, fontweight='bold')
+                    fontsize=PANEL, color=color if row.records else MUTED, fontweight='bold')
         ax.set_xticks(centers)
         ax.set_xticklabels([f'{d:%-d}\n{d:%b}' for d in weekly.week_start], linespacing=1.4)
-        ax.text(0, -.27, 'Week starting', transform=ax.transAxes, fontsize=9, color=MUTED)
+        ax.text(0, -.29, 'Week starting', transform=ax.transAxes, fontsize=NOTE, color=MUTED)
         # The peak callout sits in the open space, so it never covers a bar.
         peak_center = centers.iloc[peak_index]
         ax.annotate(f'Busiest week: {peak.week_start:%-d}–{peak.week_end:%-d %B}\n'
                     f'{max_count} of {total} records ({max_count / total:.0%})',
                     xy=(peak_center - pd.Timedelta(days=2.7), max_count - .15), xytext=(.32, .87),
-                    textcoords='axes fraction', color=RUST, fontsize=10.5,
+                    textcoords='axes fraction', color=RUST, fontsize=TICK,
                     ha='left', va='top', linespacing=1.5,
                     arrowprops={'arrowstyle': '-', 'color': RUST, 'lw': .9,
                                 'connectionstyle': 'angle,angleA=0,angleB=90,rad=0'})
-        fig.text(.065, .257, 'B   Each square is one location', fontsize=11.5, fontweight='bold')
+        fig.text(.065, .257, 'B   Each square is one location', fontsize=PANEL, fontweight='bold')
         fig.text(.965, .257, 'Exact reported day; stacked squares share a date',
-                 fontsize=9, color=MUTED, ha='right')
+                 fontsize=NOTE, color=MUTED, ha='right')
         detail = fig.add_axes([.085, .132, .88, .105])
         detail.set(xlim=(start, end), ylim=(.35, 3.8))
         detail.set_axis_off()
@@ -133,15 +122,10 @@ def render_timeline(pairs, destination=OUT):
             right = min(end, (month + 1).start_time)
             center = left + (right - left) / 2
             detail.text(center, -.12, f'{month.start_time:%B}  ·  {int(count)} records',
-                        ha='center', va='top', fontsize=10, color=MUTED)
-        fig.text(.065, .036, 'Source: Rite Aid archived transfer table. Dates are company-reported last pharmacy-business days.',
-                 fontsize=8.8, color=MUTED)
-        fig.text(.065, .009, 'Selected records, not all Philadelphia closures. Zero bars mean no records in this table; patient travel is not measured.',
-                 fontsize=8.5, color=MUTED)
-        fig.savefig(destination / 'transfer_timeline.png', dpi=240)
-        fig.savefig(destination / 'transfer_timeline.svg', metadata={'Date': None})
-        fig.savefig(destination / 'transfer_timeline.pdf', metadata={'CreationDate': None, 'ModDate': None})
-        plt.close(fig)
+                        ha='center', va='top', fontsize=TICK, color=MUTED)
+        footer(fig, 'Source: Rite Aid archived transfer table. Dates are company-reported last pharmacy-business days.',
+               second_line='Selected records, not all city closures. Zero bars mean no records in this table; patient travel is not measured.')
+        save_figure(fig, destination / 'transfer_timeline.png', vector=True)
     return summary
 
 
