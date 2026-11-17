@@ -85,7 +85,7 @@ display(comparison.round(2))
 for file in ['transfer_timeline.png','transfer_destination_map.png','before_after_walking_map.png','walking_change_tract_map.png','before_after_comparison.png','walking_thresholds.png','transfer_by_location.png']:
     display(Image(filename=str(OUT / file)))
 '''),
-M('''The transfer timeline counts records by **Monday–Sunday week**, including weeks with no records in the table. Its second panel retains the exact reported day for each location. **18 of 24 records fall in July (75%)**, and **seven fall in 21–27 July**. These are selected company-reported dates, not a complete citywide closure census. The [website timeline](https://emmanuelsampson-prog.github.io/pharmacy-access-philadelphia/#transfer-timeline) lets readers select a week and inspect its addresses and designated recipients.'''),
+M('''The transfer timeline counts records by **Monday–Sunday week**, including weeks with no records in the table. Its second panel retains the exact reported day for each location. **18 of 24 records fall in July (75%)**, and **seven fall in 21–27 July**. These are selected company-reported dates, not a complete citywide closure census. The [website timeline](https://emmanuelsampson-prog.github.io/pharmacy-access-philadelphia/#transfer-timeline) includes a selector below the Python figure for inspecting each week’s addresses and designated recipients.'''),
 C('''from src.timeline import timeline_data
 _, weekly, daily, timeline_summary = timeline_data(pairs)
 assert weekly.records.sum() == daily.records.sum() == len(pairs)

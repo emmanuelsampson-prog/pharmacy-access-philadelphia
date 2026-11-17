@@ -6,7 +6,6 @@ import json
 import sys
 from report_content import ROOT, OUT, TITLE, SUBTITLE, AUTHOR, DATE, REPO, get_sections, REFERENCES
 sys.path.insert(0, str(ROOT))
-from src.figure_style import INK, MUTED, TEAL, RUST, GRID
 
 s=json.loads((OUT/'before_after_summary.json').read_text())
 from transfer_explorer import build_explorer
@@ -21,10 +20,10 @@ def block(b):
     if kind=='table':
         return '<div class="table-scroll"><table><caption>'+escape(b['caption'])+'</caption><thead><tr>'+''.join('<th scope="col">'+escape(x)+'</th>' for x in b['headers'])+'</tr></thead><tbody>'+''.join('<tr>'+''.join(('<th scope="row">' if i==0 else '<td>')+escape(str(x))+('</th>' if i==0 else '</td>') for i,x in enumerate(row))+'</tr>' for row in b['rows'])+'</tbody></table></div>'
     if kind=='figure':
-        if b['file']=='transfer_timeline.png':
-            return '<figure class="wide timeline-figure" id="transfer-timeline">'+timeline_html+'<figcaption>'+escape(b['caption'])+'</figcaption></figure>'
+        is_timeline = b['file'] == 'transfer_timeline.png'
+        identity = ' id="transfer-timeline"' if is_timeline else ''
         data=base64.b64encode((OUT/b['file']).read_bytes()).decode()
-        return '<figure class="wide"><a href="outputs/public/'+escape(b['file'])+'" title="Open full-size figure"><img src="data:image/png;base64,'+data+'" alt="'+escape(b['alt'])+'"></a><figcaption>'+escape(b['caption'])+'</figcaption></figure>'
+        return '<figure class="wide"'+identity+'><a href="outputs/public/'+escape(b['file'])+'" title="Open full-size figure"><img src="data:image/png;base64,'+data+'" alt="'+escape(b['alt'])+'"></a><figcaption>'+escape(b['caption'])+'</figcaption></figure>'+ (timeline_html if is_timeline else '')
     raise ValueError(kind)
 
 sections=[]
@@ -35,7 +34,6 @@ for i,sec in enumerate(get_sections(),1):
     sections.append(f'<section id="{sec["id"]}" class="section"><div class="report-section"><div class="section-label">{i:02d} / Research report</div><h2>{escape(sec["title"])}</h2>{body}</div></section>')
 refs=''.join(f'<li>{escape(label)} <a href="{escape(url)}">Read source ↗</a></li>' for label,url in REFERENCES)
 css=(ROOT/'scripts/site_style.css').read_text()
-css += f'\n:root{{--ink:{INK};--muted:{MUTED};--teal:{TEAL};--accent:{RUST};--line:{GRID}}}\n'
 for weight, filename in [(400, 'DejaVuSans.woff'), (700, 'DejaVuSans-Bold.woff')]:
     font_data=base64.b64encode((OUT/filename).read_bytes()).decode()
     css += f'@font-face{{font-family:"Study Figures";font-style:normal;font-weight:{weight};font-display:swap;src:url(data:font/woff;base64,{font_data}) format("woff")}}\n'

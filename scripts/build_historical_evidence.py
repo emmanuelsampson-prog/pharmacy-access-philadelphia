@@ -18,7 +18,7 @@ path.insert(0, str(ROOT))
 from src.evidence import address_key
 from src.transfers import store_number
 from src.cartography import map_furniture, tract_background
-from src.figure_style import publication_style, new_figure, footer, save_figure, TEAL, BOUNDARY
+from src.figure_style import publication_style, new_figure, footer, save_figure, BLUE, BOUNDARY
 
 NEWS = [
     dict(address='3000-02 Reed Street', evidence_year=2023, reported_date='', date_meaning='closed during autumn 2023; exact pharmacy date unspecified',
@@ -92,16 +92,16 @@ def build():
     points = gpd.GeoDataFrame(ledger, geometry=gpd.points_from_xy(ledger.longitude, ledger.latitude), crs=4326).to_crs(26918)
     tracts = gpd.read_file(PROCESSED / 'tract_scenarios.geojson').to_crs(26918)
     boundary = tracts.dissolve()
-    fig = new_figure(6.2, 'Documented pharmacy locations across three years',
+    fig = new_figure(5.4, 'Documented pharmacy locations across three years',
                      'Selected historical evidence: 41 Philadelphia locations during 2023–2025')
-    axes = [fig.add_axes([left, .18, .28, .59]) for left in [.04, .36, .68]]
+    axes = [fig.add_axes([left, .16, .28, .65]) for left in [.04, .36, .68]]
     for ax, year in zip(axes, [2023, 2024, 2025]):
         tract_background(ax, tracts)
         boundary.boundary.plot(ax=ax, color=BOUNDARY, linewidth=.7)
         subset = points.loc[points.evidence_year.eq(year)]
-        subset.plot(ax=ax, color=TEAL, markersize=42, edgecolor='white', linewidth=.7, zorder=3)
+        subset.plot(ax=ax, color=BLUE, markersize=42, edgecolor='white', linewidth=.7, zorder=3)
         map_furniture(ax, boundary.total_bounds)
-        ax.set_title(f'{year} · {len(subset)} locations', loc='left', fontweight='bold'); ax.set_axis_off()
+        ax.set_title(f'{year} · {len(subset)} locations', fontweight='normal'); ax.set_axis_off()
     footer(fig, 'Each point is a documented pharmacy location; these are not complete annual closure counts.',
            second_line='Sources: court records, company transfer table, local reporting and Census tract boundaries.')
     save_figure(fig, ROOT / 'outputs/public/closure_evidence_map.png')
