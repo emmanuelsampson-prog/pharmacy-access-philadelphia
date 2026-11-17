@@ -7,6 +7,17 @@
 h1{font-size:clamp(44px,5.5vw,68px)}.hero{grid-template-columns:1.7fr 1fr}.prose h3{line-height:1.35}.report-section{max-width:900px;margin:auto}.report-section h2{font-size:38px}.report-section p{margin-bottom:22px}.references{overflow-wrap:anywhere}.references li{margin-bottom:20px}.references a{font-size:13px}@media(max-width:800px){.hero{grid-template-columns:1fr}h1{font-size:46px}.report-section h2{font-size:32px}}
 
 .story-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:0 0 55px}.story-guide a{display:block;border-top:3px solid var(--teal);padding:16px 0;text-decoration:none;font-size:16px;line-height:1.5}.story-guide strong{display:block;font:500 25px/1.25 Georgia,serif;color:var(--ink);margin-bottom:9px}.explorer{margin:34px 0;padding:25px;background:white;border:1px solid var(--line)}.explorer h3{margin-top:0}.explorer label{display:block;font-size:14px;font-weight:700}.explorer select{width:100%;padding:12px;margin:8px 0 18px;font:16px system-ui;color:var(--ink);border:1px solid #8a9a94;background:var(--paper)}.explorer-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:25px;align-items:center}.explorer svg{display:block;width:100%;height:auto}.explorer h4{font-size:21px;margin:0 0 15px}.explorer p{font-size:15px}.route-number{font:500 36px/1.3 Georgia,serif;color:var(--teal)}.hero-side .scope-note{grid-column:1/-1}.table-scroll caption{text-align:left;font-weight:650;padding:0 0 12px}.chart-link{font-size:12px}.report-section figure img{cursor:zoom-in}@media(max-width:700px){.story-guide,.explorer-grid{grid-template-columns:1fr}.story-guide{gap:5px}.explorer{padding:17px}.hero-side strong{font-size:37px}}@media print{.explorer,.story-guide{display:none}}
+
+/* Match the report's justified prose without stretching interface labels. */
+.report-section > p,
+.report-section > ol > li,
+.report-section figcaption {
+  text-align: justify;
+  text-align-last: start;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to research</a><header class="nav"><a class="brand" href="#">EMMANUEL SAMPSON / URBAN RESEARCH</a><nav aria-label="Sections"><a href="#period">Study period</a><a href="#evidence">Evidence</a><a href="#results">Access</a><a href="#equity">Equity</a><a href="#travel">Emissions</a><a href="#records">Downloads</a></nav></header>
 <main id="main" class="wrap"><section class="hero"><div><div class="eyebrow">Philadelphia · Historical investigation 2023–2025</div><h1>Pharmacy Closures and Access in Philadelphia 2023–2025</h1><p class="lede">Historical evidence and before and after access with a research design for travel and emissions.</p><p class="byline">Emmanuel Amissah Sampson<br>University of Pennsylvania<br>16 November 2026</p><div class="actions"><a class="button" href="outputs/public/Pharmacy_Access_Research_Report.docx">Download the Word report ↓</a><a class="button alt" href="#results">Read the results ↓</a></div></div><aside class="hero-side" aria-label="Main findings"><div><strong>41 locations</strong><p>Selected historical evidence across 2023–2025</p></div><div><strong>9.0 → 16.0 min</strong><p>Modeled one-way walking time<br>Before and after designated 2025 transfers</p></div><p class="scope-note">62 tract origins · Fixed population weights<br>Calculated access, not observed travel behavior</p></aside></section>
