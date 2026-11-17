@@ -8,6 +8,8 @@ from report_content import ROOT, OUT, TITLE, SUBTITLE, AUTHOR, DATE, REPO, get_s
 s=json.loads((OUT/'before_after_summary.json').read_text())
 from transfer_explorer import build_explorer
 explorer_html, explorer_script = build_explorer()
+from transfer_timeline import build_timeline
+timeline_html, timeline_script = build_timeline()
 def block(b):
     kind=b['type']
     if kind=='p': return '<p>'+escape(b['text'])+'</p>'
@@ -16,6 +18,8 @@ def block(b):
     if kind=='table':
         return '<div class="table-scroll"><table><caption>'+escape(b['caption'])+'</caption><thead><tr>'+''.join('<th scope="col">'+escape(x)+'</th>' for x in b['headers'])+'</tr></thead><tbody>'+''.join('<tr>'+''.join(('<th scope="row">' if i==0 else '<td>')+escape(str(x))+('</th>' if i==0 else '</td>') for i,x in enumerate(row))+'</tr>' for row in b['rows'])+'</tbody></table></div>'
     if kind=='figure':
+        if b['file']=='transfer_timeline.png':
+            return '<figure class="wide timeline-figure" id="transfer-timeline">'+timeline_html+'<figcaption>'+escape(b['caption'])+'</figcaption></figure>'
         data=base64.b64encode((OUT/b['file']).read_bytes()).decode()
         return '<figure class="wide"><a href="outputs/public/'+escape(b['file'])+'" title="Open full-size figure"><img src="data:image/png;base64,'+data+'" alt="'+escape(b['alt'])+'"></a><figcaption>'+escape(b['caption'])+'</figcaption></figure>'
     raise ValueError(kind)
@@ -42,6 +46,7 @@ page=f'''<!doctype html>
 <script>
 (()=>{{const fields=['car','additional','trips'].map(id=>document.getElementById(id));const update=()=>{{const [car,additional,trips]=fields.map(e=>Number(e.value));const output=document.getElementById('co2');if(!Number.isFinite(trips)||trips<0||trips>1000000||fields[2].value===''){{output.textContent='Enter 0–1,000,000 trips';return;}}const kg=trips*{s['weighted_drive_delta_roundtrip_km']}*car*additional*400/1.609344/1000;output.textContent=kg.toLocaleString(undefined,{{minimumFractionDigits:2,maximumFractionDigits:2}})+' kg CO₂';}};fields.forEach(e=>e.addEventListener('input',update));update();}})();
 {explorer_script}
+{timeline_script}
 </script></body></html>'''
 (ROOT/'index.html').write_text(page)
 print('Built index.html from the shared research narrative')
