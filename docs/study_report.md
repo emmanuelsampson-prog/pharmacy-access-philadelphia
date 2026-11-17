@@ -110,9 +110,9 @@ Table 3. Population-weighted access in the common sample
 
 Walking distance increases by more than one meter at 44 origins, decreases at 13, and is unchanged within one meter at 5. A designated recipient can be closer to a particular origin than the former store, so decreases are possible. This differs from removing a destination and always choosing the nearest remaining option, where distance cannot decrease by construction.
 
-![Two paired scatterplots comparing walking time and driving round-trip distance](../outputs/public/before_after_comparison.png)
+![Two paired scatterplots comparing walking time and driving round-trip distance; dashed lines mark equal before and after values](../outputs/public/before_after_comparison.png)
 
-Figure 6. Each point compares one origin before and after its assigned transfer. Points above the diagonal have longer modeled access after transfer. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
+Figure 6. Each point compares one origin before and after its assigned transfer. Dashed diagonals indicate equal values, not fitted regression lines. Rust circles indicate longer modeled access, teal triangles shorter access, and neutral squares unchanged access within one meter. Walking minutes are one-way; driving kilometers include separately routed outward and return journeys. No mode change is inferred from these plots.
 
 ![Walking reachability thresholds and distribution of modeled walking-time changes](../outputs/public/walking_thresholds.png)
 
